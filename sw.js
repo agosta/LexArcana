@@ -2,8 +2,8 @@ const staticCacheName = 'lexarcana-pwa';
 var filesToCache = [
   'style.css',
   'icon/la.png',
-  'pyodide-cdn2.iodide.io/v0.15.0/full/pyodide.js',
-  'cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js',
+  'pyodide.js',
+  'handlebars.js',
   'fonts.googleapis.com/css2?family=Marcellus+SC&display=swap',
   'fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons',
 ];
