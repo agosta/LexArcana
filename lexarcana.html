@@ -4,6 +4,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta charset="utf-8">
       <title>Legis Arcanae Personae Generator</title>
+      <link rel="manifest" href="/manifest.json"/>
       <script type="text/javascript">
           // set the pyodide files URL (packages.json, pyodide.asm.data etc)
           window.languagePluginUrl = 'https://pyodide-cdn2.iodide.io/v0.15.0/full/';
@@ -19,6 +20,9 @@
     <div id="main" class="mainblock">
     </div>   
     <script type="text/javascript">
+          if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./pwa-examples/js13kpwa/sw.js');
+          };
           languagePluginLoader.then(function () {
               var x = pyodide.runPython(`
 from random import choice, randint
