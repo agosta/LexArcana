@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta charset="utf-8">
+      <title>Legis Arcanae Personae Generator</title>
+      <script type="text/javascript">
+          // set the pyodide files URL (packages.json, pyodide.asm.data etc)
+          window.languagePluginUrl = 'https://pyodide-cdn2.iodide.io/v0.15.0/full/';
+      </script>
+      <script src="https://pyodide-cdn2.iodide.io/v0.15.0/full/pyodide.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+      <link rel="stylesheet" href="./style.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" /> 
+  </head>
+  <body class="body">
+    <h1 class="title">Lex Arcana</h1>
+    <div id="main" class="mainblock">
+    </div>   
+    <script type="text/javascript">
+          languagePluginLoader.then(function () {
+              var x = pyodide.runPython(`
+from random import choice, randint
+def dX(f):
+  def dice(n=1):
+    return sum([ randint(1,f) for i in range(n) ])
+  return dice
+
+d4=dX(4)
+d6=dX(6)
+d8=dX(8)
+d10=dX(10)
+
+latin_praenomen_male = [ 'Gaius','Gaius','Gaius', 'Gnaeus', 'Tiberius','Tiberius', 'Marcus','Marcus','Marcus', 'Appius', 'Aulus', 'Lucius','Lucius','Lucius', 'Hostus', 'Numerius', 'Agrippa', 'Postumus', 'Faustus', 'Decimus', 'Caeso', 'Mamercus', 'Manius','Manius', 'Opiter', 'Octavius', 'Nonus', 'Mettius', 'Proculus', 'Publius', 'Quintus','Quintus','Quintus', 'Septimus', 'Sertor', 'Servius', 'Sextus','Sextus', 'Spurius', 'Statius', 'Titus', 'Tullus', 'Vibius', 'Volesus', 'Vopiscus' ]
+
+latin_praenomen_female = [ 'Agrippina', 'Caesilla', 'Tertia', 'Quarta', 'Paulla','Tertia', 'Quarta', 'Paulla','Tertia', 'Quarta', 'Paulla', 'Maxima', 'Maio', 'Mino','Maxima', 'Maio', 'Mino', 'Appia', 'Aula', 'Caesula', 'Decima', 'Fausta', 'Gaia','Gaia','Gaia', 'Gnaea', 'Hosta', 'Lucia', 'Mamerca', 'Mania', 'Marcia', 'Mettia', 'Nona', 'Numeria', 'Octavia', 'Postuma', 'Prima', 'Procula', 'Publia', 'Quinta', 'Secunda', 'Septima', 'Sevia', 'Sexta', 'Spuria', 'Statia', 'Titia', 'Tiberia', 'Tulla', 'Vibia', 'Volusa', 'Vopisca' ]
+
+latin_nomen_male = [ 'Abronius', 'Abudius', 'Accius', 'Acilius', 'Aelius','Aelius', 'Aemilius','Aemilius', 'Afranius', 'Albius', 'Alfius', 'Anicius', 'Anneius', 'Antistius', 'Antius', 'Asconius', 'Aurelius', 'Attius', 'Atilius', 'Asinius', 'Avianus', 'Avienus', 'Antonius', 'Aurius', 'Baebius', 'Bellienus', 'Bruttius', 'Barbatius', 'Caecilius', 'Caecius', 'Caedicius', 'Caelius', 'Caesennius', 'Caesius', 'Calpurnius', 'Canidius', 'Cantius', 'Carvilius', 'Cassius','Cassius','Cassius', 'Catilius', 'Cestius', 'Cocceius', 'Cloelius', 'Claudius', 'Cornelius', 'Cottius', 'Curtius', 'Cuspius', 'Decius', 'Domitius', 'Didius', 'Decimius', 'Egilius', 'Egnatius', 'Ennius', 'Epidius', 'Erucius', 'Fabius', 'Fabius', 'Fabius', 'Fabius', 'Fabricius', 'Falcidius', 'Fannius', 'Flaminius','Flaminius', 'Flavius','Flavius','Flavius', 'Fonteius', 'Fufidius', 'Fufius', 'Fulvius', 'Furius', 'Gabinius', 'Galerius', 'Gallius', 'Gavius', 'Gratidius', 'Granius', 'Helvidius', 'Horatius', 'Hostilius', 'Hosidius', 'Hortensius', 'Hirtuleius', 'Herennius', 'Herminius', 'Icilius', 'Iunius', 'Laberius', 'Labienus', 'Lacerius', 'Laelius', 'Laenius', 'Laetilius', 'Lavinius', 'Licinius','Licinius','Licinius', 'Livius', 'Lollius', 'Lucceius', 'Lucilius', 'Lucretius', 'Lurius', 'Luscius', 'Maecilius', 'Mamilius', 'Manilius', 'Marius', 'Marcius', 'Maevius', 'Mummius', 'Mettius', 'Messius', 'Mucius', 'Munatius', 'Menenius', 'Memmius', 'Naevius', 'Nasennius', 'Nasidius', 'Nerius', 'Nonius', 'Numonius', 'Obellius', 'Oclatius', 'Octavius', 'Ollius', 'Opellius', 'Oppius', 'Opsidius', 'Orfius', 'Ogulnius', 'Ovidius', 'Ostorius', 'Ovinius', 'Paccius', 'Pacilius', 'Percennius', 'Plautius', 'Pleminius', 'Poppaeus', 'Porcius', 'Postumius', 'Pacuvius', 'Papius', 'Papirius', 'Passienus', 'Pescennius', 'Petronius', 'Plaetorius', 'Pomponius', 'Pomponius', 'Pompilius','Pompilius', 'Plinius', 'Pontilius', 'Proculeius', 'Publicius', 'Publilius', 'Potitius', 'Priscius', 'Propertius', 'Quartius', 'Quinctilius', 'Quinctius', 'Rabirius', 'Raecius', 'Rammius', 'Romilius', 'Rufius', 'Rufinius', 'Rubellius', 'Rustius', 'Rusticelius', 'Rutilius', 'Sabellius', 'Sabidius', 'Saenius', 'Salienus', 'Saltorius', 'Salvidius', 'Sammius', 'Satellius', 'Satrius', 'Saturius', 'Seppienus', 'Septimius', 'Sepullius', 'Severius', 'Sextilius', 'Sextius', 'Servilius', 'Servius', 'Silvius', 'Silius', 'Sestius', 'Sergius', 'Scaevius', 'Sedatius', 'Spurius', 'Socellius', 'Statius', 'Statilius', 'Sempronius', 'Sulpicius', 'Tadius', 'Tarquinius', 'Terentius', 'Tineius', 'Titius', 'Trebonius', 'Tullius','Tullius', 'Ulpius', 'Vibius', 'Velius', 'Vergilius', 'Vipsanius', 'Villius', 'Vitellius', 'Volumnius', 'Veturius' ]
+
+latin_nomen_female = [ 'Abronia', 'Abudia', 'Accia', 'Acilia', 'Aelia', 'Aemilia', 'Afrania', 'Albia', 'Alfia', 'Anicia', 'Anneia', 'Antistia', 'Antia', 'Asconia', 'Aurelia', 'Attia', 'Atilia', 'Asinia', 'Avianus', 'Avienus', 'Antonia', 'Auria', 'Baebia', 'Bellienus', 'Bruttia', 'Barbatia', 'Caecilia', 'Caecia', 'Caedicia', 'Caelia', 'Caesennia', 'Caesia', 'Calpurnia', 'Canidia', 'Cantia', 'Carvilia', 'Cassia', 'Catilia', 'Cestia', 'Cocceia', 'Cloelia', 'Claudia', 'Cornelia', 'Cottia', 'Curtia', 'Cuspia', 'Decia', 'Domitia', 'Didia', 'Decimia', 'Egilia', 'Egnatia', 'Ennia', 'Epidia', 'Erucia', 'Fabia', 'Fabricia', 'Falcidia', 'Fannia', 'Flaminia', 'Flavia', 'Fonteia', 'Fufidia', 'Fufia', 'Fulvia', 'Furia', 'Gabinia', 'Galeria', 'Gallia', 'Gavia', 'Gratidia', 'Grania', 'Helvidia', 'Horatia', 'Hostilia', 'Hosidia', 'Hortensia', 'Hirtuleia', 'Herennia', 'Herminia', 'Icilia', 'Iunia', 'Laberia', 'Labienus', 'Laceria', 'Laelia', 'Laenia', 'Laetilia', 'Lavinia', 'Licinia', 'Livia', 'Lollia', 'Lucceia', 'Lucilia', 'Lucretia', 'Luria', 'Luscia', 'Maecilia', 'Mamilia', 'Manilia', 'Maria', 'Marcia', 'Maevia', 'Mummia', 'Mettia', 'Messia', 'Mucia', 'Munatia', 'Menenia', 'Memmia', 'Naevia', 'Nasennia', 'Nasidia', 'Neria', 'Nonia', 'Numonia', 'Obellia', 'Oclatia', 'Octavia', 'Ollia', 'Opellia', 'Oppia', 'Opsidia', 'Orfia', 'Ogulnia', 'Ovidia', 'Ostoria', 'Ovinia', 'Paccia', 'Pacilia', 'Percennia', 'Plautia', 'Pleminia', 'Poppaeus', 'Porcia', 'Postumia', 'Pacuvia', 'Papia', 'Papiria', 'Passiena', 'Pescennia', 'Petronia', 'Plaetoria', 'Pomponia', 'Pompilia', 'Plinia', 'Pontilia', 'Proculeia', 'Publicia', 'Publilia', 'Potitia', 'Priscia', 'Propertia', 'Quartia', 'Quinctilia', 'Quinctia', 'Rabiria', 'Raecia', 'Rammia', 'Romilia', 'Rufia', 'Rufinia', 'Rubellia', 'Rustia', 'Rusticelia', 'Rutilia', 'Sabellia', 'Sabidia', 'Saenia', 'Salienus', 'Saltoria', 'Salvidia', 'Sammia', 'Satellia', 'Satria', 'Saturia', 'Seppiena', 'Septimia', 'Sepullia', 'Severia', 'Sextilia', 'Sextia', 'Servilia', 'Servia', 'Silvia', 'Silia', 'Sestia', 'Sergia', 'Scaevia', 'Sedatia', 'Spuria', 'Socellia', 'Statia', 'Statilia', 'Sempronia', 'Sulpicia', 'Tadia', 'Tarquinia', 'Terentia', 'Tineia', 'Titia', 'Trebonia', 'Tullia', 'Ulpia', 'Vibia', 'Velia', 'Vergilia', 'Vipsania', 'Villia', 'Vitellia', 'Volumnia', 'Veturia' ]
+
+latin_cognomina_male = [ 'Agricola', 'Africanus', 'Aemilianus', 'Ambustus', 'Antoninus', 'Ambrosius', 'Ausonius', 'Augur', 'Aurelianus', 'Atticus', 'Avitus', 'Andronicus', 'Albanus', 'Ampliatus', 'Audactus', 'Balbinus', 'Balbus', 'Barba', 'Barbatus', 'Bassianus', 'Bestia', 'Bibulus', 'Blaesus', 'Boetius', 'Brutus', 'Bubo', 'Bubulcus', 'Buccio', 'Bulbus', 'Burrus', 'Caecilianus', 'Caelimontanus', 'Caelestius', 'Caepio', 'Caesar', 'Calamus', 'Caldus', 'Carbo', 'Carus', 'Capito', 'Cassianus', 'Catilina', 'Cato', 'Catullus', 'Caudex', 'Celer', 'Castinus', 'Castorius', 'Celsus', 'Censor', 'Claudianus', 'Civilis', 'Carus', 'Cinna', 'Corbulo', 'Cumanus', 'Crescentius', 'Columella', 'Colonus', 'Cocles', 'Commodus', 'Comes', 'Constans', 'Chlorus', 'Cicero', ' Cerialis', 'Decimus', 'Decianus', 'Drusus', 'Dexter', 'Densus', 'Dives', 'Draco', 'Ecdicius', 'Ennodius', 'Eugenius', 'Emeritus', 'Etruscus', 'Eclectus', 'Faber', 'Fabianus', 'Fabullus', 'Facundus', 'Gabinus', 'Gala', 'Galba', 'Galerus', 'Gallicus', 'Gallio', 'Garrulus', 'Gaudentius', 'Genialis', 'Gratianus', 'Geminus', 'Gregorius', 'Hemina', 'Herennius', 'Honoratus', 'Hiliario', 'Hostilianus', 'Labienus', 'Laelianus', 'Lucanus', 'Leo', 'Licinus', 'Libo', 'Leporinus', 'Lurio', 'Lucullus', 'Longus', 'Laurus', 'Lentulus', 'Latro', 'Macer', 'Macrobius', 'Macro', 'Magnentius', 'Magnus', 'Maior', 'Maius', 'Mamercus', 'Marsus', 'Martialis', 'Martianus', 'Maximus', 'Maurus', 'Melus', 'Memor', 'Mento', 'Momus', 'Murena', 'Montanus', 'Metellus', 'Merenda', 'Merula', 'Messor', 'Naevolus', 'Nasica', 'Natta', 'Nepos', 'Nennius', 'Nero', 'Nerva', 'Novellus', 'Nummus', 'Obsequens', 'Ocella', 'Opilio', 'Opis', 'Oppianus', 'Otho', 'Pacatus', 'Paenula', 'Papus', 'Pamphilius', 'Pastor', 'Patiens', 'Pelagius', 'Perpetuus', 'Persicus', 'Pertinax', 'Plautus', 'Petronius', 'Pictor', 'Picens', 'Pilatus', 'Polus', 'Pollio', 'Porcus', 'Protus', 'Priscianus', 'Potestas', 'Potitus', 'Poplicola', 'Procus', 'Proculus', 'Publicola', 'Pustula', 'Pupus', 'Pulcher', 'Proximus', 'Quadratus', 'Quartus', 'Quintilianus', 'Quintus', 'Quirinalis', 'Ravilla', 'Rebilus', 'Regillus', 'Rogatus', 'Regulus', 'Ruso', 'Rutilus', 'Sabinus', 'Salinator', 'Salvianus', 'Seneca', 'Severus', 'Sedatus', 'Surius', 'Sura', 'Strabo', 'Stilo', 'Statius', 'Simplicius', 'Simplex', 'Silvius', 'Sisenna', 'Suburanus', 'Tacitus', 'Tarcisius', 'Tatianus', 'Taurus', 'Tenax', 'Tertullus', 'Torquatus', 'Trigeminus', 'Tutor', 'Tubero', 'Tibullus', 'Traianus', 'Urbanus', 'Ursulus', 'Urbicus', 'Valens', 'Velox', 'Viator', 'Verres', 'Vitus', 'Victor', 'Virilis', 'Varro', 'Venustus', 'Verax', 'Verecundus', 'Vopiscus', 'Mela' ]
+
+latin_cognomina_female = [ 'Agricola', 'Africana', 'Aemiliana', 'Ambusta', 'Antonina', 'Ambrosia', 'Ausonia', 'Augur', 'Aureliana', 'Attica', 'Avita', 'Andronica', 'Albana', 'Ampliata', 'Audacta', 'Balbina', 'Balba', 'Barba', 'Barbata', 'Bassiana', 'Bestia', 'Bibula', 'Blaesa', 'Boetia', 'Bruta', 'Bubo', 'Bubulca', 'Buccio', 'Bulba', 'Burra', 'Caeciliana', 'Caelimontana', 'Caelestia', 'Calama', 'Calda', 'Cara', 'Cassiana', 'Catilina', 'Catulla', 'Caudex', 'Celer', 'Castina', 'Castoria', 'Celsa', 'Claudiana', 'Cinna', 'Corbulo', 'Cumana', 'Crescentia', 'Columella', 'Colona', 'Cocles', 'Commoda', 'Comes', 'Constans', ' Cerialis', 'Decima', 'Deciana', 'Drusa', 'Dextra', 'Densa', 'Dives', 'Draco', 'Ecdicia', 'Ennodia', 'Eugenia', 'Emerita', 'Etrusca', 'Eclecta', 'Fabiana', 'Fabulla', 'Facunda', 'Gabina', 'Gala', 'Galba', 'Galera', 'Gallica', 'Garrula', 'Gaudentia', 'Genialis', 'Gratiana', 'Gemina', 'Gregoria', 'Hemina', 'Herennia', 'Honorata',  'Hostiliana', 'Labiena', 'Laeliana', 'Lucana', 'Licina', 'Leporina',  'Luculla', 'Longa', 'Laura', 'Lentula', 'Latro', 'Macer', 'Macrobia', 'Magnentia', 'Magna', 'Maior', 'Maia', 'Mamerca', 'Marsa', 'Martialis', 'Martiana', 'Maxima', 'Maura', 'Mela', 'Memor', 'Moma', 'Murena', 'Montana', 'Metella', 'Merenda', 'Merula', 'Messor', 'Naevola', 'Nasica', 'Natta', 'Nepos', 'Nennia', 'Nerva', 'Novella', 'Numma', 'Obsequens', 'Ocella', 'Opis', 'Oppiana', 'Pacata', 'Paenula', 'Papa', 'Pamphilia', 'Pastor', 'Patiens', 'Pelagia', 'Perpetua', 'Persica', 'Pertinax', 'Plauta', 'Petronia', 'Pictor', 'Picens', 'Pilata', 'Pola', 'Pollio', 'Porca', 'Prota', 'Prisciana', 'Potestas', 'Potita', 'Poplicola', 'Proca', 'Procula', 'Publicola', 'Pustula', 'Pupa', 'Pulcher', 'Proxima', 'Quadrata', 'Quarta', 'Quintiliana', 'Quinta', 'Quirinalis', 'Ravilla', 'Rebila', 'Regilla', 'Rogata', 'Regula', 'Ruso', 'Rutila', 'Sabina', 'Salinatrix', 'Salviana', 'Seneca', 'Severa', 'Sedata', 'Suria', 'Sura', 'Strabo', 'Stilo', 'Statia', 'Simplicia', 'Simplex', 'Silvia', 'Sisenna', 'Suburana', 'Tacita', 'Tarcisia', 'Tatiana', 'Taura', 'Tenax', 'Tertulla', 'Torquata', 'Trigemina', 'Tutor', 'Tubero', 'Tibulla', 'Traiana', 'Urbana', 'Ursula', 'Urbica', 'Valens', 'Velox', 'Viatrix', 'Vita', 'Victor', 'Virilis', 'Varro', 'Venusta', 'Verax', 'Verecunda', 'Vopisca', 'Major', 'Minor' ]
+
+greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philuppus', 'Philo', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus' ]
+
+greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena',  ]
+
+praenomina = {
+ 'female' : {
+   'latin' : latin_praenomen_female,
+ },
+ 'male' : {
+   'latin' : latin_praenomen_male,
+ },
+}
+
+nomina = {
+ 'female' : {
+   'latin' : latin_nomen_female,
+ },
+ 'male' : {
+   'latin' : latin_nomen_male,
+ },
+}
+
+cognomina = {
+ 'male' : {
+   'latin' : latin_cognomina_male,
+   'greek' : greek_cognomina_male,
+   'germanic' : ['Teia', 'Totila', 'Ildigerus', 'Gotila', 'Vitericus', 'Teudes','Thiodis', 'Sigericus', 'Odovacer', 'Theodoricus' ],
+   'celtic' : [ 'Ambiorix', 'Cativolcus', 'Indutiomarus', 'Cingetorix', 'Acichorius', 'Acco', 'Ambicatus', 'Cavarus', 'Comontorius', 'Orgetorix', 'Lucterius', 'Liscus', 'Dumnorix', 'Brennus', 'Bolgios', 'Bellovesus', 'Galba', 'Tasgetius', 'Sedullos', 'Litaviccus', 'Aegus', 'Roscillus', 'Diviciacus', 'Casticus', 'Viridomarus', 'Viridovix', 'Abascantus'],
+   'brithonic' : [ 'Anllawdd',  'Anvayr', 'Branwen', 'Caradawc', 'Gereint', 'Iddawc', 'Llwyt', 'Madawc', 'Math', 'Matholwch', 'Medrawr', 'Nudd', 'Peredur', 'Pendaran', 'Pwyll', 'Ronabwy', 'Ynywl', 'Trwyth'],
+   'armenian' : [ 'Orontes', 'Artaxias', 'Mithridates', 'Zariadres', 'Tigranes', 'Tiridates', 'Mithrenes', 'Samus', 'Arsames', 'Hidarnes', 'Artavasdes', 'Amazaspus', 'Rhadamistus', 'Sames' ],
+   'akkadic' : [ 'Onnes', 'Ninus', 'Seleucus', 'Antiochus', 'Belus', 'Odaenathus', 'Orodes', 'Orontes', 'Monobazus', 'Bazeus', 'Izates', 'Abgar', 'Dasanes', 'Berosus' ],
+   'egyptian' : [ 'Psenptais', 'Petobastidis', 'Soris', 'Ptolemaeus', 'Eulaeus', 'Lenaeus', 'Serapion', 'Zopyrus', 'Manetho', 'Apion', 'Teucer' ],
+   'aramaic' : [ 'Zabinaeus', 'Zabinas', 'Giora', 'Simon', 'Ioannes', 'Aphraates', 'Josephus', 'Zenobius', 'Hyrcanus', 'Simonides', 'Justus', 'Jannaeus', 'Matthias', 'Ephlias', 'Ananus', 'Apphus', 'Obodas', 'Aretas', 'Malichus', 'Odaenathus', 'Vaballathus', 'Herodianus', 'Maeonius', 'Zabdas', 'Elias' ],
+   'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal' ],
+ },
+ 'female' : {
+   'latin' : latin_cognomina_female,
+   'greek' : greek_cognomina_female,
+   'germanic' : [ 'Alpsuinda', 'Ermelinda', 'Galla', 'Ingunde', 'Ravigunda', 'Teodolinda', 'Romilda', 'Deoteria', 'Audefleda' ],
+   'celtic' : [ 'Bassina', 'Blandula', 'Primitiva', 'Primula', 'Pollina' ],
+   'brithonic' : [ 'Blodeuwedd', 'Aranrot', 'Enid', 'Essylt', 'Kymidei', 'Goleuddydd', 'Lunet', 'Ymywl', 'Olwen', 'Rianon', 'Goewin', 'Creiddylat', 'Armagin'],
+   'armenian' : [ 'Erato', 'Aryazate', 'Iotapa', 'Olympias', 'Ashkhen', 'Aka', 'Isias', 'Antiochis' ],
+   'akkadic' : ['Semiramis', 'Zenobia'],
+   'egyptian' : ['Cleopatra', 'Berenice', 'Arsinoe', 'Nitocris' ],
+   'aramaic' : ['Zenobia', 'Salomè', 'Herodias', 'Mavia' ],
+   'african' : ['Dido'],
+ },
+}
+
+province_to_language = {
+'Roma Urbe' : 'latin',
+'Italia' : 'latin',
+'Illyricum' : 'latin',
+'Macedonia' : 'greek',
+'Achaia' : 'greek',
+'Gallia' : 'celtic',
+'Iberia'  : 'latin',
+'Britannia' : 'brithonic',
+'Germania' : 'germanic',
+'Raetia' : 'germanic',
+'Thracia' : 'greek',
+'Dacia' : 'greek',
+'Asia' : 'greek',
+'Armenia' : 'armenian',
+'Mesopotamia' : 'akkadic',
+'Aegyptus' : 'egyptian',
+'Syria' : 'aramaic',
+'Arabia' : 'aramaic',
+'Numidia' : 'african',
+'Mauretania' : 'african',
+}
+
+the_format = { 
+'male' : 
+ {
+  'Roma Urbe' : [ 'pnc', 'pnc', 'pncc'],
+  'Italia' : [ 'pnc', 'pnc', 'pncc', 'pn', 'pc' ],
+  'Illyricum' : [ 'pnc', 'pn', 'nc'],
+  'Macedonia' : [ 'nc', 'nc', 'pnc', 'pc'],
+  'Achaia' : [ 'nc', 'nc', 'pnc', 'pc', 'pnc'],
+  'Gallia' : [ 'pnc', 'pn', 'nc'],
+  'Iberia' : [ 'pnc', 'pn', 'nc'],
+  'Britannia' : [ 'pnc', 'pn', 'nc', 'nc', 'c', 'c', 'cmc', 'cmc'],
+  'Germania' : [ 'pnc', 'pn', 'nc', 'nc', 'c', 'c'],
+  'Raetia' : [ 'pnc', 'pnc', 'pn', 'nc'],
+  'Thracia' : [ 'nc', 'nc', 'pnc', 'pc', 'pc', 'c'],
+  'Asia' : [ 'nc', 'nc', 'pnc', 'pc', 'pnc', 'pncc'],
+  'Dacia' : [ 'nc', 'nc', 'pnc', 'pc', 'pc', 'c'],
+  'Armenia' : [ 'nc', 'nc', 'pnc', 'pc', 'pnc', 'pncc'],
+  'Mesopotamia' : [ 'nc', 'nc', 'pnc', 'pc', 'c', 'cmc', 'mc' ],
+  'Aegyptus' : [ 'nc', 'nc', 'pnc', 'pc', 'c' ],
+  'Syria' : [ 'nc', 'nc', 'pnc', 'pc', 'c', 'cmc' ],
+  'Arabia' : [ 'nc', 'nc', 'pnc', 'pc', 'c', 'cmc' ],
+  'Numidia' : [ 'nc', 'nc', 'pnc', 'pc', 'c' ],
+  'Mauretania' : [ 'nc', 'nc', 'pnc', 'pc', 'c' ],
+ },
+'female' : 
+ {
+  'Roma Urbe' : [ 'nc', 'nc', 'pn', 'pnc', 'ncc' ],
+  'Italia' : [ 'nc', 'pnc', 'ncc', 'pn', 'pc' ],
+  'Illyricum' : [ 'nc', 'pn', 'nc'],
+  'Macedonia' : [ 'nc', 'nc', 'pnc', 'c'],
+  'Achaia' : [ 'nc', 'nc', 'pnc', 'c', 'pc'],
+  'Gallia' : [ 'nc', 'pn', 'nc'],
+  'Iberia' : [ 'nc', 'pn', 'nc'],
+  'Britannia' : [ 'nc', 'pn', 'nc', 'c', 'c', 'cmc', 'cmc' ],
+  'Germania' : [ 'nc', 'pn', 'nc', 'c', 'c', 'c' ],
+  'Raetia' : [ 'nc', 'pn', 'nc', 'c', 'c' ],
+  'Thracia' : [ 'nc', 'nc', 'pc', 'c', 'pc', 'c'],
+  'Asia' : [ 'nc', 'nc', 'nc', 'pc', 'pc', 'pnc'],
+  'Dacia' : [ 'nc', 'nc', 'nc', 'pc', 'c', 'c'],
+  'Armenia' : [ 'nc', 'nc', 'nc', 'pc', 'pnc' ],
+  'Mesopotamia' : [ 'nc', 'nc', 'c', 'c', 'c' ],
+  'Aegyptus' : [ 'nc', 'nc', 'c', 'pc', 'c' ],
+  'Syria' : [ 'nc', 'nc', 'cmc', 'pc', 'c', 'cmc' ],
+  'Arabia' : [ 'nc', 'nc', 'cmc', 'pc', 'c', 'cmc' ],
+  'Numidia' : [ 'nc', 'nc', 'c', 'pc', 'c' ],
+  'Mauretania' : [ 'nc', 'nc', 'c', 'pc', 'c' ],
+ },
+}
+
+locative = { 
+'male' : 
+ {
+  'Roma Urbe' : [ 'Romanus' ],
+  'Italia' : [ 'Italicus', 'Mamertinus', 'Siculus', 'Apulus' ],
+  'Illyricum' : [ 'Illyricus', 'Dalmaticus' ],
+  'Macedonia' : [ 'Macedonicus', 'Thessalicus' ],
+  'Achaia' : [ 'Atticus', 'Achaeus', 'Boeoticus', 'Graecus' ],
+  'Gallia' : [ 'Gallicus', 'Gallus' ],
+  'Iberia' : [ 'Ibericus', 'Lusitanus', 'Vasco', 'Baeticus' ],
+  'Britannia' : [ 'Britannus', 'Britannicus' ],
+  'Germania' : [ 'Germanicus', 'Belga', 'Barbarus' ],
+  'Raetia' : [ 'Raeticus', 'Vindelicus' ],
+  'Thracia' : [ 'Thrax', 'Moesianus' ],
+  'Asia' : [ 'Asianus', 'Cilicius', 'Bythinicus', 'Ponticus', 'Pamphilicus' ],
+  'Dacia' : [ 'Dacus', 'Moesianus' ],
+  'Armenia' : [ 'Armenianus', 'Atropatenicus' ],
+  'Mesopotamia' : [ 'Mesopotamicus', 'Assyricus', 'Chaldaeus' ],
+  'Aegyptus' : [ 'Aegypticus' ],
+  'Syria' : [ 'Syrus', 'Syriacus', 'Chaldaeus' ],
+  'Arabia' : [ 'Arabicus', 'Samaritanus' ],
+  'Numidia' : [ 'Lybicus', 'Numidicus','Punicus', 'Africus', 'Africanus' ],
+  'Mauretania' : [ 'Mauretanus', 'Tingitanus' ],
+ },
+'female' : 
+ {
+  'Roma Urbe' : [ 'Romana' ],
+  'Italia' : [ 'Italica', 'Mamertina', 'Sicula', 'Apula' ],
+  'Illyricum' : [ 'Illyrica', 'Dalmatica' ],
+  'Macedonia' : [ 'Macedonica', 'Thessalica' ],
+  'Achaia' : [ 'Attica', 'Achaea', 'Boeotica', 'Graeca' ],
+  'Gallia' : [ 'Gallica', 'Galla' ],
+  'Iberia' : [ 'Iberica', 'Lusitana', 'Vasco', 'Baetica' ],
+  'Britannia' : [ 'Britanna', 'Britannica' ],
+  'Germania' : [ 'Germanica', 'Belgica' ],
+  'Raetia' : [ 'Raetica', 'Vindelica' ],
+  'Thracia' : [ 'Thrax', 'Moesiana' ],
+  'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica' ],
+  'Dacia' : [ 'Daca', 'Moesiana' ],
+  'Armenia' : [ 'Armeniana', 'Atropatenica' ],
+  'Mesopotamia' : [ 'Mesopotamica', 'Assyrica', 'Chaldaea' ],
+  'Aegypta' : [ 'Aegyptica' ],
+  'Syria' : [ 'Syra', 'Syriaca', 'Chaldaea' ],
+  'Arabia' : [ 'Arabica', 'Samaritana' ],
+  'Numidia' : [ 'Lybica', 'Numidica','Punica', 'Africa', 'Africana' ],
+  'Mauretania' : [ 'Mauretana', 'Tingitana' ],
+ },
+}
+
+def patronymic_particle(origin,gender):
+  if origin == 'Britannia' :
+    if gender == 'female' : return 'nic '
+    else : return choice(['mab ', 'ap '])
+  elif origin in [ 'Syria', 'Arabia', 'Mesopotamia' ] :
+    if gender == 'female' : return 'Bat-'
+    else : return 'Bar-'
+
+def get_praenomen(gender, origin, family):
+  return choice(praenomina[gender][origin])
+
+def get_nomen(gender, origin, family):
+  return choice(nomina[gender][origin])
+
+def get_cognomen(gender, origin, family):
+  return choice(cognomina[gender][origin])
+
+def get_name(gender, origin, family):
+  fmt = choice(the_format[gender][origin])
+  r = ''
+  for c in fmt : 
+    if c=='p' : r+=get_praenomen(gender, 'latin', family)+' '
+    elif c=='n' : r+=get_nomen(gender, 'latin', family)+' '
+    elif c=='c' : r+=get_cognomen(gender, province_to_language[origin], family)+' '
+    elif c=='m' : 
+      r+=patronymic_particle(origin, gender)
+      gender='male'
+  if len(fmt) < 2 : r+=choice(locative[gender][origin])
+  return r 
+
+virtutes = [ 'Vigor', 'Coordinatio', 'Auctoritas', 'Ingenium', 'Sensibilitas', 'Ratio' ]
+moltiplicatori = [ 'DeBello', 'DeCorpore', 'DeMagia', 'DeNatura', 'DeScientia', 'DeSocietate', 'MosArcanorum', 'PaxDeorum' ]
+qualifica = { 
+'Augure' : [ 'Sensibilitas', 'Ingenium' ],
+'Diplomatico' : [ 'Auctoritas', 'Ratio' ],
+'Esploratore' : [ 'Coordinatio', 'Sensibilitas' ],
+'Guerriero' : [ 'Vigor', 'Auctoritas' ],
+'Sapiente'  : [ 'Ingenium', 'Ratio' ],
+}
+province = {
+'Roma Urbe' : { 'DeBello' : 1, 'DeCorpore' : 2, 'DeMagia' : 3, 'DeNatura' : 0, 'DeScientia' : 6, 'DeSocietate' : 6 },
+'Italia'    : { 'DeBello' : 1, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 3, 'DeScientia' : 4, 'DeSocietate' : 4 },
+'Illyricum' : { 'DeBello' : 5, 'DeCorpore' : 4, 'DeMagia' : 1, 'DeNatura' : 3, 'DeScientia' : 2, 'DeSocietate' : 3 },
+'Macedonia' : { 'DeBello' : 2, 'DeCorpore' : 3, 'DeMagia' : 4, 'DeNatura' : 3, 'DeScientia' : 3, 'DeSocietate' : 3 },
+'Achaia'    : { 'DeBello' : 1, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 1, 'DeScientia' : 5, 'DeSocietate' : 5 },
+'Gallia'    : { 'DeBello' : 3, 'DeCorpore' : 3, 'DeMagia' : 2, 'DeNatura' : 3, 'DeScientia' : 4, 'DeSocietate' : 3 },
+'Iberia'    : { 'DeBello' : 3, 'DeCorpore' : 3, 'DeMagia' : 2, 'DeNatura' : 3, 'DeScientia' : 3, 'DeSocietate' : 4 },
+'Britannia' : { 'DeBello' : 3, 'DeCorpore' : 3, 'DeMagia' : 5, 'DeNatura' : 4, 'DeScientia' : 2, 'DeSocietate' : 1 },
+'Germania'  : { 'DeBello' : 6, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 4, 'DeScientia' : 1, 'DeSocietate' : 1 },
+'Raetia'    : { 'DeBello' : 5, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 5, 'DeScientia' : 1, 'DeSocietate' : 1 },
+'Thracia'   : { 'DeBello' : 4, 'DeCorpore' : 4, 'DeMagia' : 3, 'DeNatura' : 4, 'DeScientia' : 1, 'DeSocietate' : 2 },
+'Dacia'     : { 'DeBello' : 5, 'DeCorpore' : 4, 'DeMagia' : 3, 'DeNatura' : 3, 'DeScientia' : 2, 'DeSocietate' : 1 },
+'Asia'      : { 'DeBello' : 1, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 2, 'DeScientia' : 5, 'DeSocietate' : 4 },
+'Armenia'   : { 'DeBello' : 3, 'DeCorpore' : 4, 'DeMagia' : 1, 'DeNatura' : 5, 'DeScientia' : 3, 'DeSocietate' : 2 },
+'Mesopotamia':{ 'DeBello' : 3, 'DeCorpore' : 3, 'DeMagia' : 5, 'DeNatura' : 2, 'DeScientia' : 3, 'DeSocietate' : 2 },
+'Aegyptus'  : { 'DeBello' : 2, 'DeCorpore' : 2, 'DeMagia' : 5, 'DeNatura' : 1, 'DeScientia' : 5, 'DeSocietate' : 3 },
+'Syria'     : { 'DeBello' : 3, 'DeCorpore' : 2, 'DeMagia' : 3, 'DeNatura' : 1, 'DeScientia' : 4, 'DeSocietate' : 5 },
+'Arabia'    : { 'DeBello' : 2, 'DeCorpore' : 2, 'DeMagia' : 4, 'DeNatura' : 2, 'DeScientia' : 3, 'DeSocietate' : 5 },
+'Numidia'   : { 'DeBello' : 4, 'DeCorpore' : 3, 'DeMagia' : 1, 'DeNatura' : 5, 'DeScientia' : 2, 'DeSocietate' : 3 },
+'Mauretania': { 'DeBello' : 3, 'DeCorpore' : 3, 'DeMagia' : 3, 'DeNatura' : 6, 'DeScientia' : 1, 'DeSocietate' : 2 },
+}
+peritiae = { 
+'DeBello' : [ 'Auctoritas', 'Vigor' ], 
+'DeCorpore' : [ 'Vigor', 'Coordinatio' ], 
+'DeMagia' : [ 'Sensibilitas', 'Ingenium' ], 
+'DeNatura' : [ 'Coordinatio', 'Sensibilitas' ], 
+'DeScientia' : [ 'Ratio', 'Ingenium' ], 
+'DeSocietate' : [ 'Ratio', 'Auctoritas' ], 
+}
+qualifica_peritia = { 
+'Augure' : 'DeMagia',
+'Diplomatico' : 'DeSocietate',
+'Esploratore' : 'DeNatura',
+'Guerriero' : 'DeBello',
+'Sapiente'  : 'DeScientia',
+'Assassino' : 'DeCorpore',
+}
+aetates ={
+'giovane' : { 'Vigor': 3, 'Coordinatio': 3, 'Auctoritas': 3, 'Ingenium': 3, 'Sensibilitas': 3, 'Ratio':3 },
+'adulto'  : { 'Vigor': 2, 'Coordinatio': 1, 'Auctoritas': 4, 'Ingenium': 3, 'Sensibilitas': 3, 'Ratio':4 },
+'maturo'  : { 'Vigor': 1, 'Coordinatio': 1, 'Auctoritas': 5, 'Ingenium': 3, 'Sensibilitas': 3, 'Ratio':5 },
+}
+
+vita = {
+'Augure' : -1,
+'Sapiente'  : 0,
+'Assassino' : 1,
+'Diplomatico' : 1,
+'Esploratore' : 2,
+'Guerriero' : 3,
+}
+pietas = {
+'Augure' : 3,
+'Sapiente'  : 2,
+'Assassino' : 1,
+'Diplomatico' : 1,
+'Esploratore' : 0,
+'Guerriero' : -1,
+}
+origine = ['Civitas', 'Colonia', 'Vicus', 'Posto isolato', 'Limes']
+origini = {
+'Roma Urbe' : [ 'Civitas' ],
+'Italia'    : [ 'Civitas' ]*4 + ['Colonia']*3 + ['Vicus']*2 + [ 'Posto isolato' ],
+'Illyricum' : [ 'Civitas' ]   + ['Colonia']*2 + ['Vicus']*2 + [ 'Posto isolato' ]*2 + ['Limes']*3,
+'Macedonia' : [ 'Civitas' ]*2 + ['Colonia']*3 + ['Vicus']*3 + [ 'Posto isolato' ]*2,
+'Achaia'    : [ 'Civitas' ]*3 + ['Colonia']*3 + ['Vicus']*3 + [ 'Posto isolato' ],
+'Gallia'    : [ 'Civitas' ]*2 + ['Colonia']*3 + ['Vicus']*4 + [ 'Posto isolato' ],
+'Iberia'    : [ 'Civitas' ]*2 + ['Colonia']*4 + ['Vicus']*3 + [ 'Posto isolato' ],
+'Britannia' : [ 'Civitas' ]   + ['Colonia']*2 + ['Vicus']*4 + [ 'Posto isolato' ]*2 + ['Limes'],
+'Germania'  : ['Colonia']*1 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*4,
+'Raetia'    : ['Colonia']*2 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*3,
+'Thracia'   : [ 'Civitas' ]*2 + ['Colonia']   + ['Vicus']*3 + [ 'Posto isolato' ] + ['Limes']*3,
+'Dacia'     : [ 'Civitas' ]   + ['Colonia']   + ['Vicus']*3 + [ 'Posto isolato' ]*2 + ['Limes']*3,
+'Asia'      : [ 'Civitas' ]*3 + ['Colonia']*2 + ['Vicus']*3 + [ 'Posto isolato' ]*2,
+'Armenia'   : [ 'Civitas' ]   + ['Colonia']   + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*3,
+'Mesopotamia':[ 'Civitas' ]*2 + ['Colonia']   + ['Vicus']*2 + [ 'Posto isolato' ]*2 + ['Limes']*3,
+'Aegyptus'  : [ 'Civitas' ]*3 + ['Colonia']   + ['Vicus']*2 + [ 'Posto isolato' ]*2 + ['Limes']*2,
+'Syria'     : [ 'Civitas' ]*3 + ['Colonia']*3 + ['Vicus']*2 + [ 'Posto isolato' ]   + ['Limes'],
+'Arabia'    : [ 'Civitas' ]   + ['Colonia']*2 + ['Vicus']*3 + [ 'Posto isolato' ]*3 + ['Limes'],
+'Numidia'   : [ 'Civitas' ]   + ['Colonia']   + ['Vicus']   + [ 'Posto isolato' ]   + ['Limes'],
+'Mauretania': [ 'Civitas' ]   + ['Colonia']*2 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*2,
+}
+
+famiglia= {
+'Civitas' : [ 'Liberto', 'Clientes', 'Artigiano', 'Funzionario', 'Magistrato', 'Ricco patrizio' ],
+'Colonia' : [ 'Liberto', 'Manovale', 'Lenone/Lanista', 'Sacerdote', 'Patrizio', 'Ricco patrizio' ],
+'Vicus'   : [ 'Fuggitivo', 'Artigiano', 'Musicista', 'Agricoltore', 'Nobile', 'Latifondista' ],
+'Posto isolato' : [ 'Comunità chiusa', 'Esule', 'Sacerdote', 'Funzionario', 'Medico', 'Magistrato' ],
+'Limes'   : [ 'Legionario', 'Pastore', 'Profugo', 'Mercante', 'Sacerdote', 'Tribuno militare' ],
+}
+specializzazioni = {
+'DeBello' : [ 'Archi', 'Asce e Mazze', 'Castra', 'Dardi', 'Lance', 'Minacciare', 'Pugnali', 'Spade', 'Tattica' ],
+'DeCorpore' : [ 'Banchettare', 'Borseggiare', 'Correre', 'Furtività', 'Lotta', 'Marciare', 'Nuotare', 'Saltare', 'Arrampicarsi' ],
+'DeMagia' : [ 'Chiaroveggenza', 'Culti Imperiali', 'Culti Proibiti', 'Favore degli Dei', 'Interpretazione dei Presagi', 'Interpretazione dei Sogni', 'Precognizione', 'Retrocognizione', 'Superstizioni' ],
+'DeNatura' : [ 'Cacciare', 'Cavalcare', 'Erboristeria', 'Esplorazione', 'Navigare', 'Orientamento', 'Recuperare Cibo', 'Sapienza Animale', 'Tempo Atmosferico' ],
+'DeScientia' : [ 'Architettura', 'Artigianato', 'Decifrare', 'Filosofia', 'Geografia', 'Indagare', 'Machinae', 'Medicina', 'Storia' ],
+'DeSocietate' : [ 'Bassifondi', 'Comandare', 'Decorum', 'Ingannare', 'Intrattenimento', 'Negoziare', 'Oratoria', 'Politica', 'Seduzione'],
+}
+
+spec_by_orig = {
+'Civitas' : ['Culti Imperiali', 'Interpretazione dei Presagi', 'Bassifondi', 'Politica' ]+specializzazioni['DeScientia'],
+'Colonia' : ['Favore degli Dei', 'Superstizioni', 'Architettura', 'Geografia' ]+specializzazioni['DeSocietate'],
+'Vicus'   : ['Culti Proibiti', 'Interpretazione dei Sogni', 'Artigianato', 'Decifrare']+specializzazioni['DeNatura'],
+'Posto isolato' : ['Asce e Mazze', 'Dardi', 'Navigazione', 'Recuperare Cibo' ]+specializzazioni['DeCorpore'],
+'Limes'   : ['Nuotare', 'Cavalcare', 'Esplorazione', 'Navigazione' ]+specializzazioni['DeBello'],
+}
+
+spec_by_fam = {
+'Civitas' : {
+ 'Liberto'    : [ 'Seduzione', 'Arrampicarsi', 'Borseggiare' ],
+ 'Clientes'   : [ 'Minacciare', 'Lotta', 'Correre' ],
+ 'Artigiano'  : [ 'Artigianato', 'Decorum', 'Ingannare' ],
+ 'Funzionario': [ 'Culti Imperiali', 'Indagare', 'Machinae' ],
+ 'Magistrato' : [ 'Filosofia', 'Medicina', 'Storia' ],
+ 'Ricco patrizio' : [ 'Comandare', 'Decorum', 'Oratoria' ],
+},
+'Colonia' : {
+ 'Liberto'    : [ 'Lotta', 'Saltare', 'Machinae' ],
+ 'Manovale'   : [ 'Arrampicarsi', 'Nuotare', 'Negoziare' ],
+ 'Lenone/Lanista' : [ 'Borseggiare', 'Bassifondi', 'Ingannare' ],
+ 'Sacerdote'  : [ 'Culti Imperiali', 'Favore degli Dei', 'Ingannare', 'Storia'],
+ 'Patrizio'   : [ 'Geografia', 'Filosofia', 'Intrattenimento' ], 
+ 'Ricco patrizio' : [ 'Comandare', 'Decorum', 'Politica' ], 
+},
+'Vicus' : {
+ 'Fuggitivo'  : [ 'Marciare', 'Cacciare', 'Erboristeria' ],
+ 'Artigiano'  : [ 'Banchettare', 'Artigianato', 'Negoziare' ],
+ 'Musicista'  : [ 'Banchettare', 'Intrattenimento', 'Seduzione' ],
+ 'Agricoltore': [ 'Sapienza Animale', 'Tempo Atmosferico', 'Superstizioni' ],
+ 'Nobile'     : [ 'Banchettare', 'Recuperare Cibo', 'Cacciare'],
+ 'Latifondista':[ 'Culti Proibiti', 'Precognizione', 'Oratoria' ],
+},
+'Posto isolato': {
+ 'Comunità chiusa' : [ 'Cacciare', 'Intrattenimento', 'Superstizioni' ], 
+ 'Esule'      : [ 'Interpretazione dei Sogni', 'Esplorazione', 'Orientamento' ], 
+ 'Sacerdote'  : [ 'Chiaroveggenza', 'Marciare', 'Decifrare' ], 
+ 'Funzionario': [ 'Asce e Mazze', 'Arrampicarsi', 'Correre' ], 
+ 'Medico'     : [ 'Sapienza Animale', 'Erboristeria', 'Medicina'], 
+ 'Magistrato' : [ 'Lance', 'Minacciare', 'Cavalcare' ],
+},
+'Limes'   : { 
+ 'Legionario' : [ 'Tattica', 'Borseggiare', 'Lotta' ],
+ 'Pastore'    : [ 'Arrampicarsi', 'Saltare',  'Tempo Atmosferico' ],
+ 'Profugo'    : [ 'Castra', 'Furtività', 'Cavalcare'],
+ 'Mercante'   : [ 'Esplorazione', 'Navigazione', 'Negoziare' ],
+ 'Sacerdote'  : [ 'Retrocognizione', 'Artigianato', 'Indagare' ],
+ 'Tribuno militare' : [ 'Castra', 'Tattica', 'Machinae' ],
+},
+}
+
+insediamenti = {
+'Roma Urbe' : { 'Civitas' : ['Roma Urbe'] },
+'Italia'    : { 'Civitas' : ['Syracusae', 'Mediolanum', 'Ravenna', 'Capua', 'Aquileia'],  'Colonia' : [ 'Placentia', 'Ariminum', 'Neapolis', 'Brundisium', 'Aleria', 'Pisae', 'Caralis', 'Panormus', 'Rhegium' ] },
+'Illyricum' : { 'Civitas' : [ 'Sirmium', 'Virunum', 'Vindobona', 'Salona'],  'Colonia' : [ 'Carnutum', 'Brigetio', 'Aquincum', 'Singidunum', 'Ulmnacium' ] },
+'Macedonia' : { 'Civitas' : [ 'Thessalonica', 'Buthrotum', 'Naissus' ],  'Colonia' : [ 'Dyrrachium', 'Perinthus' ] },
+'Achaia'    : { 'Civitas' : [ 'Athenae', 'Corinthus' ],  'Colonia' : [ 'Patras' ] },
+'Gallia'    : { 'Civitas' : [ 'Lugdunum', 'Lutetia', 'Durocortum' 'Burdigala', 'Nemasus' ],  'Colonia' : [ 'Massilia', 'Narbo', 'Augustodunum', 'Mogontiacum', 'Portus Namnetus', 'Rotomagus' ] },
+'Iberia'    : { 'Civitas' : [ 'Corduba', 'Tarraco', 'Nova Carthago' ],  'Colonia' : [ 'Castra Legionis', 'Gades', 'Augusta Emerita', 'Felicitas Iulia', 'Brigantium', 'Caesaraugusta', 'Valentia' ] },
+'Britannia' : { 'Civitas' : [ 'Londinium' ],  'Colonia' : [ 'Isca Dumnoniorum', 'Eboracum', 'Isca Silurum', 'Deva' ] },
+'Germania'  : { 'Civitas' : [ 'Augusta Treverorum' ],  'Colonia' : [ 'Argentoratum', 'Castra Vetera', 'Noviomagus', 'Gesoriacum', 'Bonna' ] },
+'Raetia'    : { 'Civitas' : [ 'Augusta Vindelicorum' ],  'Colonia' : [ 'Castra Regina' ] },
+'Thracia'   : { 'Civitas' : [ 'Byzantium' ],  'Colonia' : [ 'Tomis', 'Troesmis', 'Durostorum', 'Novae' ] },
+'Dacia'     : { 'Civitas' : [ 'Sarmizegetusa' ],  'Colonia' : [ 'Ulpia Traiana', 'Napoca', 'Apulum' ] },
+'Asia'      : { 'Civitas' : [ 'Nicomedia', 'Ephesus', 'Pergamum' ],  'Colonia' : [ 'Zeugma', 'Attalia', 'Tarsus', 'Paphus', 'Sinope', 'Trapezus', 'Satala', 'Melitene', 'Samosata' ] },
+'Armenia'   : { 'Civitas' : [ 'Tigranocerta' ],  'Colonia' : [ 'Artaxata' ] },
+'Mesopotamia':{ 'Civitas' : [ 'Babylon' ],  'Colonia' : [ 'Ctesiphon' ] },
+'Aegyptus'  : { 'Civitas' : [ 'Ptolemais', 'Alexandria' ],  'Colonia' : [ 'Memphis', 'Heracleopolis', 'Cirene', 'Berenice' ] },
+'Syria'     : { 'Civitas' : [ 'Antiochia', 'Palmyra' ],  'Colonia' : [ 'Raphana' ] },
+'Arabia'    : { 'Civitas' : [ 'Hierosolima', 'Petra' ],  'Colonia' : [ 'Caesarea', 'Bostra' ] },
+'Numidia'   : { 'Civitas' : [ 'Carthago' ],  'Colonia' : [ 'Thapsus', 'Tacape', 'Thevestis', 'Lambaesis', 'Cirta' ] },
+'Mauretania': { 'Civitas' : [ 'Caesarea', 'Tingis'],  'Colonia' : [ 'Saldae', 'Lixus', 'Volubilis' ] },
+}
+
+
+class Custos(object):
+  def qualifica_ottima(self):
+    q=sorted({ q1 : sum([ self.virtutes[i] for i in qualifica[q1] ]) for q1 in qualifica }.items(), key=lambda item: item[1], reverse=True)[0]
+    return q[0]
+
+  def qualifica_accettabile(self):
+    if self.peritiae[qualifica_peritia[self.qualifica]]>15 : return self.qualifica
+    p=sorted(self.peritiae.items(), key=lambda item: item[1], reverse=True)[0]
+    if p[1]<15: raise Exception('Peritiae too low: {}'.format(p))
+    for q in qualifica_peritia :
+      if p[0]== qualifica_peritia[q] : return q
+    raise Exception('Highest peritia: {}'.format(p))
+
+  def __init__(self, gender=None):
+    while 1 :
+      self.virtutes = { v : d6(2) for v in virtutes }
+      self.qualifica=self.qualifica_ottima()
+      self.provincia=choice(list(province.keys()))
+      self.peritiae=province[self.provincia]
+      vp = { k: self.virtutes[k] for k in self.virtutes }
+      for p in peritiae :
+        x,y = tuple(peritiae[p])
+        vx=randint(1,vp[x]) if vp[x]>0 else -vp[x]
+        vy=randint(1,vp[y]) if vp[y]>0 else -vp[y]
+        vp[x]=-(vp[x]-vx) if vp[x]>0 else 0
+        vp[y]=-(vp[y]-vy) if vp[y]>0 else 0
+        self.peritiae[p]+=vx+vy
+      self.aetas=randint(16,60)
+      try : 
+        self.qualifica=self.qualifica_accettabile()
+        break
+      except Exception : pass
+    aetas = 'giovane' if self.aetas<=30 else ('adulto' if self.aetas<=45 else 'maturo')
+    mod=aetates[aetas]
+    for v in self.virtutes : 
+      self.virtutes[v]+=mod[v]
+    self.vita=self.virtutes['Vigor']+self.virtutes['Coordinatio']+vita[self.qualifica]
+    self.pietas=self.virtutes['Sensibilitas']+self.virtutes['Ratio']+pietas[self.qualifica]
+    self.moltiplicatori = { k : 2 for k in moltiplicatori }
+    self.moltiplicatori[qualifica_peritia[self.qualifica]]+=4
+    for i in range(4):
+      self.moltiplicatori[choice(moltiplicatori)]+=1
+    self.origine = choice(origini[self.provincia])
+    self.famiglia = choice(famiglia[self.origine])
+    self.specializzazioni={}
+    self.specializzazioni[choice(spec_by_orig[self.origine])]=1
+    x=choice(spec_by_orig[self.origine])
+    while x in self.specializzazioni : x=choice(spec_by_orig[self.origine]) 
+    self.specializzazioni[x]=1
+    x=choice(spec_by_fam[self.origine][self.famiglia])
+    while x in self.specializzazioni : x=choice(spec_by_fam[self.origine][self.famiglia])
+    self.specializzazioni[x]=2
+    self.specializzazioni=[ { 'id' : s, 'val' : self.specializzazioni[s] } for s in self.specializzazioni ]
+    self.citta = ''
+    if self.origine in [ 'Civitas', 'Colonia' ] :
+      self.citta = choice(insediamenti[self.provincia][self.origine])
+    self.gender=choice(['male','female']) if not gender else gender
+    self.nome=get_name(self.gender, self.provincia, self.famiglia)
+
+
+
+  def json(self):
+    import json
+    return json.dumps(self.__dict__)
+
+
+def make_char():
+  return Custos().json()
+
+custos=make_char()
+                  `);
+        var template = Handlebars.compile(`
+     <div class="wideblock">
+     <h1 class="heading">Custos</h1>
+       <div class="wideinner">
+       <p><span class="left">Nomen:</span> <span class="right">{{nome}}</span></p>
+       <p><span class="left">Provincia:</span> <span class="right"> {{provincia}}</span></p>
+       <p><span class="left">Aetas:</span> <span class="right">{{aetas}}</span></p>
+       <p><span class="left">Origo:</span> <span class="right">{{origine}} {{citta}}</span></p>
+       <p><span class="left">Familia:</span> <span class="right">{{famiglia}}</span></p>
+       <p><span class="left">Cursus:</span> <span class="right">{{qualifica}}</span></p>
+       <p><span class="left">Vita:</span> <span class="right">{{vita}}</span></p>
+       <p><span class="left">Pietas:</span> <span class="right">{{pietas}}</span></p>
+       </div>
+     </div>
+    <div class="container">
+     <div class="block">
+     <h2 class="heading">Virtutes</h2>
+       <div class="inner">
+       <p><span class="left">Vigor</span> <span class="right">{{virtutes.Vigor}}</span></p>
+       <p><span class="left">Coordinatio</span> <span class="right">{{virtutes.Coordinatio}}</span></p>
+       <p><span class="left">Auctoritas</span> <span class="right">{{virtutes.Auctoritas}}</span></p>
+       <p><span class="left">Ingenium</span> <span class="right">{{virtutes.Ingenium}}</span></p>
+       <p><span class="left">Sensibilitas</span> <span class="right">{{virtutes.Sensibilitas}}</span></p>
+       <p><span class="left">Ratio</span> <span class="right">{{virtutes.Ratio}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h2 class="heading">Peritiae</h2>
+       <div class="inner">
+       <p><span class="left">De Bello</span> <span class="right">{{peritiae.DeBello}}</span></p>
+       <p><span class="left">De Corpore</span> <span class="right">{{peritiae.DeCorpore}}</span></p>
+       <p><span class="left">De Magia</span> <span class="right">{{peritiae.DeMagia}}</span></p>
+       <p><span class="left">De Natura</span> <span class="right">{{peritiae.DeNatura}}</span></p>
+       <p><span class="left">De Scientia</span> <span class="right">{{peritiae.DeScientia}}</span></p>
+       <p><span class="left">De Societate</span> <span class="right">{{peritiae.DeSocietate}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h3 class="heading">Specializzazioni</h3>
+       {{#each specializzazioni}}
+       <p><span class="leftspec">{{this.id}}:</span> <span class="right">{{this.val}}</span></p>
+       {{/each}}
+     </div>     
+     <div class="block">
+     <h2 class="heading">Curriculum</h2>
+       <div class="inner">
+       <p><span class="left">De Bello</span> <span class="right">x{{moltiplicatori.DeBello}}</span></p>
+       <p><span class="left">De Corpore</span> <span class="right">x{{moltiplicatori.DeCorpore}}</span></p>
+       <p><span class="left">De Magia</span> <span class="right">x{{moltiplicatori.DeMagia}}</span></p>
+       <p><span class="left">De Natura</span> <span class="right">x{{moltiplicatori.DeNatura}}</span></p>
+       <p><span class="left">De Scientia</span> <span class="right">x{{moltiplicatori.DeScientia}}</span></p>
+       <p><span class="left">De Societate</span> <span class="right">x{{moltiplicatori.DeSocietate}}</span></p>
+       <p><span class="left">Mos Arcanorum</span> <span class="right">x{{moltiplicatori.MosArcanorum}}</span></p>
+       <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
+       </div>
+     </div>
+    </div>`);
+        console.log(pyodide.globals.custos);
+        var instanced = template(JSON.parse(pyodide.globals.custos));
+        console.log(instanced);
+        document.getElementById("main").innerHTML = instanced;
+          });
+    </script>
+  </body>
+</html>
+
