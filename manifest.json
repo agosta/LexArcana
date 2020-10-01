@@ -1,0 +1,17 @@
+{
+    "name": "Legis Arcanae Personae Generator",
+    "short_name": "LexArcana-CharGen",
+    "description": "Random character generator for Lex Arcana",
+    "lang": "it-IT",
+    "start_url": "/lexarcana.html",
+    "display": "standalone",
+    "background_color": "black",
+    "display": "standalone",
+    "icons": [
+	{
+	"src": "icon/la.png",
+	"sizes": "192x192",
+	"type": "image/png"
+	}
+    ]
+}
