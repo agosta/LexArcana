@@ -1,5 +1,6 @@
 const staticCacheName = 'lexarcana-pwa';
 var filesToCache = [
+  'lexarcana.html'
   'style.css',
   'icon/la.png',
   'pyodide.js',
