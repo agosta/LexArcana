@@ -6,8 +6,8 @@ let filesToCache = [
   '/LexArcana/icon/la.png',
   '/LexArcana/pyodide.js',
   '/LexArcana/handlebars.js',
-  'fonts.googleapis.com/css2?family=Marcellus+SC&display=swap',
-  'fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons',
+  'https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap',
+  'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons',
 ]
 
 self.addEventListener("install", function(e) {
