@@ -6,11 +6,17 @@
     "start_url": "/lexarcana.html",
     "display": "standalone",
     "background_color": "black",
+    "theme_color": "#67BCFF",
     "display": "standalone",
     "icons": [
 	{
 	"src": "icon/la.png",
 	"sizes": "192x192",
+	"type": "image/png"
+	},
+	{
+	"src": "icon/la.png",
+	"sizes": "512x512",
 	"type": "image/png"
 	}
     ]
