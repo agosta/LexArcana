@@ -102,7 +102,9 @@
       top: 0%; 
       left: 0%; 
       right: 0%; 
+      border: none;
       bottom: 0%; 
+      cursor: pointer;
       height: auto; 
       color: rgba(0, 0, 0, 1.0);
       font-size: 140%;
