@@ -2,7 +2,7 @@ let cacheName = 'lexarcana-pwa';
 let filesToCache = [
   '/',
   '/LexArcana/style.css',
-  '/LexArcana/lexarcana.html',
+  '/LexArcana/index.html',
   '/LexArcana/icon/la.png',
   '/LexArcana/pyodide.js',
   '/LexArcana/handlebars.js'
