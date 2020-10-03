@@ -1,11 +1,12 @@
 let cacheName = 'lexarcana-pwa';
 let filesToCache = [
   '/',
-  '/LexArcana/style.css',
-  '/LexArcana/index.html',
-  '/LexArcana/icon/la.png',
-  '/LexArcana/pyodide.js',
-  '/LexArcana/handlebars.js'
+  '/style.css',
+  '/index.html',
+  '/icon/la.png',
+  '/pyodide.js',
+  '/handlebars.js',
+  'favicon.ico'
 ]
 
 self.addEventListener("install", function(e) {

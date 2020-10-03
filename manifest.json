@@ -4,7 +4,6 @@
     "description": "Random character generator for Lex Arcana",
     "lang": "it-IT",
     "start_url": "index.html",
-    "display": "standalone",
     "background_color": "black",
     "theme_color": "#F5DEF1",
     "display": "standalone",
