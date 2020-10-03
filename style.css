@@ -78,6 +78,8 @@
       border: 0px rgba(224, 224, 224, 1.0) solid; 
 }
 
+
+
 .heading { 
       text-align: center;
       position: relative; 
@@ -99,6 +101,7 @@
       text-align: center;
       position: relative; 
       display: block; 
+      background: rgba(235, 235, 212, 1.0); 
       top: 0%; 
       left: 0%; 
       right: 0%; 
@@ -108,8 +111,28 @@
       height: auto; 
       color: rgba(0, 0, 0, 1.0);
       font-size: 140%;
-      font-family: "Marcellus SC"
+      font-family: "Marcellus SC";
+      transition-duration: 0.4s;
 }
+
+.title:hover { 
+      text-align: center;
+      position: relative; 
+      display: block; 
+      background: rgba(245, 245, 222, 1.0); 
+      top: 0%; 
+      left: 0%; 
+      right: 0%; 
+      border: none;
+      bottom: 0%; 
+      cursor: pointer;
+      height: auto; 
+      color: rgba(0, 0, 0, 1.0);
+      font-size: 140%;
+      font-family: "Marcellus SC";
+      transition-duration: 0.4s;
+}
+
 
 p {
       position: relative;
