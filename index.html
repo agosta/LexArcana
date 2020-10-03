@@ -17,7 +17,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" /> 
   </head>
   <body class="body">
-    <h1 class="title">Lex Arcana</h1>
+    <h1 class="title" onClick=generateCustos()>Lex Arcana</h1>
     <div id="main" class="mainblock">
     </div>   
     <script type="text/javascript">
@@ -29,6 +29,8 @@
                 console.log('ServiceWorker registration failed: ', err);
               });
           };
+
+          function generateCustos() {
           languagePluginLoader.then(function () {
               var x = pyodide.runPython(`
 from random import choice, randint
@@ -510,6 +512,7 @@ def make_char():
 custos=make_char()
                   `);
         var template = Handlebars.compile(`
+    <div class="main">
      <div class="wideblock">
      <h1 class="heading">Custos</h1>
        <div class="wideinner">
@@ -565,12 +568,14 @@ custos=make_char()
        <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
        </div>
      </div>
-    </div>`);
+    </div>
+   </div>`);
         console.log(pyodide.globals.custos);
         var instanced = template(JSON.parse(pyodide.globals.custos));
         console.log(instanced);
         document.getElementById("main").innerHTML = instanced;
           });
+    }
     </script>
   </body>
 </html>
