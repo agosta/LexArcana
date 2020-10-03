@@ -113,6 +113,7 @@
       font-size: 140%;
       font-family: "Marcellus SC";
       transition-duration: 0.4s;
+      user-select: none;
 }
 
 .title:hover { 
@@ -131,6 +132,7 @@
       font-size: 140%;
       font-family: "Marcellus SC";
       transition-duration: 0.4s;
+      user-select: none;
 }
 
 
