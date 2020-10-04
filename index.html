@@ -423,7 +423,7 @@ insediamenti = {
 'Illyricum' : { 'Civitas' : [ 'Sirmium', 'Virunum', 'Vindobona', 'Salona'],  'Colonia' : [ 'Carnutum', 'Brigetio', 'Aquincum', 'Singidunum', 'Ulmnacium' ] },
 'Macedonia' : { 'Civitas' : [ 'Thessalonica', 'Buthrotum', 'Naissus' ],  'Colonia' : [ 'Dyrrachium', 'Perinthus' ] },
 'Achaia'    : { 'Civitas' : [ 'Athenae', 'Corinthus' ],  'Colonia' : [ 'Patras' ] },
-'Gallia'    : { 'Civitas' : [ 'Lugdunum', 'Lutetia', 'Durocortum' 'Burdigala', 'Nemasus' ],  'Colonia' : [ 'Massilia', 'Narbo', 'Augustodunum', 'Mogontiacum', 'Portus Namnetus', 'Rotomagus' ] },
+'Gallia'    : { 'Civitas' : [ 'Lugdunum', 'Lutetia', 'Durocortum', 'Burdigala', 'Nemasus' ],  'Colonia' : [ 'Massilia', 'Narbo', 'Augustodunum', 'Mogontiacum', 'Portus Namnetus', 'Rotomagus' ] },
 'Iberia'    : { 'Civitas' : [ 'Corduba', 'Tarraco', 'Nova Carthago' ],  'Colonia' : [ 'Castra Legionis', 'Gades', 'Augusta Emerita', 'Felicitas Iulia', 'Brigantium', 'Caesaraugusta', 'Valentia' ] },
 'Britannia' : { 'Civitas' : [ 'Londinium' ],  'Colonia' : [ 'Isca Dumnoniorum', 'Eboracum', 'Isca Silurum', 'Deva' ] },
 'Germania'  : { 'Civitas' : [ 'Augusta Treverorum' ],  'Colonia' : [ 'Argentoratum', 'Castra Vetera', 'Noviomagus', 'Gesoriacum', 'Bonna' ] },
@@ -445,7 +445,7 @@ class Custos(object):
   def qualifica_ottima(self):
     q=sorted({ q1 : sum([ self.virtutes[i] for i in qualifica[q1] ]) for q1 in qualifica }.items(), key=lambda item: item[1], reverse=True)[0]
     return q[0]
-
+  
   def qualifica_accettabile(self):
     for p in peritiae :
       if self.peritiae[p]<3 or self.peritiae[p]>18 : 
@@ -457,7 +457,7 @@ class Custos(object):
       if p[0]== qualifica_peritia[q] : return q
     raise Exception('Highest peritia: {}'.format(p))
 
-  def __init__(self, gender=None):
+  def __init__(self, gender=None, qualifica=None, origo=None):
     while 1 :
       self.virtutes = { v : d6(2) for v in virtutes }
       self.qualifica=self.qualifica_ottima()
