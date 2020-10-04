@@ -447,6 +447,9 @@ class Custos(object):
     return q[0]
 
   def qualifica_accettabile(self):
+    for p in peritiae :
+      if self.peritiae[p]<3 or self.peritiae[p]>18 : 
+        raise Exception('Illegal peritia: {} {}'.format(p, self.peritiae[p]))
     if self.peritiae[qualifica_peritia[self.qualifica]]>15 : return self.qualifica
     p=sorted(self.peritiae.items(), key=lambda item: item[1], reverse=True)[0]
     if p[1]<15: raise Exception('Peritiae too low: {}'.format(p))
