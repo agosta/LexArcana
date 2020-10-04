@@ -493,12 +493,14 @@ class Custos(object):
     x=choice(spec_by_fam[self.origine][self.famiglia])
     while x in self.specializzazioni : x=choice(spec_by_fam[self.origine][self.famiglia])
     self.specializzazioni[x]=2
-    x=choice(specializzazioni[qualifica_peritia[self.qualifica]])
-    while x in self.specializzazioni : x=choice(specializzazioni[qualifica_peritia[self.qualifica]]) 
+    t = specializzazioni[qualifica_peritia[self.qualifica]]
+    x=choice(t)
+    while x in self.specializzazioni : x=choice(t) 
     self.specializzazioni[x]=1
-    x=choice(specializzazioni[qualifica_peritia[self.qualifica]])
-    while x in self.specializzazioni : x=choice(specializzazioni[qualifica_peritia[self.qualifica]]) 
+    x=choice(t)
+    while x in self.specializzazioni : x=choice(t) 
     self.specializzazioni[x]=1
+    print(self.specializzazioni)
     self.specializzazioni=[ { 'id' : s, 'val' : self.specializzazioni[s] } for s in self.specializzazioni ]
     self.citta = ''
     if self.origine in [ 'Civitas', 'Colonia' ] :
