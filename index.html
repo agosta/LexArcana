@@ -296,7 +296,7 @@ def get_name(gender, origin, family):
   r = ''
   for c in fmt : 
     if c=='p' : r+=get_praenomen(gender, 'latin', family)+' '
-    elif c=='n' : r+=get_nomen(gender, 'latin', family)+' '
+    elif c=='n' : r+=get_nomen(gender, origin, family)+' '
     elif c=='c' : r+=get_cognomen(gender, province_to_language[origin], family)+' '
     elif c=='m' : 
       r+=patronymic_particle(origin, gender)
