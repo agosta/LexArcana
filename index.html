@@ -487,6 +487,28 @@ insediamenti = {
 'Mauretania': { 'Civitas' : [ 'Caesarea', 'Tingis'],  'Colonia' : [ 'Saldae', 'Lixus', 'Volubilis' ] },
 }
 
+lingue = {
+'Roma Urbe' : { 'fixed' : [ 'Latino' ], 'choice' : [ 'Etrusco', 'Greco', 'Italico (Osco)' ] }, 
+'Italia'    : { 'fixed' : [ 'Latino' ], 'choice' : [ 'Etrusco', 'Greco', 'Italico (Osco)', 'Gallico', 'Punico' ] },
+'Illyricum' : { 'fixed' : [ 'Latino', 'Illirico' ], 'choice' : [ 'Dacico', 'Greco', 'Norico', 'Tracico' ] },
+'Macedonia' : { 'fixed' : [ 'Greco' ], 'choice' : [ 'Illirico', 'Latino', 'Tracico' ] },
+'Achaia'    : { 'fixed' : [ 'Greco' ], 'choice' : [ 'Frigio', 'Latino' ] },
+'Gallia'    : { 'fixed' : [ 'Latino', 'Gallico' ], 'choice' : [ 'Germanico', 'Iberico', 'Celtico (Bretone)' ] },
+'Iberia'    : { 'fixed' : [ 'Latino', 'Iberico' ], 'choice' : [ 'Gallico', 'Punico', 'Celtico (Celtiberico)' ] },
+'Britannia' : { 'fixed' : [ 'Latino', 'Britannico' ], 'choice' : [ 'Gallico', 'Celtico (Silurico)' ] },
+'Germania'  : { 'fixed' : [ 'Latino', 'Germanico' ], 'choice' : [ 'Retico', 'Celtico (Belgico)', 'Gallico' ] },
+'Raetia'    : { 'fixed' : [ 'Latino', 'Retico' ], 'choice' : [ 'Norico', 'Celtico (Helvetico)', 'Germanico' ] },
+'Thracia'   : { 'fixed' : [ 'Greco', 'Tracico' ], 'choice' : [ 'Illirico', 'Latino', 'Dacico' ] },
+'Dacia'     : { 'fixed' : [ 'Latino', 'Tracico' ], 'choice' : [ 'Illirico', 'Tracico' ] },
+'Asia'      : { 'fixed' : [ 'Greco', 'Latino' ], 'choice' : [ 'Aramaico', 'Armeno', 'Frigio', 'Tracico', 'Anatolico (Cilicio)' ] },
+'Armenia'   : { 'fixed' : [ 'Aramaico', 'Armeno' ], 'choice' : [ 'Latino', 'Greco', 'Persiano', 'Frigio' ] },
+'Mesopotamia':{ 'fixed' : [ 'Aramaico', 'Persiano' ], 'choice' : [ 'Armeno', 'Latino', 'Greco' ] },
+'Aegyptus'  : { 'fixed' : [ 'Greco', 'Copto' ], 'choice' : [ 'Aramaico', 'Latino', 'Ebraico', 'Egiziano' ] },
+'Syria'     : { 'fixed' : [ 'Greco', 'Aramaico' ], 'choice' : [ 'Armeno', 'Latino', 'Ebraico', 'Persiano' ] },
+'Arabia'    : { 'fixed' : [ 'Arabo', 'Aramaico' ], 'choice' : [ 'Copto', 'Latino', 'Ebraico', 'Greco' ] },
+'Numidia'   : { 'fixed' : [ 'Latino', 'Punico' ], 'choice' : [ 'Berbero', 'Copto', 'Greco' ] },
+'Mauretania': { 'fixed' : [ 'Latino', 'Punico' ], 'choice' : [ 'Berbero', 'Iberico' ] },
+}
 
 class Custos(object):
   def qualifica_ottima(self):
@@ -557,7 +579,8 @@ class Custos(object):
       self.citta = choice(insediamenti[self.provincia][self.origine])
     self.gender=choice(['male','female']) if not gender else gender
     self.nome=get_name(self.gender, self.provincia, self.famiglia)
-
+    self.languages=lingue[self.provincia]['fixed']
+    self.languages.append(choice(lingue[self.provincia]['choice']))
 
 
   def json(self):
@@ -625,6 +648,14 @@ custos=make_char()
        <p><span class="left">De Societate</span> <span class="right">x{{moltiplicatori.DeSocietate}}</span></p>
        <p><span class="left">Mos Arcanorum</span> <span class="right">x{{moltiplicatori.MosArcanorum}}</span></p>
        <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h2 class="heading">Lingue</h2>
+       <div class="inner">
+       {{#each languages}}
+       <p>{{this}}</p>
+       {{/each}}
        </div>
      </div>
     </div>
