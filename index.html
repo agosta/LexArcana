@@ -45,6 +45,102 @@ d6=dX(6)
 d8=dX(8)
 d10=dX(10)
 
+data = {
+'castra' : {
+ 'Latin' : {
+  'Castrum'    : { 'genere' : 'n', 'numero' : 's' }, 
+  'Castra'     : { 'genere' : 'n', 'numero' : 'p' }, 
+ },
+ 'Greek' : {
+  'Phrourion'  : { 'genere' : 'n', 'numero' : 's' }, 
+  'Stratopedon': { 'genere' : 'n', 'numero' : 's' },   
+ }
+},
+'nomi' : {
+'Latin' : {  
+ 'Vicus'    : { 'genere' : 'm', 'numero' : 's' }, 
+ 'Aquae'    : { 'genere' : 'f', 'numero' : 'p' }, 
+ 'Forum'    : { 'genere' : 'n', 'numero' : 's' }, 
+ 'Portus'   : { 'genere' : 'm', 'numero' : 's' }, 
+ 'Pons'     : { 'genere' : 'm', 'numero' : 's' }, 
+ 'Arae'     : { 'genere' : 'f', 'numero' : 'p' },
+ 'Villa'    : { 'genere' : 'f', 'numero' : 's' },
+ 'Lucus'    : { 'genere' : 'm', 'numero' : 's' },
+ 'Aequum'   : { 'genere' : 'n', 'numero' : 's' },
+ 'Interamna': { 'genere' : 'f', 'numero' : 's' }, 
+ 'Thermae'  : { 'genere' : 'f', 'numero' : 'p' },
+ 'Alba'     : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Turris'   : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Domus'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Fossa'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Taberna'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Tabernae' : { 'genere' : 'f', 'numero' : 'p' }, 
+ },
+'Celtic' : {
+ 'Venta'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Isca'     : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Ratae'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Noviomagus':{ 'genere' : 'm', 'numero' : 's' }, 
+ 'Mediolanum':{ 'genere' : 'n', 'numero' : 's' }, 
+ }
+},
+'modificatori' : {
+'immutabili'   : [ 'Livii', 'Iulii', 'Lepidi', 'Fulvii', 'Valerii', 'Tullii', 'Septimii', 'Hadriani', 'Aelii', 'Aemilii', 'Diocletiani', 'Iunii', 'Claudii', 'Aurelii', 'Veteranorum', 'ad Pontem', 'ad Turres', 'ad Pontes', 'ad Ansam' ],
+'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid' ],
+'regionali_immutabili' : {
+ 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum' ],
+ 'Illyricum' : [ 'Dalmaticorum', 'Eraviscorum', 'Dardanorum' ],
+ 'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum' ], 
+ 'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonus', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
+ 'Gallia'    : [ 'Parisiorum', 'Viromanduorum', 'Suessiorum', 'Allobrogum', 'Santonum', 'Mediomatricorum', 'Convenarum', 'Aulerconum' ],
+ 'Germania'  : [ 'Treverorum', 'Mediomatricorum', 'Taunensium', 'Belgarum', 'Tungrorum' ],
+ 'Raetia'    : [ 'Vindelicorum', 'Rauracorum', 'Helvetiorum' ],
+ }
+},
+'declinazione' : {
+  'f' : { 's' : 'a',  'p' : 'ae' },
+  'm' : { 's' : 'us', 'p' : 'i' },
+  'n' : { 's' : 'um', 'p' : 'a' },
+}
+}
+
+def gen_vicus(provincia):
+  regione = None
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
+  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
+  else : regione = 'Latin'
+  base = choice(list(data['nomi'][regione].keys()))
+  genere = data['nomi'][regione][base]['genere']
+  numero = data['nomi'][regione][base]['numero']
+  if provincia in data['modificatori']['regionali_immutabili'] :
+    tipo_mod = choice(['immutabili','regionali_immutabili','aggettivi'])
+  else :
+    tipo_mod = choice(['immutabili','aggettivi'])
+  mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
+  if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
+  return base+' '+mod
+
+
+def gen_castrum(provincia):
+  regione = None
+  nome = 'Latin'
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
+  if provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
+  else : regione = 'Latin'
+  if provincia in [ 'Asia', 'Achaia', 'Armenia' ] : nome = 'Greek'
+  base = choice(list(data['castra'][nome].keys()))
+  genere = data['castra'][nome][base]['genere']
+  numero = data['castra'][nome][base]['numero']
+  if provincia in data['modificatori']['regionali_immutabili'] :
+    tipo_mod = choice(['immutabili','regionali_immutabili','aggettivi'])
+  else :
+    tipo_mod = choice(['immutabili','aggettivi'])
+  mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
+  if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
+  return base+' '+mod
+
+
+
 latin_praenomen_male = [ 'Gaius','Gaius','Gaius', 'Gnaeus', 'Tiberius','Tiberius', 'Marcus','Marcus','Marcus', 'Appius', 'Aulus', 'Lucius','Lucius','Lucius', 'Hostus', 'Numerius', 'Agrippa', 'Postumus', 'Faustus', 'Decimus', 'Caeso', 'Mamercus', 'Manius','Manius', 'Opiter', 'Octavius', 'Nonus', 'Mettius', 'Proculus', 'Publius', 'Quintus','Quintus','Quintus', 'Septimus', 'Sertor', 'Servius', 'Sextus','Sextus', 'Spurius', 'Statius', 'Titus', 'Tullus', 'Vibius', 'Volesus', 'Vopiscus' ]
 
 latin_praenomen_female = [ 'Agrippina', 'Caesilla', 'Tertia', 'Quarta', 'Paulla','Tertia', 'Quarta', 'Paulla','Tertia', 'Quarta', 'Paulla', 'Maxima', 'Maio', 'Mino','Maxima', 'Maio', 'Mino', 'Appia', 'Aula', 'Caesula', 'Decima', 'Fausta', 'Gaia','Gaia','Gaia', 'Gnaea', 'Hosta', 'Lucia', 'Mamerca', 'Mania', 'Marcia', 'Mettia', 'Nona', 'Numeria', 'Octavia', 'Postuma', 'Prima', 'Procula', 'Publia', 'Quinta', 'Secunda', 'Septima', 'Sevia', 'Sexta', 'Spuria', 'Statia', 'Titia', 'Tiberia', 'Tulla', 'Vibia', 'Volusa', 'Vopisca' ]
@@ -68,6 +164,7 @@ extra_nomen_male = {
   'Thracia' : [ 'Menius', 'Rusonius', 'Sammius', 'Scandilius', 'Seccius', 'Secundinius', 'Sollius', 'Tanicius' ],
   'Asia' : [ 'Catilius', 'Consentius', 'Cuspius', 'Orbicius', 'Paconius', 'Reginius', 'Romanius', 'Rubellius', 'Rupilius', 'Scaptius', 'Septicius', 'Sepullius', 'Severius', 'Sextilius', 'Tineius' ],
   'Mesopotamia' : [ 'Catilius', 'Consentius', 'Cuspius', 'Orbicius', 'Paconius', 'Reginius', 'Romanius', 'Rubellius', 'Rupilius', 'Scaptius', 'Septicius', 'Sepullius', 'Severius', 'Sextilius', 'Tineius', 'Gessius', 'Opellius', 'Romanius', 'Rufinius', 'Sallustius' ],
+  'Armenia' : [ 'Catilius', 'Consentius', 'Cuspius', 'Orbicius', 'Paconius', 'Reginius', 'Romanius', 'Rubellius', 'Rupilius', 'Scaptius', 'Septicius', 'Sepullius', 'Severius', 'Sextilius', 'Tineius', 'Gessius', 'Opellius', 'Romanius', 'Rufinius', 'Sallustius' ],
   'Syria' : [ 'Gessius', 'Opellius', 'Reginius', 'Romanius', 'Rufinius', 'Sallustius', 'Uranius' ],
   'Arabia' : [ 'Gessius', 'Opellius', 'Reginius', 'Romanius', 'Rufinius', 'Sallustius', 'Uranius' ],
   'Aegyptus': [ 'Pactumeius', 'Sabellius', 'Siccius', 'Secundinius', 'Septimius' ],
@@ -90,6 +187,7 @@ extra_nomen_female = {
   'Thracia' : [ 'Menia', 'Rusonia', 'Sammia', 'Scandilia', 'Seccia', 'Secundinia', 'Sollia', 'Tanicia' ],
   'Asia' : [ 'Catilia', 'Consentia', 'Cuspia', 'Orbicia', 'Paconia', 'Reginia', 'Romania', 'Rubellia', 'Rupilia', 'Scaptia', 'Septicia', 'Sepullia', 'Severia', 'Sextilia', 'Tineia' ],
   'Mesopotamia' : [ 'Catilia', 'Consentia', 'Cuspia', 'Orbicia', 'Paconia', 'Reginia', 'Romania', 'Rubellia', 'Rupilia', 'Scaptia', 'Septicia', 'Sepullia', 'Severia', 'Sextilia', 'Tineia', 'Gessia', 'Opellia', 'Romania', 'Rufinia', 'Sallustia' ],
+  'Armenia' : [ 'Catilia', 'Consentia', 'Cuspia', 'Orbicia', 'Paconia', 'Reginia', 'Romania', 'Rubellia', 'Rupilia', 'Scaptia', 'Septicia', 'Sepullia', 'Severia', 'Sextilia', 'Tineia', 'Gessia', 'Opellia', 'Romania', 'Rufinia', 'Sallustia' ],
   'Syria' : [ 'Gessia', 'Opellia', 'Reginia', 'Romania', 'Rufinia', 'Sallustia', 'Urania' ],
   'Arabia' : [ 'Gessia', 'Opellia', 'Reginia', 'Romania', 'Rufinia', 'Sallustia', 'Urania' ],
   'Aegyptus': [ 'Pactumeia', 'Sabellia', 'Siccia', 'Secundinia', 'Septimia' ],
@@ -233,7 +331,7 @@ locative = {
   'Gallia' : [ 'Gallicus', 'Gallus', 'Massiliota' ],
   'Iberia' : [ 'Ibericus', 'Lusitanus', 'Vasco', 'Baeticus', 'Arsa', 'Hispanus', 'Hispallus' ],
   'Britannia' : [ 'Britannus', 'Britannicus' ],
-  'Germania' : [ 'Germanicus', 'Belga', 'Barbarus' ],
+  'Germania' : [ 'Germanicus', 'Belga', 'Barbarus', 'Cheruscus', 'Marcomannus', 'Saxo' ],
   'Raetia' : [ 'Raeticus', 'Vindelicus' ],
   'Thracia' : [ 'Thrax', 'Moesianus', 'Geta' ],
   'Asia' : [ 'Asianus', 'Cilicius', 'Bythinicus', 'Ponticus', 'Pamphilicus', 'Asiagenus' ],
@@ -242,7 +340,7 @@ locative = {
   'Mesopotamia' : [ 'Mesopotamicus', 'Assyricus', 'Chaldaeus' ],
   'Aegyptus' : [ 'Aegyptiacus', 'Creticus' ],
   'Syria' : [ 'Syrus', 'Syriacus', 'Chaldaeus', 'Surus' ],
-  'Arabia' : [ 'Arabicus', 'Samaritanus' ],
+  'Arabia' : [ 'Arabicus', 'Samaritanus', 'Nabataeus', 'Idumaeus' ],
   'Numidia' : [ 'Lybicus', 'Numidicus','Punicus', 'Afer', 'Africus', 'Africanus', 'Numida' ],
   'Mauretania' : [ 'Mauretanus', 'Tingitanus' ],
  },
@@ -256,7 +354,7 @@ locative = {
   'Gallia' : [ 'Gallica', 'Galla', 'Massiliota' ],
   'Iberia' : [ 'Iberica', 'Lusitana', 'Vasco', 'Baetica', 'Arsa', 'Hispana', 'Hispalla' ],
   'Britannia' : [ 'Britanna', 'Britannica' ],
-  'Germania' : [ 'Germanica', 'Belgica' ],
+  'Germania' : [ 'Germanica', 'Belgica', 'Cherusca', 'Marcomanna', 'Saxo' ],
   'Raetia' : [ 'Raetica', 'Vindelica' ],
   'Thracia' : [ 'Thrax', 'Moesiana', 'Geta' ],
   'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica', 'Asiagena' ],
@@ -265,7 +363,7 @@ locative = {
   'Mesopotamia' : [ 'Mesopotamica', 'Assyrica', 'Chaldaea' ],
   'Aegyptus' : [ 'Aegyptica', 'Cretica' ],
   'Syria' : [ 'Syra', 'Syriaca', 'Chaldaea', 'Sura' ],
-  'Arabia' : [ 'Arabica', 'Samaritana' ],
+  'Arabia' : [ 'Arabica', 'Samaritana', 'Nabataea', 'Idumaea' ],
   'Numidia' : [ 'Lybica', 'Numidica','Punica', 'Africa', 'Africana', 'Numida' ],
   'Mauretania' : [ 'Mauretana', 'Tingitana' ],
  },
@@ -466,25 +564,25 @@ spec_by_fam = {
 
 insediamenti = {
 'Roma Urbe' : { 'Civitas' : ['Roma Urbe'] },
-'Italia'    : { 'Civitas' : ['Syracusae', 'Mediolanum', 'Ravenna', 'Capua', 'Aquileia'],  'Colonia' : [ 'Placentia', 'Ariminum', 'Neapolis', 'Brundisium', 'Aleria', 'Pisae', 'Caralis', 'Panormus', 'Rhegium' ] },
-'Illyricum' : { 'Civitas' : [ 'Sirmium', 'Virunum', 'Vindobona', 'Salona'],  'Colonia' : [ 'Carnutum', 'Brigetio', 'Aquincum', 'Singidunum', 'Ulmnacium' ] },
-'Macedonia' : { 'Civitas' : [ 'Thessalonica', 'Buthrotum', 'Naissus' ],  'Colonia' : [ 'Dyrrachium', 'Perinthus' ] },
-'Achaia'    : { 'Civitas' : [ 'Athenae', 'Corinthus' ],  'Colonia' : [ 'Patras' ] },
-'Gallia'    : { 'Civitas' : [ 'Lugdunum', 'Lutetia', 'Durocortum', 'Burdigala', 'Nemasus' ],  'Colonia' : [ 'Massilia', 'Narbo', 'Augustodunum', 'Mogontiacum', 'Portus Namnetus', 'Rotomagus' ] },
-'Iberia'    : { 'Civitas' : [ 'Corduba', 'Tarraco', 'Nova Carthago' ],  'Colonia' : [ 'Castra Legionis', 'Gades', 'Augusta Emerita', 'Felicitas Iulia', 'Brigantium', 'Caesaraugusta', 'Valentia' ] },
-'Britannia' : { 'Civitas' : [ 'Londinium' ],  'Colonia' : [ 'Isca Dumnoniorum', 'Eboracum', 'Isca Silurum', 'Deva' ] },
-'Germania'  : { 'Civitas' : [ 'Augusta Treverorum' ],  'Colonia' : [ 'Argentoratum', 'Castra Vetera', 'Noviomagus', 'Gesoriacum', 'Bonna' ] },
+'Italia'    : { 'Civitas' : ['Syracusae', 'Mediolanum', 'Ravenna', 'Capua', 'Aquileia'],  'Colonia' : [ 'Placentia', 'Ariminum', 'Neapolis', 'Brundisium', 'Aleria', 'Pisae', 'Caralis', 'Panormus', 'Rhegium', 'Tarentum', 'Arretium', 'Beneventum' ] },
+'Illyricum' : { 'Civitas' : [ 'Sirmium', 'Virunum', 'Vindobona', 'Salona'],  'Colonia' : [ 'Carnutum', 'Brigetio', 'Aquincum', 'Singidunum', 'Ulmnacium', 'Narona', 'Siscia', 'Elmona', 'Poetovio' ] },
+'Macedonia' : { 'Civitas' : [ 'Thessalonica', 'Buthrotum', 'Naissus' ],  'Colonia' : [ 'Dyrrachium', 'Perinthus', 'Stobi', 'Scupi', 'Amphipolis', 'Philippi' ] },
+'Achaia'    : { 'Civitas' : [ 'Athenae', 'Corinthus' ],  'Colonia' : [ 'Patras', 'Argos', 'Delphi', 'Thebae', 'Sparta', 'Gorthyra' ] },
+'Gallia'    : { 'Civitas' : [ 'Lugdunum', 'Lutetia', 'Durocortum', 'Burdigala', 'Nemasus' ],  'Colonia' : [ 'Massilia', 'Narbo', 'Augustodunum', 'Mogontiacum', 'Portus Namnetus', 'Rotomagus', 'Aquae Sextia', 'Agendicum' ] },
+'Iberia'    : { 'Civitas' : [ 'Corduba', 'Tarraco', 'Nova Carthago' ],  'Colonia' : [ 'Castra Legionis', 'Gades', 'Augusta Emerita', 'Felicitas Iulia', 'Brigantium', 'Caesaraugusta', 'Valentia', 'Saguntum' ] },
+'Britannia' : { 'Civitas' : [ 'Londinium' ],  'Colonia' : [ 'Isca Dumnoniorum', 'Eboracum', 'Isca Silurum', 'Deva', 'Glevum', 'Camulodunum' ] },
+'Germania'  : { 'Civitas' : [ 'Augusta Treverorum' ],  'Colonia' : [ 'Argentoratum', 'Castra Vetera', 'Noviomagus', 'Gesoriacum', 'Bonna', 'Mogontiacum', 'Novaesium' ] },
 'Raetia'    : { 'Civitas' : [ 'Augusta Vindelicorum' ],  'Colonia' : [ 'Castra Regina' ] },
-'Thracia'   : { 'Civitas' : [ 'Byzantium' ],  'Colonia' : [ 'Tomis', 'Troesmis', 'Durostorum', 'Novae' ] },
+'Thracia'   : { 'Civitas' : [ 'Byzantium', 'Philippopolis' ],  'Colonia' : [ 'Tomis', 'Troesmis', 'Durostorum', 'Novae', 'Nicopolis' ] },
 'Dacia'     : { 'Civitas' : [ 'Sarmizegetusa' ],  'Colonia' : [ 'Ulpia Traiana', 'Napoca', 'Apulum' ] },
-'Asia'      : { 'Civitas' : [ 'Nicomedia', 'Ephesus', 'Pergamum' ],  'Colonia' : [ 'Zeugma', 'Attalia', 'Tarsus', 'Paphus', 'Sinope', 'Trapezus', 'Satala', 'Melitene', 'Samosata' ] },
-'Armenia'   : { 'Civitas' : [ 'Tigranocerta' ],  'Colonia' : [ 'Artaxata' ] },
-'Mesopotamia':{ 'Civitas' : [ 'Babylon' ],  'Colonia' : [ 'Ctesiphon' ] },
+'Asia'      : { 'Civitas' : [ 'Nicomedia', 'Ephesus', 'Pergamum', 'Cyzicus' ],  'Colonia' : [ 'Zeugma', 'Attalia', 'Tarsus', 'Paphus', 'Sinope', 'Trapezus', 'Satala', 'Melitene', 'Samosata', 'Smyrna', 'Halicarnassus', 'Amisus', 'Thyana', 'Ancyra', 'Caesarea' ] },
+'Armenia'   : { 'Civitas' : [ 'Tigranocerta' ],  'Colonia' : [ 'Artaxata', 'Carana', 'Armavira' ] },
+'Mesopotamia':{ 'Civitas' : [ 'Babylon' ],  'Colonia' : [ 'Ctesiphon', 'Cyrecesium', 'Seleucia', 'Singara' ] },
 'Aegyptus'  : { 'Civitas' : [ 'Ptolemais', 'Alexandria' ],  'Colonia' : [ 'Memphis', 'Heracleopolis', 'Cirene', 'Berenice' ] },
-'Syria'     : { 'Civitas' : [ 'Antiochia', 'Palmyra' ],  'Colonia' : [ 'Raphana' ] },
-'Arabia'    : { 'Civitas' : [ 'Hierosolima', 'Petra' ],  'Colonia' : [ 'Caesarea', 'Bostra' ] },
-'Numidia'   : { 'Civitas' : [ 'Carthago' ],  'Colonia' : [ 'Thapsus', 'Tacape', 'Thevestis', 'Lambaesis', 'Cirta' ] },
-'Mauretania': { 'Civitas' : [ 'Caesarea', 'Tingis'],  'Colonia' : [ 'Saldae', 'Lixus', 'Volubilis' ] },
+'Syria'     : { 'Civitas' : [ 'Antiochia', 'Palmyra' ],  'Colonia' : [ 'Raphana', 'Berytus', 'Tyrus', 'Raphaneae', 'Apamea', 'Damascus' ] },
+'Arabia'    : { 'Civitas' : [ 'Hierosolima', 'Petra' ],  'Colonia' : [ 'Caesarea', 'Bostra', 'Gerara' ] },
+'Numidia'   : { 'Civitas' : [ 'Carthago', 'Cirta' ],  'Colonia' : [ 'Thapsus', 'Tacape', 'Thevestis', 'Lambaesis', 'Sicca', 'Zama Regia', 'Hadrumetum', 'Hippo Regius', 'Utica', 'Hippo Dyrrahitus' ] },
+'Mauretania': { 'Civitas' : [ 'Caesarea', 'Tingis'],  'Colonia' : [ 'Saldae', 'Lixus', 'Volubilis', 'Certenna' ] },
 }
 
 lingue = {
@@ -577,6 +675,10 @@ class Custos(object):
     self.citta = ''
     if self.origine in [ 'Civitas', 'Colonia' ] :
       self.citta = choice(insediamenti[self.provincia][self.origine])
+    elif self.origine in [ 'Vicus', 'Posto isolato' ] :
+      self.citta = gen_vicus(self.provincia)
+    else :
+      self.citta = gen_castrum(self.provincia)
     self.gender=choice(['male','female']) if not gender else gender
     self.nome=get_name(self.gender, self.provincia, self.famiglia)
     self.languages=lingue[self.provincia]['fixed']
@@ -601,7 +703,7 @@ custos=make_char()
        <p><span class="left">Nomen:</span> <span class="right">{{nome}}</span></p>
        <p><span class="left">Provincia:</span> <span class="right"> {{provincia}}</span></p>
        <p><span class="left">Aetas:</span> <span class="right">{{aetas}}</span></p>
-       <p><span class="left">Origo:</span> <span class="right">{{origine}} {{citta}}</span></p>
+       <p><span class="left">Origo:</span> <span class="right">{{origine}} ({{citta}})</span></p>
        <p><span class="left">Familia:</span> <span class="right">{{famiglia}}</span></p>
        <p><span class="left">Cursus:</span> <span class="right">{{qualifica}}</span></p>
        <p><span class="left">Vita:</span> <span class="right">{{vita}}</span></p>
