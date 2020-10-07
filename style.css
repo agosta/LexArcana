@@ -66,15 +66,17 @@
 
 .button { 
       position: relative; 
-      display: block; 
+      display: inline; 
       top: 0%; 
       left: 0%; 
       right: 0%; 
       bottom: 0%; 
       height: auto; 
+      cursor: pointer;
       background: rgba(245, 245, 222, 1.0); 
       color: rgba(0, 0, 0, 1.0);
       font-size: 120%;
+      font-family: "Marcellus SC";
       border: 0px rgba(224, 224, 224, 1.0) solid; 
 }
 
@@ -107,7 +109,6 @@
       right: 0%; 
       border: none;
       bottom: 0%; 
-      cursor: pointer;
       height: auto; 
       color: rgba(0, 0, 0, 1.0);
       font-size: 140%;

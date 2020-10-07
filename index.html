@@ -18,7 +18,12 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" /> 
   </head>
   <body class="body">
-    <h1 class="title" onClick=generateCustos()>Lex Arcana</h1>
+    <h1 class="title">Lex Arcana</h1>
+    <div>
+      <button class="button" onClick=generateCustos()>New</button>
+      <button class="button" onClick=storeCustos()>Store</button>
+      <button class="button" onClick=loadCustos('/stored')>Load</button>
+    </div>
     <div id="main" class="mainblock">
     </div>   
     <script type="text/javascript">
@@ -29,6 +34,96 @@
               }).catch(function (err) {
                 console.log('ServiceWorker registration failed: ', err);
               });
+          };
+
+          var char_template = `
+    <div class="main">
+     <div class="wideblock">
+     <h1 class="heading">Custos</h1>
+       <div class="wideinner">
+       <p><span class="left">Nomen:</span> <span class="right">{{nome}}</span></p>
+       <p><span class="left">Provincia:</span> <span class="right"> {{provincia}}</span></p>
+       <p><span class="left">Aetas:</span> <span class="right">{{aetas}}</span></p>
+       <p><span class="left">Origo:</span> <span class="right">{{origine}} ({{citta}})</span></p>
+       <p><span class="left">Familia:</span> <span class="right">{{famiglia}}</span></p>
+       <p><span class="left">Cursus:</span> <span class="right">{{qualifica}}</span></p>
+       <p><span class="left">Vita:</span> <span class="right">{{vita}}</span></p>
+       <p><span class="left">Pietas:</span> <span class="right">{{pietas}}</span></p>
+       </div>
+     </div>
+    <div class="container">
+     <div class="block">
+     <h2 class="heading">Virtutes</h2>
+       <div class="inner">
+       <p><span class="left">Vigor</span> <span class="right">{{virtutes.Vigor}}</span></p>
+       <p><span class="left">Coordinatio</span> <span class="right">{{virtutes.Coordinatio}}</span></p>
+       <p><span class="left">Auctoritas</span> <span class="right">{{virtutes.Auctoritas}}</span></p>
+       <p><span class="left">Ingenium</span> <span class="right">{{virtutes.Ingenium}}</span></p>
+       <p><span class="left">Sensibilitas</span> <span class="right">{{virtutes.Sensibilitas}}</span></p>
+       <p><span class="left">Ratio</span> <span class="right">{{virtutes.Ratio}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h2 class="heading">Peritiae</h2>
+       <div class="inner">
+       <p><span class="left">De Bello</span> <span class="right">{{peritiae.DeBello}}</span></p>
+       <p><span class="left">De Corpore</span> <span class="right">{{peritiae.DeCorpore}}</span></p>
+       <p><span class="left">De Magia</span> <span class="right">{{peritiae.DeMagia}}</span></p>
+       <p><span class="left">De Natura</span> <span class="right">{{peritiae.DeNatura}}</span></p>
+       <p><span class="left">De Scientia</span> <span class="right">{{peritiae.DeScientia}}</span></p>
+       <p><span class="left">De Societate</span> <span class="right">{{peritiae.DeSocietate}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h3 class="heading">Specializzazioni</h3>
+       {{#each specializzazioni}}
+       <p><span class="leftspec">{{this.id}}:</span> <span class="right">{{this.val}}</span></p>
+       {{/each}}
+     </div>     
+     <div class="block">
+     <h2 class="heading">Curriculum</h2>
+       <div class="inner">
+       <p><span class="left">De Bello</span> <span class="right">x{{moltiplicatori.DeBello}}</span></p>
+       <p><span class="left">De Corpore</span> <span class="right">x{{moltiplicatori.DeCorpore}}</span></p>
+       <p><span class="left">De Magia</span> <span class="right">x{{moltiplicatori.DeMagia}}</span></p>
+       <p><span class="left">De Natura</span> <span class="right">x{{moltiplicatori.DeNatura}}</span></p>
+       <p><span class="left">De Scientia</span> <span class="right">x{{moltiplicatori.DeScientia}}</span></p>
+       <p><span class="left">De Societate</span> <span class="right">x{{moltiplicatori.DeSocietate}}</span></p>
+       <p><span class="left">Mos Arcanorum</span> <span class="right">x{{moltiplicatori.MosArcanorum}}</span></p>
+       <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
+       </div>
+     </div>
+     <div class="block">
+     <h2 class="heading">Lingue</h2>
+       <div class="inner">
+       {{#each languages}}
+       <p>{{this}}</p>
+       {{/each}}
+       </div>
+     </div>
+    </div>
+   </div>`
+
+          function storeCustos() {
+            /* id = Date.now(); */
+            id='/stored'
+            caches.open('storage').then(function(cache) {
+              cache.match('/current').then(function(res) {
+                cache.put(id, res);
+              });
+            });           
+          };
+
+          function loadCustos(key) {
+            caches.open('storage').then(function(cache) {
+              cache.match(key).then((resp) => (resp.json()))
+                .then(function(res) {
+                cache.put('/current', new Response(res)); 
+                var template = Handlebars.compile(char_template);
+                var instanced = template(res);
+                document.getElementById("main").innerHTML = instanced;
+              });
+            });
           };
 
           function generateCustos() {
@@ -670,7 +765,6 @@ class Custos(object):
     x=choice(t)
     while x in self.specializzazioni : x=choice(t) 
     self.specializzazioni[x]=1
-    print(self.specializzazioni)
     self.specializzazioni=[ { 'id' : s, 'val' : self.specializzazioni[s] } for s in self.specializzazioni ]
     self.citta = ''
     if self.origine in [ 'Civitas', 'Colonia' ] :
@@ -695,77 +789,14 @@ def make_char():
 
 custos=make_char()
                   `);
-        var template = Handlebars.compile(`
-    <div class="main">
-     <div class="wideblock">
-     <h1 class="heading">Custos</h1>
-       <div class="wideinner">
-       <p><span class="left">Nomen:</span> <span class="right">{{nome}}</span></p>
-       <p><span class="left">Provincia:</span> <span class="right"> {{provincia}}</span></p>
-       <p><span class="left">Aetas:</span> <span class="right">{{aetas}}</span></p>
-       <p><span class="left">Origo:</span> <span class="right">{{origine}} ({{citta}})</span></p>
-       <p><span class="left">Familia:</span> <span class="right">{{famiglia}}</span></p>
-       <p><span class="left">Cursus:</span> <span class="right">{{qualifica}}</span></p>
-       <p><span class="left">Vita:</span> <span class="right">{{vita}}</span></p>
-       <p><span class="left">Pietas:</span> <span class="right">{{pietas}}</span></p>
-       </div>
-     </div>
-    <div class="container">
-     <div class="block">
-     <h2 class="heading">Virtutes</h2>
-       <div class="inner">
-       <p><span class="left">Vigor</span> <span class="right">{{virtutes.Vigor}}</span></p>
-       <p><span class="left">Coordinatio</span> <span class="right">{{virtutes.Coordinatio}}</span></p>
-       <p><span class="left">Auctoritas</span> <span class="right">{{virtutes.Auctoritas}}</span></p>
-       <p><span class="left">Ingenium</span> <span class="right">{{virtutes.Ingenium}}</span></p>
-       <p><span class="left">Sensibilitas</span> <span class="right">{{virtutes.Sensibilitas}}</span></p>
-       <p><span class="left">Ratio</span> <span class="right">{{virtutes.Ratio}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h2 class="heading">Peritiae</h2>
-       <div class="inner">
-       <p><span class="left">De Bello</span> <span class="right">{{peritiae.DeBello}}</span></p>
-       <p><span class="left">De Corpore</span> <span class="right">{{peritiae.DeCorpore}}</span></p>
-       <p><span class="left">De Magia</span> <span class="right">{{peritiae.DeMagia}}</span></p>
-       <p><span class="left">De Natura</span> <span class="right">{{peritiae.DeNatura}}</span></p>
-       <p><span class="left">De Scientia</span> <span class="right">{{peritiae.DeScientia}}</span></p>
-       <p><span class="left">De Societate</span> <span class="right">{{peritiae.DeSocietate}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h3 class="heading">Specializzazioni</h3>
-       {{#each specializzazioni}}
-       <p><span class="leftspec">{{this.id}}:</span> <span class="right">{{this.val}}</span></p>
-       {{/each}}
-     </div>     
-     <div class="block">
-     <h2 class="heading">Curriculum</h2>
-       <div class="inner">
-       <p><span class="left">De Bello</span> <span class="right">x{{moltiplicatori.DeBello}}</span></p>
-       <p><span class="left">De Corpore</span> <span class="right">x{{moltiplicatori.DeCorpore}}</span></p>
-       <p><span class="left">De Magia</span> <span class="right">x{{moltiplicatori.DeMagia}}</span></p>
-       <p><span class="left">De Natura</span> <span class="right">x{{moltiplicatori.DeNatura}}</span></p>
-       <p><span class="left">De Scientia</span> <span class="right">x{{moltiplicatori.DeScientia}}</span></p>
-       <p><span class="left">De Societate</span> <span class="right">x{{moltiplicatori.DeSocietate}}</span></p>
-       <p><span class="left">Mos Arcanorum</span> <span class="right">x{{moltiplicatori.MosArcanorum}}</span></p>
-       <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h2 class="heading">Lingue</h2>
-       <div class="inner">
-       {{#each languages}}
-       <p>{{this}}</p>
-       {{/each}}
-       </div>
-     </div>
-    </div>
-   </div>`);
-        console.log(pyodide.globals.custos);
-        var instanced = template(JSON.parse(pyodide.globals.custos));
-        console.log(instanced);
+        var template = Handlebars.compile(char_template);
+        var custos = JSON.parse(pyodide.globals.custos);
+        console.log(custos);
+        var instanced = template(custos);
         document.getElementById("main").innerHTML = instanced;
+        caches.open('storage').then(function(cache) {
+           cache.put('/current', new Response(pyodide.globals.custos));
+        });
           });
     }
     </script>
