@@ -1,165 +1,70 @@
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-gap: .5rem;
-  align-items: flex-start;
+body {
+ background-image: url("scheda.svg");
+ background-color: #cccccc;
+ width: 1625px;
+ height: 1056px;
+ font-family: "Marcellus SC";
 }
 
-.body {
-  background: rgba(255, 255, 232, 1.0); 
+input {
+ border: none;
+ background-color: transparent;
+ text-align: center;
+ font-family: "Marcellus SC";
 }
 
-.wideinner {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  align-items: flex-start;
-}
-
-.inner {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  align-items: flex-start;
-}
-
-.block { 
-      position: relative; 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      bottom: 0%; 
-      height: auto; 
-      width: 360px; 
-      padding: 15px 15px 15px 15px; 
-      margin: 7px auto 7px auto; 
-      display: block; 
-      background: rgba(245, 245, 222, 1.0); 
-      font-size: 100%; 
-      color: rgba(0, 0, 0, 1.0); 
-      font-family: "Hoefler Text", Constantia, Palatino, Georgia, serif; 
-      border: 1px rgba(224, 224, 224, 1.0) solid; 
-      border-radius: 13px; 
-      box-shadow: 3px 3px 2px 1px rgba(115, 115, 115, 1.0); 
-      -webkit-box-shadow: 3px 3px 2px 1px rgba(115, 115, 115, 1.0); 
-}
-
-.wideblock { 
-      position: relative; 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      bottom: 0%; 
-      height: auto; 
-      width: 95%; 
-      padding: 15px 15px 15px 15px; 
-      margin: 7px auto 7px auto; 
-      display: g; 
-      background: rgba(245, 245, 222, 1.0); 
-      font-size: 100%; 
-      color: rgba(0, 0, 0, 1.0); 
-      font-family: "Hoefler Text", Constantia, Palatino, Georgia, serif; 
-      border: 1px rgba(224, 224, 224, 1.0) solid; 
-      border-radius: 13px; 
-      box-shadow: 3px 3px 2px 1px rgba(115, 115, 115, 1.0); 
-      -webkit-box-shadow: 3px 3px 2px 1px rgba(115, 115, 115, 1.0); 
+select {
+ border: none;
+ background-color: transparent;
+ text-align: center;
+ font-family: "Marcellus SC";
 }
 
 
-.button { 
-      position: relative; 
-      display: inline; 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      bottom: 0%; 
-      height: auto; 
-      cursor: pointer;
-      background: rgba(245, 245, 222, 1.0); 
-      color: rgba(0, 0, 0, 1.0);
-      font-size: 120%;
-      font-family: "Marcellus SC";
-      border: 0px rgba(224, 224, 224, 1.0) solid; 
+.invisibleButton {
+   background-color: transparent; 
+   position: absolute; 
+   top: 70px; 
+   left: 692px; 
+   width: 230px; 
+   height: 32px; 
+   cursor: pointer;
+   border: none;
 }
 
-
-
-.heading { 
-      text-align: center;
-      position: relative; 
-      display: block; 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      bottom: 0%; 
-      height: auto; 
-      background: rgba(245, 245, 222, 1.0); 
-      color: rgba(0, 0, 0, 1.0);
-      font-size: 110%;
-      border: 0px rgba(224, 224, 224, 1.0) solid; 
-      font-family: "Marcellus SC"
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-
-.title { 
-      text-align: center;
-      position: relative; 
-      display: block; 
-      background: rgba(235, 235, 212, 1.0); 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      border: none;
-      bottom: 0%; 
-      height: auto; 
-      color: rgba(0, 0, 0, 1.0);
-      font-size: 140%;
-      font-family: "Marcellus SC";
-      transition-duration: 0.4s;
-      user-select: none;
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 0% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
 }
 
-.title:hover { 
-      text-align: center;
-      position: relative; 
-      display: block; 
-      background: rgba(245, 245, 222, 1.0); 
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      border: none;
-      bottom: 0%; 
-      cursor: pointer;
-      height: auto; 
-      color: rgba(0, 0, 0, 1.0);
-      font-size: 140%;
-      font-family: "Marcellus SC";
-      transition-duration: 0.4s;
-      user-select: none;
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-
-p {
-      position: relative;
-      display: block;
-      top: 0%; 
-      left: 0%; 
-      right: 0%; 
-      bottom: 0%; 
-      height: auto; 
-      background: rgba(235, 235, 212, 1.0); 
-}
-
-.left {
- float: left;
- width: 140px;
- text-align: left;
-}
-
-.leftspec {
- float: left;
- width: 240px;
- text-align: left;
-}
-
-.right {
- margin-left: 5px;
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

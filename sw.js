@@ -6,6 +6,7 @@ let filesToCache = [
   '/icon/la.png',
   '/pyodide.js',
   '/handlebars.js',
+  '/scheda.svg',
   'favicon.ico'
 ]
 

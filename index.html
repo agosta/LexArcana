@@ -4,131 +4,887 @@
       <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=yes">
       <meta charset="utf-8">
       <meta name="theme-color" content="#F5DEF1">
-      <title>Legis Arcanae Personae Generator</title>
+      <title>Legis Arcanae Personae Folium</title>
       <link rel="manifest" href="./manifest.json"/>
       <script type="text/javascript">
           // set the pyodide files URL (packages.json, pyodide.asm.data etc)
           window.languagePluginUrl = 'https://pyodide-cdn2.iodide.io/v0.15.0/full/';
       </script>
       <script src="./pyodide.js"></script>
-      <script src="./handlebars.js"></script>
-      <link rel="shortcut icon" href="./favicon.ico" />
+      <script src="./handlebars.js"></script>      <link rel="shortcut icon" href="./favicon.ico" />
       <link rel="stylesheet" href="./style.css" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" /> 
   </head>
   <body class="body">
-    <h1 class="title">Lex Arcana</h1>
-    <div>
-      <button class="button" onClick=generateCustos()>New</button>
-      <button class="button" onClick=storeCustos()>Store</button>
-      <button class="button" onClick=loadCustos('/stored')>Load</button>
+   <form id="charsheet">
+    <span class="input" id="nome1" style="position:absolute; top:60px; left:40px; width:315px; font-size:115%; color:#694d1e; text-align:center"></span>
+    <select id="origine" style="position:absolute; top:180px; left:40px; width:115px; text-align:justify">
+      <option value="Civitas">Civitas</option>
+      <option value="Colonia">Colonia</option>
+      <option value="Vicus">Vicus</option>
+      <option value="Posto isolato">Posto isolato</option>
+      <option value="Limes">Limes</option>
+    </select>
+    <input type="text" id="citta" style="position:absolute; top:180px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
+    <span class="input" style="position:absolute; top:200px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
+    <input type="text" id="famiglia" style="position:absolute; top:200px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
+    <input type="textarea" id="bio" style="position:absolute; top:220px; left:40px; width:315px; text-align:justify" value="bla bla bla"></input>
+    <span class="input" id="combatAbName" style="position:absolute; top:530px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
+    <p  class="input" id="combatAbBody" style="position:absolute; top:540px; left:40px; width:315px; text-align:justify"></p>
+    <span class="input" id="invocazioneName" style="position:absolute; top:800px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
+    <p class="input" id="invocazioneBody" style="position:absolute; top:820px; left:40px; width:315px; text-align:justify"></p>
+
+    <input id="nome" style="position:absolute; top:60px; left:522px; width:150px" value="C. Sempronius"></input>
+    <select id="provincia" style="position:absolute; top:85px; left:552px; width:120px" value="Roma Urbe">
+      <option value="Roma Urbe">Roma Urbe</option>
+      <option value="Italia">Italia</option>
+      <option value="Illyricum">Illyricum</option>
+      <option value="Macedonia">Macedonia</option>
+      <option value="Achaia">Achaia</option>
+      <option value="Gallia">Gallia</option>
+      <option value="Germania">Germania</option>
+      <option value="Raetia">Raetia</option>
+      <option value="Britannia">Britannia</option>
+      <option value="Iberia">Iberia</option>
+      <option value="Thracia">Thracia</option>
+      <option value="Dacia">Dacia</option>
+      <option value="Asia">Asia</option>
+      <option value="Armenia">Armenia</option>
+      <option value="Mesopotamia">Mesopotamia</option>
+      <option value="Syria">Syria</option>
+      <option value="Arabia">Arabia</option>
+      <option value="Aegyptus">Aegyptus</option>
+      <option value="Numidia">Numidia</option>
+      <option value="Mauretania">Mauretania</option>
+    </select>
+    <input id="lingue1" style="position:absolute; top:109px; left:552px; width:120px" value="Latino"></input>
+    <input id="lingue2" style="position:absolute; top:133px; left:552px; width:120px" value="Etrusco"></input>
+    <span class="input" id="eta_out" style="position:absolute; top:60px; left:998px; width:136px; text-align:center" value="28"></span>
+    <input id="aetas" type="range" min="16" max="80" style="position:absolute; top:69px; left:998px; width:136px" value="28"></input>
+    <select id="sesso" style="position:absolute; top:85px; left:998px; width:136px" value="M">
+      <option value="male">M</option>
+      <option value="female">F</option>
+    </select>
+
+    <select name="qualifica" id="qualifica" style="position:absolute; top:109px; left:998px; width:136px" value="Guerriero">
+      <option value="Augure">Augure</option>
+      <option value="Diplomatico">Diplomatico</option>
+      <option value="Esploratore">Esploratore</option>
+      <option value="Guerriero">Guerriero</option>
+      <option value="Sapiente">Sapiente</option>
+      <option value="Assassino">Assassino</option>
+    </select>
+    <select name="grado" id="grado" style="position:absolute; top:133px; left:998px; width:136px" value="Guerriero">
+      <option value="I">Gregarius</option>
+      <option value="II">Duplicarius</option>
+      <option value="III">Beneficiarius</option>
+      <option value="IV">Veteranus</option>
+      <option value="V">Decanus</option>
+      <option value="VI">Electus</option>
+      <option value="VII">Protector</option>
+    </select>
+
+    <input id="Coordinatio" type="number" min="3" max="20" style="position:absolute; top:227px; left:654px; width:32px; font-size:110%; text-align:center" value="8"></input>
+    <input id="Auctoritas" type="number" min="3" max="20" style="position:absolute; top:227px; left:842px; width:32px; font-size:110%; text-align:center" value="8"></input>
+    <input id="Ratio" type="number" min="3" max="20" style="position:absolute; top:227px; left:1036px; width:32px; font-size:110%; text-align:center" value="8"></input>
+    <input id="Vigor" type="number" min="3" max="20" style="position:absolute; top:285px; left:654px; width:32px; font-size:110%; text-align:center" value="8"></input>
+    <input id="Ingenium" type="number" min="3" max="20" style="position:absolute; top:285px; left:842px; width:32px; font-size:110%; text-align:center" value="8"></input>
+    <input id="Sensibilitas" type="number" min="3" max="20" style="position:absolute; top:285px; left:1036px; width:32px; font-size:110%; text-align:center" value="8"></input>
+
+    <input id="DeBello" type="number" min="3" max="48" style="position:absolute; top:378px; left:629px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="DeCorpore" type="number" min="3" max="48" style="position:absolute; top:378px; left:840px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="DeMagia" type="number" min="3" max="48" style="position:absolute; top:378px; left:1045px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="DeNatura" type="number" min="3" max="48" style="position:absolute; top:519px; left:629px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="DeScientia" type="number" min="3" max="48" style="position:absolute; top:519px; left:840px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="DeSocietate" type="number" min="3" max="48" style="position:absolute; top:519px; left:1045px; width:35px; font-size:110%; text-align:center" value="8"></input>
+
+    <input id="pietas_current" type="number" min="0" max="40" style="position:absolute; top:924px; left:538px; width:40px; font-size:110%; text-align:center" value="8"></input>
+    <input id="pietas" min="6" max="40" type="number" style="position:absolute; top:978px; left:538px; width:35px; font-size:110%; text-align:center" value="8"></input>
+    <input id="vita" type="number" min="1" max="40" style="position:absolute; top:668px; left:680px; width:35px; font-size:110%; text-align:center" value="8"></input>
+
+    <p style="position:absolute; top:678px; left:880px; width:165px; font-size:110%; text-align:center; color:#694d1e">Moltiplicatori</p> 
+    <p style="position:absolute; top:698px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeBello" name="multDeBello" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeBello" style="width:100px">de bello</label></p>
+    <p style="position:absolute; top:718px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeCorpore" name="multDeCorpore" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeCorpore" style="width:100px">de corpore</label></p>
+    <p style="position:absolute; top:738px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeMagia" name="multDeMagia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeMagia" style="width:100px">de magia</label></p>
+    <p style="position:absolute; top:758px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeNatura" name="multDeNatura" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeNatura" style="width:100px">de natura</label></p>
+    <p style="position:absolute; top:778px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeScientia" name="multDeScientia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeScientia" style="width:100px">de scientia</label></p>
+    <p style="position:absolute; top:798px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeSocietate" name="multDeSocietate" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeSocietate" style="width:100px">de societate</label></p>
+    <p style="position:absolute; top:818px; left:880px; width:185px; font-size:110%; text-align:left">&times;<input id="multMosArcanorum" name="multMosArcanorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multMosArcanorum" style="width:120px">mos arcanorum</label></p>
+    <p style="position:absolute; top:838px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multPaxDeorum" name="multPaxDeorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multPaxDeorum" style="width:100px">pax deorum</label></p>
+    
+    <select id="specDeBello1" style="position:absolute; top:400px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+    <select id="specDeBello2" style="position:absolute; top:416px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+    <select id="specDeBello3" style="position:absolute; top:432px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+    <select id="specDeBello4" style="position:absolute; top:447px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+    <select id="specDeBello5" style="position:absolute; top:462px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+    <select id="specDeBello6" style="position:absolute; top:477px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Castra</option>
+      <option value="Minacciare">Minacciare</option>
+      <option value="Tattica">Tattica</option>
+      <option value="Archi">Archi</option>
+      <option value="Asce e Mazze">Asce e Mazze</option>
+      <option value="Dardi">Dardi</option>
+      <option value="Lance">Lance</option>
+      <option value="Pugnali">Pugnali</option>
+      <option value="Spade">Spade</option>
+    </select>   
+
+    <select id="specDeCorpore1" style="position:absolute; top:400px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>   
+    <select id="specDeCorpore2" style="position:absolute; top:416px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>   
+    <select id="specDeCorpore3" style="position:absolute; top:432px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>   
+    <select id="specDeCorpore4" style="position:absolute; top:447px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>   
+    <select id="specDeCorpore5" style="position:absolute; top:462px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>   
+    <select id="specDeCorpore6" style="position:absolute; top:477px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Banchettare">Banchettare</option>
+      <option value="Borseggiare">Borseggiare</option>
+      <option value="Furtività">Furtività</option>
+      <option value="Lotta">Lotta</option>
+      <option value="Marciare">Marciare</option>
+      <option value="Arrampicarsi">Arrampicarsi</option>
+      <option value="Correre">Correre</option>
+      <option value="Nuotare">Nuotare</option>
+      <option value="Saltare">Saltare</option>
+    </select>  
+
+    <select id="specDeMagia1" style="position:absolute; top:400px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>   
+    <select id="specDeMagia2" style="position:absolute; top:416px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>   
+    <select id="specDeMagia3" style="position:absolute; top:432px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>   
+    <select id="specDeMagia4" style="position:absolute; top:447px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>   
+    <select id="specDeMagia5" style="position:absolute; top:462px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>   
+    <select id="specDeMagia6" style="position:absolute; top:477px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Culti Imperiali">Culti Imperiali</option>
+      <option value="Culti Proibiti">Culti Proibiti</option>
+      <option value="Superstizioni">Superstizioni</option>
+      <option value="Chiaroveggenza">Chiaroveggenza</option>
+      <option value="Favore degli Dei">Favore degli Dei</option>
+      <option value="Interpretazione dei Presagi">Interpretazione dei Presagi</option>
+      <option value="Interpretazione dei Sogni">Interpretazione dei Sogni</option>
+      <option value="Precognizione">Precognizione</option>
+      <option value="Retrocognizione">Retrocognizione</option>
+    </select>  
+
+    <select id="specDeNatura1" style="position:absolute; top:540px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Castra">Cacciare</option>
+      <option value="Minacciare">Cavalcare</option>
+      <option value="Tattica">Erboristeria</option>
+      <option value="Archi">Esplorazione</option>
+      <option value="Asce e Mazze">Navigare</option>
+      <option value="Dardi">Orientamento</option>
+      <option value="Lance">Recuperare Cibo</option>
+      <option value="Pugnali">Sapienza Animale</option>
+      <option value="Spade">Tempo Atmosferico</option>
+    </select>   
+    <select id="specDeNatura2" style="position:absolute; top:556px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Cacciare">Cacciare</option>
+      <option value="Cavalcare">Cavalcare</option>
+      <option value="Erboristeria">Erboristeria</option>
+      <option value="Esplorazione">Esplorazione</option>
+      <option value="Navigare">Navigare</option>
+      <option value="Orientamento">Orientamento</option>
+      <option value="Recuperare Cibo">Recuperare Cibo</option>
+      <option value="Sapienza Animale">Sapienza Animale</option>
+      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+    </select>   
+    <select id="specDeNatura3" style="position:absolute; top:572px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Cacciare">Cacciare</option>
+      <option value="Cavalcare">Cavalcare</option>
+      <option value="Erboristeria">Erboristeria</option>
+      <option value="Esplorazione">Esplorazione</option>
+      <option value="Navigare">Navigare</option>
+      <option value="Orientamento">Orientamento</option>
+      <option value="Recuperare Cibo">Recuperare Cibo</option>
+      <option value="Sapienza Animale">Sapienza Animale</option>
+      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+    </select>   
+    <select id="specDeNatura4" style="position:absolute; top:587px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Cacciare">Cacciare</option>
+      <option value="Cavalcare">Cavalcare</option>
+      <option value="Erboristeria">Erboristeria</option>
+      <option value="Esplorazione">Esplorazione</option>
+      <option value="Navigare">Navigare</option>
+      <option value="Orientamento">Orientamento</option>
+      <option value="Recuperare Cibo">Recuperare Cibo</option>
+      <option value="Sapienza Animale">Sapienza Animale</option>
+      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+    </select>   
+    <select id="specDeNatura5" style="position:absolute; top:602px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Cacciare">Cacciare</option>
+      <option value="Cavalcare">Cavalcare</option>
+      <option value="Erboristeria">Erboristeria</option>
+      <option value="Esplorazione">Esplorazione</option>
+      <option value="Navigare">Navigare</option>
+      <option value="Orientamento">Orientamento</option>
+      <option value="Recuperare Cibo">Recuperare Cibo</option>
+      <option value="Sapienza Animale">Sapienza Animale</option>
+      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+    </select>   
+    <select id="specDeNatura6" style="position:absolute; top:617px; left:513px; width:100px">
+      <option value="empty"></option>
+      <option value="Cacciare">Cacciare</option>
+      <option value="Cavalcare">Cavalcare</option>
+      <option value="Erboristeria">Erboristeria</option>
+      <option value="Esplorazione">Esplorazione</option>
+      <option value="Navigare">Navigare</option>
+      <option value="Orientamento">Orientamento</option>
+      <option value="Recuperare Cibo">Recuperare Cibo</option>
+      <option value="Sapienza Animale">Sapienza Animale</option>
+      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+    </select>   
+
+    <select id="specDeScientia1" style="position:absolute; top:540px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>   
+    <select id="specDeScientia2" style="position:absolute; top:556px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>   
+    <select id="specDeScientia3" style="position:absolute; top:572px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>   
+    <select id="specDeScientia4" style="position:absolute; top:587px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>   
+    <select id="specDeScientia5" style="position:absolute; top:602px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>   
+    <select id="specDeScientia6" style="position:absolute; top:617px; left:715px; width:100px">
+      <option value="empty"></option>
+      <option value="Architettura">Architettura</option>
+      <option value="Artigianato">Artigianato</option>
+      <option value="Decifrare">Decifrare</option>
+      <option value="Filosofia">Filosofia</option>
+      <option value="Geografia">Geografia</option>
+      <option value="Storia">Storia</option>
+      <option value="Indagare">Indagare</option>
+      <option value="Machinae">Machinae</option>
+      <option value="Medicina">Medicina</option>
+    </select>  
+
+    <select id="specDeSocietate1" style="position:absolute; top:540px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>   
+    <select id="specDeSocietate2" style="position:absolute; top:556px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>   
+    <select id="specDeSocietate3" style="position:absolute; top:572px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>   
+    <select id="specDeSocietate4" style="position:absolute; top:587px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>   
+    <select id="specDeSocietate5" style="position:absolute; top:602px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>   
+    <select id="specDeSocietate6" style="position:absolute; top:617px; left:920px; width:100px">
+      <option value="empty"></option>
+      <option value="Bassifondi">Bassifondi</option>
+      <option value="Comandare">Comandare</option>
+      <option value="Decorum">Decorum</option>
+      <option value="Ingannare">Ingannare</option>
+      <option value="Intrattenimento">Intrattenimento</option>
+      <option value="Negoziare">Negoziare</option>
+      <option value="Oratoria">Oratoria</option>
+      <option value="Politica">Politica</option>
+      <option value="Seduzione">Seduzione</option>
+    </select>  
+
+   <input id="specDeBello1value" type="number" min="0" max="9" value="0" style="position:absolute; top:400px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeBello2value" type="number" min="0" max="9" value="0" style="position:absolute; top:416px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeBello3value" type="number" min="0" max="9" value="0" style="position:absolute; top:432px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeBello4value" type="number" min="0" max="9" value="0" style="position:absolute; top:447px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeBello5value" type="number" min="0" max="9" value="0" style="position:absolute; top:462px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeBello6value" type="number" min="0" max="9" value="0" style="position:absolute; top:477px; left:629px; width:30px; text-align:center"></input>
+
+   <input id="specDeCorpore1value" type="number" min="0" max="9" value="0" style="position:absolute; top:400px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeCorpore2value" type="number" min="0" max="9" value="0" style="position:absolute; top:416px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeCorpore3value" type="number" min="0" max="9" value="0" style="position:absolute; top:432px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeCorpore4value" type="number" min="0" max="9" value="0" style="position:absolute; top:447px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeCorpore5value" type="number" min="0" max="9" value="0" style="position:absolute; top:462px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeCorpore6value" type="number" min="0" max="9" value="0" style="position:absolute; top:477px; left:832px; width:30px; text-align:center"></input>
+
+   <input id="specDeMagia1value" type="number" min="0" max="9" value="0" style="position:absolute; top:400px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeMagia2value" type="number" min="0" max="9" value="0" style="position:absolute; top:416px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeMagia3value" type="number" min="0" max="9" value="0" style="position:absolute; top:432px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeMagia4value" type="number" min="0" max="9" value="0" style="position:absolute; top:447px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeMagia5value" type="number" min="0" max="9" value="0" style="position:absolute; top:462px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeMagia6value" type="number" min="0" max="9" value="0" style="position:absolute; top:477px; left:1037px; width:30px; text-align:center"></input>
+
+   <input id="specDeNatura1value" type="number" min="0" max="9" value="0" style="position:absolute; top:540px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeNatura2value" type="number" min="0" max="9" value="0" style="position:absolute; top:556px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeNatura3value" type="number" min="0" max="9" value="0" style="position:absolute; top:572px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeNatura4value" type="number" min="0" max="9" value="0" style="position:absolute; top:587px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeNatura5value" type="number" min="0" max="9" value="0" style="position:absolute; top:602px; left:629px; width:30px; text-align:center"></input>
+   <input id="specDeNatura6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:629px; width:30px; text-align:center"></input>
+
+   <input id="specDeScientia1value" type="number" min="0" max="9" value="0" style="position:absolute; top:540px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeScientia2value" type="number" min="0" max="9" value="0" style="position:absolute; top:556px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeScientia3value" type="number" min="0" max="9" value="0" style="position:absolute; top:572px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeScientia4value" type="number" min="0" max="9" value="0" style="position:absolute; top:587px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeScientia5value" type="number" min="0" max="9" value="0" style="position:absolute; top:602px; left:832px; width:30px; text-align:center"></input>
+   <input id="specDeScientia6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:832px; width:30px; text-align:center"></input>
+
+   <input id="specDeSocietate1value" type="number" min="0" max="9" value="0" style="position:absolute; top:540px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeSocietate2value" type="number" min="0" max="9" value="0" style="position:absolute; top:556px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeSocietate3value" type="number" min="0" max="9" value="0" style="position:absolute; top:572px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeSocietate4value" type="number" min="0" max="9" value="0" style="position:absolute; top:587px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeSocietate5value" type="number" min="0" max="9" value="0" style="position:absolute; top:602px; left:1037px; width:30px; text-align:center"></input>
+   <input id="specDeSocietate6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:1037px; width:30px; text-align:center"></input>
+
+   </form>
+   <button id="menuButton" type="button" class="invisibleButton"></button>
+   <div id="modalMenu" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p style="cursor:pointer; display:inline; text-align:center" onClick=generateCustos()>New</p>
+      <p style="cursor:pointer; display:inline; text-align:center" onClick=storeCustos()>Store</p>
+      <p style="cursor:pointer; display:inline; text-align:center" onClick=loadCustos('/stored')>Load</p>
     </div>
-    <div id="main" class="mainblock">
-    </div>   
-    <script type="text/javascript">
-          if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').
-              then(function (registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-              }).catch(function (err) {
-                console.log('ServiceWorker registration failed: ', err);
-              });
-          };
+   </div>
+  </body>
+<script type="text/javascript">
+var slider = document.getElementById("aetas");
+var output = document.getElementById("eta_out");
+output.innerHTML = slider.value;
 
-          var char_template = `
-    <div class="main">
-     <div class="wideblock">
-     <h1 class="heading">Custos</h1>
-       <div class="wideinner">
-       <p><span class="left">Nomen:</span> <span class="right">{{nome}}</span></p>
-       <p><span class="left">Provincia:</span> <span class="right"> {{provincia}}</span></p>
-       <p><span class="left">Aetas:</span> <span class="right">{{aetas}}</span></p>
-       <p><span class="left">Origo:</span> <span class="right">{{origine}} ({{citta}})</span></p>
-       <p><span class="left">Familia:</span> <span class="right">{{famiglia}}</span></p>
-       <p><span class="left">Cursus:</span> <span class="right">{{qualifica}}</span></p>
-       <p><span class="left">Vita:</span> <span class="right">{{vita}}</span></p>
-       <p><span class="left">Pietas:</span> <span class="right">{{pietas}}</span></p>
-       </div>
-     </div>
-    <div class="container">
-     <div class="block">
-     <h2 class="heading">Virtutes</h2>
-       <div class="inner">
-       <p><span class="left">Vigor</span> <span class="right">{{virtutes.Vigor}}</span></p>
-       <p><span class="left">Coordinatio</span> <span class="right">{{virtutes.Coordinatio}}</span></p>
-       <p><span class="left">Auctoritas</span> <span class="right">{{virtutes.Auctoritas}}</span></p>
-       <p><span class="left">Ingenium</span> <span class="right">{{virtutes.Ingenium}}</span></p>
-       <p><span class="left">Sensibilitas</span> <span class="right">{{virtutes.Sensibilitas}}</span></p>
-       <p><span class="left">Ratio</span> <span class="right">{{virtutes.Ratio}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h2 class="heading">Peritiae</h2>
-       <div class="inner">
-       <p><span class="left">De Bello</span> <span class="right">{{peritiae.DeBello}}</span></p>
-       <p><span class="left">De Corpore</span> <span class="right">{{peritiae.DeCorpore}}</span></p>
-       <p><span class="left">De Magia</span> <span class="right">{{peritiae.DeMagia}}</span></p>
-       <p><span class="left">De Natura</span> <span class="right">{{peritiae.DeNatura}}</span></p>
-       <p><span class="left">De Scientia</span> <span class="right">{{peritiae.DeScientia}}</span></p>
-       <p><span class="left">De Societate</span> <span class="right">{{peritiae.DeSocietate}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h3 class="heading">Specializzazioni</h3>
-       {{#each specializzazioni}}
-       <p><span class="leftspec">{{this.id}}:</span> <span class="right">{{this.val}}</span></p>
-       {{/each}}
-     </div>     
-     <div class="block">
-     <h2 class="heading">Curriculum</h2>
-       <div class="inner">
-       <p><span class="left">De Bello</span> <span class="right">x{{moltiplicatori.DeBello}}</span></p>
-       <p><span class="left">De Corpore</span> <span class="right">x{{moltiplicatori.DeCorpore}}</span></p>
-       <p><span class="left">De Magia</span> <span class="right">x{{moltiplicatori.DeMagia}}</span></p>
-       <p><span class="left">De Natura</span> <span class="right">x{{moltiplicatori.DeNatura}}</span></p>
-       <p><span class="left">De Scientia</span> <span class="right">x{{moltiplicatori.DeScientia}}</span></p>
-       <p><span class="left">De Societate</span> <span class="right">x{{moltiplicatori.DeSocietate}}</span></p>
-       <p><span class="left">Mos Arcanorum</span> <span class="right">x{{moltiplicatori.MosArcanorum}}</span></p>
-       <p><span class="left">Pax Deorum</span> <span class="right">x{{moltiplicatori.PaxDeorum}}</span></p>
-       </div>
-     </div>
-     <div class="block">
-     <h2 class="heading">Lingue</h2>
-       <div class="inner">
-       {{#each languages}}
-       <p>{{this}}</p>
-       {{/each}}
-       </div>
-     </div>
-    </div>
-   </div>`
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
 
-          function storeCustos() {
-            /* id = Date.now(); */
-            id='/stored'
-            caches.open('storage').then(function(cache) {
-              cache.match('/current').then(function(res) {
-                cache.put(id, res);
-              });
-            });           
-          };
+var qualifica = document.getElementById("qualifica");
+var q_output_t = document.getElementById("combatAbName");
+var q_output_b = document.getElementById("combatAbBody");
+var q_output_i = document.getElementById("invocazioneName");
+var q_output_n = document.getElementById("invocazioneBody");
 
-          function loadCustos(key) {
-            caches.open('storage').then(function(cache) {
-              cache.match(key).then((resp) => (resp.json()))
-                .then(function(res) {
-                cache.put('/current', new Response(res)); 
-                var template = Handlebars.compile(char_template);
-                var instanced = template(res);
-                document.getElementById("main").innerHTML = instanced;
-              });
-            });
-          };
+qualifica.onchange = function () {
+  console.log("qualifica", this.value);
+  var v = null;
+  var b = null;
+  var i = null;
+  var n = null;
+  switch (this.value) {
+    case "Augure" : v = "Preveggenza benedetta";
+    break;
+    case "Diplomatico" : v = "Chiamata alle armi";
+    break;
+    case "Esploratore" : v = "Cacciatore di uomini";
+    break;
+    case "Guerriero" : v = "Dovere degli eroi";
+    break;
+    case "Sapiente" : v = "Tallone d'Achille";
+    break;
+    case "Assassino" : v = "Colpo letale";
+    break;
+    default : console.log("error");
+  }
+  switch (this.value) {
+    case "Augure" : b = `Una volta per tempus, l’Augure può costringere un avversario a sua scelta a ripetere un tiro di De Bello effettuato
+contro di lui. Si considera sempre il secondo risultato,
+anche se superiore al primo.`;
+    break;
+    case "Diplomatico" : b = `Durante un combattimento, una volta per tempus il Diplomatico può scegliere un alleato che ha appena effettuato un tiro di De Bello: l’alleato ripete quel tiro (deve
+tenere il nuovo risultato).`;
+    break;
+    case "Esploratore" : b = `Se usa un’arma con un valore base di Danno pari a 6 o
+meno, un Esploratore può utilizzare De Natura al posto
+di De Bello per effettuare gli attacchi a distanza. Punti
+Dado bonus derivanti da una pertinente Specializzazione
+di De Bello possono essere normalmente applicati al tiro.`;
+    break;
+    case "Guerriero" : b = `Durante il combattimento, all’inizio di ogni tempus, il
+Guerriero può volontariamente ingaggiare un avversario
+in più rispetto al numero di avversari che potrebbe normalmente ingaggiare, indipendentemente da quale schieramento sia in inferiorità
+numerica. Inoltre, il Guerriero può sempre decidere quali nemici ingaggiare.`;
+    break;
+    case "Sapiente" : b = `Una volta per tempus, il Sapiente può ripetere un qualsiasi tiro che ha appena effettuato per i danni (che infligge) o di protezione (per evitare di subirne). Il Sapiente deve
+utilizzare il secondo risultato, anche se inferiore al primo.`;
+    break;
+    case "Assassino" : b = `Se il suo Ingombro totale è pari o inferiore alla metà dei suoi Punti
+Vita massimi (arrotondata per difetto) e l’arma che sta utilizzando
+ha un punteggio di Danno base pari a 4 o meno, l’Assassino può
+usare De Corpore al posto di De Bello per effettuare attacchi ravvicinati. Punti Dado bonus derivanti da una pertinente Specializzazione di De Bello possono essere normalmente applicati al tiro.`;
+    break;
+    default : console.log(this.value);
+  }
+  switch (this.value) {
+    case "Augure" : i = "Apollo Coelispex";
+    break;
+    case "Diplomatico" : i = "Mercurius Negotiator";
+    break;
+    case "Esploratore" : i = "Diana Opifera";
+    break;
+    case "Guerriero" : i = "Mars Victor";
+    break;
+    case "Sapiente" : i = "Minerva Ingeniosa";
+    break;
+    case "Assassino" : i = "Pluto Mortis Thesaurus";
+    break;
+    default : console.log("error");
+  }
+  switch (this.value) {
+    case "Augure" : n = `Spendendo 6 Pietas, un Augure che ha effettuato un tiro di De
+Magia può usare questa invocazione per tirare di nuovo la stessa
+combinazione di dadi e sommare il risultato al precedente.`;
+    break;
+    case "Diplomatico" : n = `Spendendo 6 Pietas, un Diplomatico che ha effettuato un tiro di
+De Societate può usare questa invocazione per tirare di nuovo la
+stessa combinazione di dadi e sommare il risultato al precedente.`;
+    break;
+    case "Esploratore" : n = `Spendendo 6 Pietas, un Esploratore che ha effettuato un tiro di De
+Natura può usare questa invocazione per tirare di nuovo la stessa
+combinazione di dadi, e sommare il risultato al precedente.`;
+    break;
+    case "Guerriero" : n = `Spendendo 6 Pietas, un Guerriero che ha effettuato un tiro di De
+Bello può usare questa invocazione per tirare di nuovo la stessa
+combinazione di dadi e sommare il risultato al precedente.`;
+    break;
+    case "Sapiente" : n = `Una volta per tempus, il Sapiente può ripetere un qualsiasi tiro che ha appena effettuato per i danni (che infligge) o di protezione (per evitare di subirne). Il Sapiente deve
+utilizzare il secondo risultato, anche se inferiore al primo.`;
+    break;
+    case "Assassino" : n = `Spendendo 6 Pietas, un Sapiente che ha effettuato un tiro di De
+Scientia può usare questa invocazione per tirare di nuovo la stessa
+combinazione di dadi e sommare il risultato al precedente.`;
+    break;
+    default : console.log(this.value);
+  }
+  q_output_t.innerHTML = v;
+  q_output_b.innerHTML = b;
+  q_output_i.innerHTML = i;
+  q_output_n.innerHTML = n;
+}
 
-          function generateCustos() {
-          languagePluginLoader.then(function () {
-              var x = pyodide.runPython(`
+qualifica.onchange();
+
+
+var nome = document.getElementById("nome");
+var nome_output = document.getElementById("nome1");
+nome_output.innerHTML = nome.value;
+
+nome.onchange = function() {
+  console.log(this.value);
+  nome_output.innerHTML = this.value;
+}
+
+function get_options(field){
+  var x = document.getElementById(field);
+  var r = [];
+  for (var i = 0; i < x.length; i++) {
+    r.push(x.options[i].value);
+  }
+  return r
+}
+
+function to_form(custos){
+  var data1=document.forms["charsheet"].getElementsByTagName("input");
+  var data2=document.forms["charsheet"].getElementsByTagName("select");
+  console.log(custos['nome'])
+  for (var i=0; i<data1.length; i++){
+    console.log("checking", data1[i].id);
+    if (custos.hasOwnProperty(data1[i].id)) {
+      console.log("found", data1[i].id);
+      data1[i].value=custos[data1[i].id]
+    }
+    if (custos['peritiae'].hasOwnProperty(data1[i].id)) {
+      console.log("found", data1[i].id);
+      data1[i].value=custos['peritiae'][data1[i].id]
+    }
+    if (custos['virtutes'].hasOwnProperty(data1[i].id)) {
+      console.log("found", data1[i].id);
+      data1[i].value=custos['virtutes'][data1[i].id]
+    }
+    if ("mult" == data1[i].id.substring(0,4)) {
+      console.log("mult", data1[i].id.substring(4,data1[i].id.length));
+      if (custos['moltiplicatori'].hasOwnProperty(data1[i].id.substring(4,data1[i].id.length))) {
+        console.log("found", data1[i].id);
+        data1[i].value=custos['moltiplicatori'][data1[i].id.substring(4,data1[i].id.length)]
+      }
+    }
+    if ("lingue1" == data1[i].id) {
+      var l = custos['languages'];
+      data1[i].value=l.slice(0, l.length/2)
+    }
+    if ("lingue2" == data1[i].id) {
+      var l = custos['languages'];
+      data1[i].value=l.slice(l.length/2, l.length)
+    }
+    if ("spec" == data1[i].id.substring(0,4)) { // spec value
+         data1[i].value=0;
+    }
+  }  
+  for (var i=0; i<data2.length; i++){
+    console.log("checking", data2[i].id);
+    if (custos.hasOwnProperty(data2[i].id)) {
+      console.log("found", data2[i].id);
+      data2[i].value=custos[data2[i].id]
+    }
+    if ("spec" == data2[i].id.substring(0,4)) { // spec id
+         data2[i].value="empty";
+    }
+  }
+  // Fix Specializations
+  specs = custos['specializzazioni'];
+  console.log(specs);
+  var options = { 
+    "DeBello" : get_options("specDeBello1"),
+    "DeCorpore" :   get_options("specDeCorpore1"),
+    "DeMagia" :   get_options("specDeMagia1"),
+    "DeNatura" :   get_options("specDeNatura1"),
+    "DeScientia" :   get_options("specDeScientia1"),
+    "DeSocietate" :   get_options("specDeSocietate1")
+  }
+  var next_slot = {
+    "DeBello" : 1,
+    "DeCorpore" :   1,
+    "DeMagia" :   1,
+    "DeNatura" :   1,
+    "DeScientia" :   1,
+    "DeSocietate" :  1 
+  }
+  for (var i = 0; i < specs.length; i++) {
+    for (var p in options) {
+      if (options[p].includes(specs[i].id)) {
+        document.getElementById("spec"+p+next_slot[p].toString()).value=specs[i].id;
+        document.getElementById("spec"+p+next_slot[p].toString()+"value").value=specs[i].val;
+        next_slot[p]=next_slot[p]+1
+      }
+    }
+  }
+
+
+  qualifica.onchange()
+  nome.onchange()
+  slider.oninput()
+}
+
+function test() {
+  var data1=document.forms["charsheet"].getElementsByTagName("input");
+  var data2=document.forms["charsheet"].getElementsByTagName("select");
+  var formData = {}
+  for (var i=0; i<data1.length; i++){
+    formData[data1[i].id]=data1[i].value
+  }  
+  for (var i=0; i<data2.length; i++){
+    formData[data2[i].id]=data2[i].value
+  }  
+  console.log(formData);
+}
+
+// Get the modal
+var modal = document.getElementById("modalMenu");
+
+// Get the button that opens the modal
+var btn = document.getElementById("menuButton");
+
+// Get the <span> element that closes the modal
+var modal_close = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+modal_close.onclick = function() {
+  modal.style.display = "none";
+}
+
+
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').
+    then(function (registration) {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function (err) {
+      console.log('ServiceWorker registration failed: ', err);
+    });
+};
+
+function storeCustos() {
+  /* id = Date.now(); */
+  id='/stored'
+  caches.open('storage').then(function(cache) {
+    cache.match('/current').then(function(res) {
+      cache.put(id, res);
+    });
+  });           
+};
+
+function loadCustos(key) {
+  caches.open('storage').then(function(cache) {
+    cache.match(key).then((resp) => (resp.json()))
+      .then(function(res) {
+         cache.put('/current', new Response(res)); 
+           console.log(res);
+           to_form(res);
+         });
+    });
+};
+
+function generateCustos() {
+  languagePluginLoader.then(function () {
+  var x = pyodide.runPython(`
 from random import choice, randint
 def dX(f):
   def dice(n=1):
@@ -464,37 +1220,37 @@ locative = {
  },
 }
 
-def patronymic_particle(origin,gender):
+def patronymic_particle(origin,sesso):
   if origin == 'Britannia' :
-    if gender == 'female' : return 'nic '
+    if sesso == 'female' : return 'nic '
     else : return choice(['mab ', 'ap '])
   elif origin in [ 'Syria', 'Arabia', 'Mesopotamia' ] :
-    if gender == 'female' : return 'Bat-'
+    if sesso == 'female' : return 'Bat-'
     else : return 'Bar-'
 
-def get_praenomen(gender, origin, family):
-  return choice(praenomina[gender][origin])
+def get_praenomen(sesso, origin, family):
+  return choice(praenomina[sesso][origin])
 
-def get_nomen(gender, origin, family):
+def get_nomen(sesso, origin, family):
   if d4()<=2 : 
-    if gender == 'male' : return choice(extra_nomen_male[origin])
+    if sesso == 'male' : return choice(extra_nomen_male[origin])
     else : return choice(extra_nomen_female[origin])
-  return choice(nomina[gender]['latin'])
+  return choice(nomina[sesso]['latin'])
 
-def get_cognomen(gender, origin, family):
-  return choice(cognomina[gender][origin])
+def get_cognomen(sesso, origin, family):
+  return choice(cognomina[sesso][origin])
 
-def get_name(gender, origin, family):
-  fmt = choice(the_format[gender][origin])
+def get_name(sesso, origin, family):
+  fmt = choice(the_format[sesso][origin])
   r = ''
   for c in fmt : 
-    if c=='p' : r+=get_praenomen(gender, 'latin', family)+' '
-    elif c=='n' : r+=get_nomen(gender, origin, family)+' '
-    elif c=='c' : r+=get_cognomen(gender, province_to_language[origin], family)+' '
+    if c=='p' : r+=get_praenomen(sesso, 'latin', family)+' '
+    elif c=='n' : r+=get_nomen(sesso, origin, family)+' '
+    elif c=='c' : r+=get_cognomen(sesso, province_to_language[origin], family)+' '
     elif c=='m' : 
-      r+=patronymic_particle(origin, gender)
-      gender='male'
-  if len(fmt) < 2 : r+=choice(locative[gender][origin])
+      r+=patronymic_particle(origin, sesso)
+      sesso='male'
+  if len(fmt) < 2 : r+=choice(locative[sesso][origin])
   return r 
 
 virtutes = [ 'Vigor', 'Coordinatio', 'Auctoritas', 'Ingenium', 'Sensibilitas', 'Ratio' ]
@@ -719,7 +1475,7 @@ class Custos(object):
       if p[0]== qualifica_peritia[q] : return q
     raise Exception('Highest peritia: {}'.format(p))
 
-  def __init__(self, gender=None, qualifica=None, origo=None):
+  def __init__(self, sesso=None, qualifica=None, origo=None):
     while 1 :
       self.virtutes = { v : d6(2) for v in virtutes }
       self.qualifica=self.qualifica_ottima()
@@ -773,11 +1529,11 @@ class Custos(object):
       self.citta = gen_vicus(self.provincia)
     else :
       self.citta = gen_castrum(self.provincia)
-    self.gender=choice(['male','female']) if not gender else gender
-    self.nome=get_name(self.gender, self.provincia, self.famiglia)
+    self.sesso=choice(['male','female']) if not sesso else sesso
+    self.nome=get_name(self.sesso, self.provincia, self.famiglia)
     self.languages=lingue[self.provincia]['fixed']
     self.languages.append(choice(lingue[self.provincia]['choice']))
-
+    self.grado='I'
 
   def json(self):
     import json
@@ -789,17 +1545,16 @@ def make_char():
 
 custos=make_char()
                   `);
-        var template = Handlebars.compile(char_template);
-        var custos = JSON.parse(pyodide.globals.custos);
-        console.log(custos);
-        var instanced = template(custos);
-        document.getElementById("main").innerHTML = instanced;
-        caches.open('storage').then(function(cache) {
-           cache.put('/current', new Response(pyodide.globals.custos));
-        });
-          });
-    }
-    </script>
-  </body>
+  //var template = Handlebars.compile(char_template);
+  var custos = JSON.parse(pyodide.globals.custos);
+  console.log(custos);
+  //var instanced = template(custos);
+  //document.getElementById("main").innerHTML = instanced;
+  to_form(custos);
+  caches.open('storage').then(function(cache) {
+    cache.put('/current', new Response(pyodide.globals.custos));
+  });
+ });
+}
+</script>
 </html>
-
