@@ -7,6 +7,7 @@ let filesToCache = [
   '/pyodide.js',
   '/handlebars.js',
   '/scheda.svg',
+  'https://fonts.googleapis.com/css?family=Marcellus+SC|Material+Icons',
   'favicon.ico'
 ]
 
