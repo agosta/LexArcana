@@ -120,7 +120,7 @@
     <p style="position:absolute; top:758px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeNatura" name="xpDeNatura" type="number" style="width:135px;" value="0"></input></p>
     <p style="position:absolute; top:778px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeScientia" name="xpDeScientia" type="number"style="width:135px;" value="0"></input></p>
     <p style="position:absolute; top:798px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeSocietate" name="xpDeSocietate" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:818px; left:1000px; width:185px; font-size:110%; text-align:left"><input id="xpMosArcanorum" name="xpMosArcanorum" type="number" min="1" max="10" style="width:135px;" value="0"></input></p>
+    <p style="position:absolute; top:818px; left:1000px; width:185px; font-size:110%; text-align:left"><input id="xpMosArcanorum" name="xpMosArcanorum" type="number" style="width:135px;" value="0"></input></p>
     <p style="position:absolute; top:838px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpPaxDeorum" name="xpPaxDeorum" type="number" style="width:135px;" value="0"></input></p>
 
     
@@ -871,8 +871,18 @@ function cycle_pv(id) {
   else if (v == ' ') x.innerHTML='X';
 }
 
-function write_on_pv(pv, c){
-  instanced=template({'top': t, 'left': l, 'c': c});
+function from_form(){
+  var the_custos={}
+  var data1=document.forms["charsheet"].getElementsByTagName("input");
+  var data2=document.forms["charsheet"].getElementsByTagName("select");
+  for (var i=0; i<data1.length; i++){
+      the_custos[data1[i].id]=data1[i].value
+  }
+  for (var i=0; i<data2.length; i++){
+      the_custos[data2[i].id]=data2[i].value
+  }
+  custos=the_custos;
+  return the_custos;
 }
 
 function to_form(the_custos){
@@ -886,28 +896,33 @@ function to_form(the_custos){
       console.log("found", data1[i].id);
       data1[i].value=custos[data1[i].id]
     }
+    if (custos.hasOwnProperty('peritiae'))
     if (custos['peritiae'].hasOwnProperty(data1[i].id)) {
       console.log("found", data1[i].id);
       data1[i].value=custos['peritiae'][data1[i].id]
     }
+    if (custos.hasOwnProperty('virtutes'))
     if (custos['virtutes'].hasOwnProperty(data1[i].id)) {
       console.log("found", data1[i].id);
       data1[i].value=custos['virtutes'][data1[i].id]
     }
     if ("mult" == data1[i].id.substring(0,4)) {
       console.log("mult", data1[i].id.substring(4,data1[i].id.length));
+      if (custos.hasOwnProperty('moltiplicatori'))
       if (custos['moltiplicatori'].hasOwnProperty(data1[i].id.substring(4,data1[i].id.length))) {
         console.log("found", data1[i].id);
         data1[i].value=custos['moltiplicatori'][data1[i].id.substring(4,data1[i].id.length)]
       }
     }
-    if ("lingue1" == data1[i].id) {
-      var l = custos['languages'];
-      data1[i].value=l.slice(0, l.length/2)
-    }
-    if ("lingue2" == data1[i].id) {
-      var l = custos['languages'];
-      data1[i].value=l.slice(l.length/2, l.length)
+    if (custos.hasOwnProperty('languages')) {
+      if ("lingue1" == data1[i].id) {
+        var l = custos['languages'];
+        data1[i].value=l.slice(0, l.length/2)
+      }
+      if ("lingue2" == data1[i].id) {
+        var l = custos['languages'];
+        data1[i].value=l.slice(l.length/2, l.length)
+      }
     }
     if ("spec" == data1[i].id.substring(0,4)) { // spec value
          data1[i].value=0;
@@ -929,41 +944,45 @@ function to_form(the_custos){
     cycle_pv(id);
   }
   // Fix equipment
-  armatura = custos['equipaggiamento']['armatura'];
-  scudo = custos['equipaggiamento']['scudo'];
-  arma_ravvicinata = custos['equipaggiamento']['armi_ravvicinate'][0];
-  arma_ravvicinata_secondaria = custos['equipaggiamento']['armi_ravvicinate'][1];
-  arma_distanza = custos['equipaggiamento']['armi_distanza'][0];
-  document.getElementById('armatura').value=armatura;
-  document.getElementById('scudo').value=scudo;
-  document.getElementById('arma_ravvicinata').value=arma_ravvicinata;
-  document.getElementById('arma_ravvicinata_secondaria').value=arma_ravvicinata_secondaria;
-  document.getElementById('arma_distanza').value=arma_distanza;
+  if (custos.hasOwnProperty('equipaggiamento')) { 
+    armatura = custos['equipaggiamento']['armatura'];
+    scudo = custos['equipaggiamento']['scudo'];
+    arma_ravvicinata = custos['equipaggiamento']['armi_ravvicinate'][0];
+    arma_ravvicinata_secondaria = custos['equipaggiamento']['armi_ravvicinate'][1];
+    arma_distanza = custos['equipaggiamento']['armi_distanza'][0];
+    document.getElementById('armatura').value=armatura;
+    document.getElementById('scudo').value=scudo;
+    document.getElementById('arma_ravvicinata').value=arma_ravvicinata;
+    document.getElementById('arma_ravvicinata_secondaria').value=arma_ravvicinata_secondaria;
+    document.getElementById('arma_distanza').value=arma_distanza;
+  }
   // Fix Specializations
-  specs = custos['specializzazioni'];
-  console.log(specs);
-  var options = { 
-    "DeBello" : get_options("specDeBello1"),
-    "DeCorpore" :   get_options("specDeCorpore1"),
-    "DeMagia" :   get_options("specDeMagia1"),
-    "DeNatura" :   get_options("specDeNatura1"),
-    "DeScientia" :   get_options("specDeScientia1"),
-    "DeSocietate" :   get_options("specDeSocietate1")
-  }
-  var next_slot = {
-    "DeBello" : 1,
-    "DeCorpore" :   1,
-    "DeMagia" :   1,
-    "DeNatura" :   1,
-    "DeScientia" :   1,
-    "DeSocietate" :  1 
-  }
-  for (var i = 0; i < specs.length; i++) {
-    for (var p in options) {
-      if (options[p].includes(specs[i].id)) {
-        document.getElementById("spec"+p+next_slot[p].toString()).value=specs[i].id;
-        document.getElementById("spec"+p+next_slot[p].toString()+"value").value=specs[i].val;
-        next_slot[p]=next_slot[p]+1
+  if (custos.hasOwnProperty('specializzazioni')) { 
+    specs = custos['specializzazioni'];
+    console.log(specs);
+    var options = { 
+      "DeBello" : get_options("specDeBello1"),
+      "DeCorpore" :   get_options("specDeCorpore1"),
+      "DeMagia" :   get_options("specDeMagia1"),
+      "DeNatura" :   get_options("specDeNatura1"),
+      "DeScientia" :   get_options("specDeScientia1"),
+      "DeSocietate" :   get_options("specDeSocietate1")
+    }
+    var next_slot = {
+      "DeBello" : 1,
+      "DeCorpore" :   1,
+      "DeMagia" :   1,
+      "DeNatura" :   1,
+      "DeScientia" :   1,
+      "DeSocietate" :  1 
+    }
+    for (var i = 0; i < specs.length; i++) {
+      for (var p in options) {
+        if (options[p].includes(specs[i].id)) {
+          document.getElementById("spec"+p+next_slot[p].toString()).value=specs[i].id;
+          document.getElementById("spec"+p+next_slot[p].toString()+"value").value=specs[i].val;
+          next_slot[p]=next_slot[p]+1
+        }
       }
     }
   }
@@ -1019,10 +1038,11 @@ if('serviceWorker' in navigator) {
 function storeCustos() {
   /* id = Date.now(); */
   id='/stored'
+  const the_custos = JSON.stringify(from_form());
+  console.log(the_custos);
   caches.open('storage').then(function(cache) {
-    cache.match('/current').then(function(res) {
-      cache.put(id, res);
-    });
+    cache.put('/current',new Response(the_custos));
+    cache.put(id,new Response(the_custos));
   });           
 };
 
