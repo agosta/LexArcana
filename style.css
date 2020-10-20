@@ -19,6 +19,15 @@ input {
  font-family: "Marcellus SC";
 }
 
+
+textarea {
+ border: none;
+ background-color: transparent;
+ text-align: justify;
+ font-family: "Marcellus SC";
+ font-size: 90%;
+}
+
 .input_label {
  border: none;
  background-color: transparent;

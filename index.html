@@ -29,7 +29,7 @@
     <input type="text" id="citta" style="position:absolute; top:180px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
     <span class="input" style="position:absolute; top:200px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
     <input type="text" id="famiglia" style="position:absolute; top:200px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
-    <input type="textarea" id="bio" style="position:absolute; top:220px; left:40px; width:315px; text-align:justify" value="bla bla bla"></input>
+    <textarea id="bio" cols="50" rows="12" wrap="soft" style="position:absolute; top:220px; left:40px; width:315px; height:180" value="Inserire la biografia del personaggio"></textarea>
     <span class="input" id="combatAbName" style="position:absolute; top:530px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
     <p  class="input" id="combatAbBody" style="position:absolute; top:540px; left:40px; width:315px; text-align:justify"></p>
     <span class="input" id="invocazioneName" style="position:absolute; top:800px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
@@ -604,7 +604,7 @@
    <input id="specDeSocietate5value" type="number" min="0" max="9" value="0" style="position:absolute; top:602px; left:1037px; width:30px; text-align:center"></input>
    <input id="specDeSocietate6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:1037px; width:30px; text-align:center"></input>
 
-    <p style="position:absolute; top:70px; left:1350px; width:165px; font-size:110%; text-align:center; color:#694d1e">Equipaggiamento</p> 
+    <p style="position:absolute; top:70px; left:1350px; width:165px; font-size:110%; text-align:center; color:#694d1e">Armi & Armature</p> 
     <select id="armatura" style="position:absolute; top:117px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna Armatura (0)</option>
       <option value="Corium Lorica">Corium Lorica (3)</option>
@@ -647,7 +647,7 @@
       <option value="Falx">Falx (12)</option>
       <option value="Bipennis">Bipennis (13)</option>
     </select>
-     <select id="arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1250px; width:150px" onchange="update_enc()">
+    <select id="arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna arma ravvicinata</option>
       <option value="Pugio">Pugio (3)</option>
       <option value="Sica">Sica (4)</option>
@@ -664,6 +664,19 @@
       <option value="Falx">Falx (12)</option>
       <option value="Bipennis">Bipennis (13)</option>
     </select> 
+
+    <span id="desc_armatura" style="position:absolute; top:117px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
+    <span id="desc_scudo" style="position:absolute; top:137px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
+    <span id="desc_arma_distanza" style="position:absolute; top:157px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
+    <span id="desc_arma_ravvicinata" style="position:absolute; top:177px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
+    <span id="desc_arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
+
+
+    <p style="position:absolute; top:250px; left:1330px; width:205px; font-size:110%; text-align:center; color:#694d1e">Altro Equipaggiamento</p> 
+    <textarea id="equip" cols="50" rows="15" wrap="soft" style="position:absolute; top:300px; left:1260px; width:315px; height:250" value="Altri oggetti"></textarea>
+
+    <p style="position:absolute; top:620px; left:1330px; width:205px; font-size:110%; text-align:center; color:#694d1e">Benifici & Indigitamenta</p> 
+    <textarea id="benefici" cols="50" rows="15" wrap="soft" style="position:absolute; top:670px; left:1260px; width:315px; height:250" value="Altri benefici e indigitamenta"></textarea>
 
     <input id="ingombro" type="number" min="0" max="40" value="0" style="position:absolute; top:982px; left:1460px; width:30px;font-size:110%; text-align:center"></input>
 
@@ -885,11 +898,15 @@ function from_form(){
   var the_custos={}
   var data1=document.forms["charsheet"].getElementsByTagName("input");
   var data2=document.forms["charsheet"].getElementsByTagName("select");
+  var data3=document.forms["charsheet"].getElementsByTagName("textarea");
   for (var i=0; i<data1.length; i++){
       the_custos[data1[i].id]=data1[i].value
   }
   for (var i=0; i<data2.length; i++){
       the_custos[data2[i].id]=data2[i].value
+  }
+  for (var i=0; i<data3.length; i++){
+      the_custos[data3[i].id]=data3[i].value
   }
   custos=the_custos;
   return the_custos;
@@ -899,7 +916,15 @@ function to_form(the_custos){
   custos=the_custos;
   var data1=document.forms["charsheet"].getElementsByTagName("input");
   var data2=document.forms["charsheet"].getElementsByTagName("select");
+  var data3=document.forms["charsheet"].getElementsByTagName("textarea");
   console.log(custos['nome'])
+  for (var i=0; i<data3.length; i++){
+    console.log("checking", data3[i].id);
+    if (custos.hasOwnProperty(data3[i].id)) {
+      console.log("found", data3[i].id);
+      data3[i].value=custos[data3[i].id]
+    }
+  }
   for (var i=0; i<data1.length; i++){
     console.log("checking", data1[i].id);
     if (custos.hasOwnProperty(data1[i].id)) {
@@ -1001,19 +1026,7 @@ function to_form(the_custos){
   qualifica.onchange()
   nome.onchange()
   slider.oninput()
-}
-
-function test() {
-  var data1=document.forms["charsheet"].getElementsByTagName("input");
-  var data2=document.forms["charsheet"].getElementsByTagName("select");
-  var formData = {}
-  for (var i=0; i<data1.length; i++){
-    formData[data1[i].id]=data1[i].value
-  }  
-  for (var i=0; i<data2.length; i++){
-    formData[data2[i].id]=data2[i].value
-  }  
-  console.log(formData);
+  update_enc()
 }
 
 
@@ -1067,8 +1080,40 @@ function get_option_selected(id) {
   return x;
 }
 
+function set_combat_data(id) {
+  const oggetto = get_option_selected(id);
+  const desc = document.getElementById("desc_"+id);
+  if (!oggetto || oggetto=="empty") desc.innerHTML=" ";
+  else {
+    var text = ''
+    if (id == 'arma_ravvicinata' || id == 'arma_ravvicinata_secondaria') {
+      text += 'Dan. '+armi_ravvicinate[oggetto]['Danno'];
+      for (var i=0; i<armi_ravvicinate[oggetto]['Caratteristiche'].length; i++) 
+        text+=' '+armi_ravvicinate[oggetto]['Caratteristiche'][i];
+      v=custos['peritiae']['DeBello'];
+      if (custos['qualifica']=='Esploratore' && armi_ravvicinate[oggetto]['Difficoltà']<=6 ) v=custos['peritiae']['DeNatura'];
+      if (custos['qualifica']=='Assassino' && armi_ravvicinate[oggetto]['Difficoltà']<=4) v=custos['peritiae']['DeCorpore'];
+      if (v>=armi_ravvicinate[oggetto]['Difficoltà']*2) text+=' [Exp]'
+    } else if (id == 'arma_distanza') {
+      text += 'Dan. '+armi_distanza[oggetto]['Danno'];
+      text += ' Git. '+armi_distanza[oggetto]['Gittata'];
+      for (var i=0; i<armi_distanza[oggetto]['Caratteristiche'].length; i++) 
+        text+=' '+armi_distanza[oggetto]['Caratteristiche'][i];
+      v=custos['peritiae']['DeBello'];
+      if (custos['qualifica']=='Esploratore' && armi_distanza[oggetto]['Difficoltà']<=6 ) v=custos['peritiae']['DeNatura'];
+      if (v>=armi_distanza[oggetto]['Difficoltà']*2) text+=' [Exp]'
+    } else if (id == 'armatura') {
+      text += 'Prot. '+armature[oggetto]['Protezione'];
+    } else if (id == 'scudo') {
+      text += 'Parata '+scudi[oggetto]['Parata'];
+    }
+    desc.innerHTML=text;
+  }
+}
+
 function update_enc() {
   const ing = document.getElementById("ingombro");
+  const all = [ 'arma_ravvicinata', "arma_ravvicinata_secondaria", "arma_distanza", "armatura", "scudo" ]
   const arma1 = armi_ravvicinate[get_option_selected("arma_ravvicinata")];
   const arma2 = armi_ravvicinate[get_option_selected("arma_ravvicinata_secondaria")];
   const armad = armi_distanza[get_option_selected("arma_distanza")];
@@ -1085,6 +1130,8 @@ function update_enc() {
   ing.value=res;
   for (var i = 1; i<=res; i++) set_pv_to(i,'/','X');
   for (var i = res+1; i<=40; i++) set_pv_to(i,' ','X');
+  for (var i=0; i<all.length; i++)
+    set_combat_data(all[i]);
 }
 
 // Get the modal
@@ -1937,6 +1984,10 @@ class Custos(object):
     self.equipaggiamento['armi_ravvicinate']=[arma_mischia_primaria]
     self.equipaggiamento['armi_distanza']=[arma_lancio]
     if arma_mischia_secondaria : self.equipaggiamento['armi_ravvicinate'].append(arma_mischia_secondaria)
+    self.equip = [ 'sagum', 'caligae', 'abiti', 'gavetta', 'falcetto', 'rasoio', 'acciarino', 'pentola da campo', 'cote', 'stilus', 'razioni (7 giorni)', 'sacca', 'bastone' ]
+    if self.qualifica == 'Augure' : self.equip+=['speculum', 'lituus']
+    elif self.qualifica == 'Sapiente' : self.equip+=['dolabra', 'abacus']
+    else :  self.equip.append(choice(['erba achillea', 'corda', 'catena', 'sega']))
 
   def json(self):
     import json
