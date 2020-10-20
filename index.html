@@ -19,17 +19,17 @@
   <body class="body">
    <form id="charsheet">
     <span class="input" id="nome1" style="position:absolute; top:60px; left:40px; width:315px; font-size:115%; color:#694d1e; text-align:center"></span>
-    <select id="origine" style="position:absolute; top:180px; left:40px; width:115px; text-align:justify">
+    <select id="origine" style="position:absolute; top:100px; left:40px; width:115px; text-align:justify">
       <option value="Civitas">Civitas</option>
       <option value="Colonia">Colonia</option>
       <option value="Vicus">Vicus</option>
       <option value="Posto isolato">Posto isolato</option>
       <option value="Limes">Limes</option>
     </select>
-    <input type="text" id="citta" style="position:absolute; top:180px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
-    <span class="input" style="position:absolute; top:200px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
-    <input type="text" id="famiglia" style="position:absolute; top:200px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
-    <textarea id="bio" cols="50" rows="12" wrap="soft" style="position:absolute; top:220px; left:40px; width:315px; height:180" value="Inserire la biografia del personaggio"></textarea>
+    <input type="text" id="citta" style="position:absolute; top:100px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
+    <span class="input" style="position:absolute; top:120px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
+    <input type="text" id="famiglia" style="position:absolute; top:120px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
+    <textarea id="bio" cols="50" rows="15" wrap="soft" style="position:absolute; top:180px; left:40px; width:315px; height:200" value="Inserire la biografia del personaggio"></textarea>
     <span class="input" id="combatAbName" style="position:absolute; top:530px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
     <p  class="input" id="combatAbBody" style="position:absolute; top:540px; left:40px; width:315px; text-align:justify"></p>
     <span class="input" id="invocazioneName" style="position:absolute; top:800px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
@@ -1298,19 +1298,25 @@ data = {
 },
 'modificatori' : {
 'immutabili'   : [ 'Livii', 'Iulii', 'Lepidi', 'Fulvii', 'Valerii', 'Tullii', 'Septimii', 'Hadriani', 'Aelii', 'Aemilii', 'Diocletiani', 'Iunii', 'Claudii', 'Aurelii', 'Veteranorum', 'ad Pontem', 'ad Turres', 'ad Pontes', 'ad Ansam' ],
-'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid', 'Appi', 'Aemili', 'Cassi' ],
+'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid', 'Appi', 'Aemili', 'Cassi', 'Praetori' ],
 'regionali_immutabili' : {
- 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum' ],
+ 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum', 'Ingaunorum' ],
  'Illyricum' : [ 'Dalmaticorum', 'Eraviscorum', 'Dardanorum' ],
  'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum' ], 
  'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonum', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
  'Gallia'    : [ 'Parisiorum', 'Viromanduorum', 'Suessiorum', 'Allobrogum', 'Santonum', 'Mediomatricorum', 'Convenarum', 'Aulerconum' ],
  'Germania'  : [ 'Treverorum', 'Mediomatricorum', 'Taunensium', 'Belgarum', 'Tungrorum' ],
  'Raetia'    : [ 'Vindelicorum', 'Rauracorum', 'Helvetiorum' ],
- 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum' ],
- 'Asia'      : [ 'ad Meandrum', 'in Commagene', 'in Pamphylia', 'in Lycia', 'ad Sipylum', 'in Cilicia', 'ad Cragum', 'ad Pyramum', 'Paraliou', 'in Phrygia', 'ad Zeugmatos', 'ad Calycadnum', 'in Caria', 'Pontica', 'in Lydia', 'ad Lycum', 'in Isauria', 'in Pontus', 'ad Bosphorum' ],
- 'Thracia' :  [ 'in Thracia', 'in Cheirsoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
- 'Mesopotamia' : [ 'in Osrhoene', 'in Mesopotamia', ],
+ 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum', 'ad Iordanum', 'in Nabataea', 'in Iudaea' ],
+ 'Asia'      : [ 'ad Meandrum', 'in Commagene', 'in Pamphylia', 'in Lycia', 'ad Sipylum', 'in Cilicia', 'ad Cragum', 'ad Pyramum', 'Paraliou', 'in Phrygia', 'ad Zeugmatos', 'ad Calycadnum', 'in Caria', 'in Lydia', 'ad Lycum', 'in Isauria', 'in Pontus', 'ad Bosphorum' ],
+ 'Thracia' :  [ 'in Thracia', 'in Chersoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
+ 'Mesopotamia' : [ 'in Osrhoene', 'in Mesopotamia', 'Assyriorum' ],
+ },
+'regionali_mutabili' : {
+ 'Italia'    : [ 'Apul', 'Lucan', 'Marsic', 'Venetic' ],
+ 'Asia'      : [ 'Pontic', 'Ne' ],
+ 'Thracia'   : [ 'Pontic', 'Dentheletic' ],
+ 'Dacia'     : [ 'Pontic' ],
  }
 },
 'declinazione' : {
@@ -1417,9 +1423,9 @@ latin_cognomina_male = [ 'Agricola', 'Africanus', 'Aemilianus', 'Ambustus', 'Ant
 
 latin_cognomina_female = [ 'Agricola', 'Africana', 'Aemiliana', 'Ambusta', 'Antonina', 'Ambrosia', 'Ausonia', 'Augur', 'Aureliana', 'Attica', 'Avita', 'Andronica', 'Albana', 'Ampliata', 'Audacta', 'Balbina', 'Balba', 'Barba', 'Barbata', 'Bassiana', 'Bestia', 'Bibula', 'Blaesa', 'Boetia', 'Bruta', 'Bubo', 'Bubulca', 'Buccio', 'Bulba', 'Burra', 'Caeciliana', 'Caelimontana', 'Caelestia', 'Calama', 'Calda', 'Cara', 'Cassiana', 'Catilina', 'Catulla', 'Caudex', 'Celer', 'Castina', 'Castoria', 'Celsa', 'Claudiana', 'Cinna', 'Corbulo', 'Cumana', 'Crescentia', 'Columella', 'Colona', 'Cocles', 'Commoda', 'Comes', 'Constans', ' Cerialis', 'Decima', 'Deciana', 'Drusa', 'Dextra', 'Densa', 'Dives', 'Draco', 'Ecdicia', 'Ennodia', 'Eugenia', 'Emerita', 'Etrusca', 'Eclecta', 'Fabiana', 'Fabulla', 'Facunda', 'Gabina', 'Gala', 'Galba', 'Galera', 'Gallica', 'Garrula', 'Gaudentia', 'Genialis', 'Gratiana', 'Gemina', 'Gregoria', 'Hemina', 'Herennia', 'Honorata',  'Hostiliana', 'Labiena', 'Laeliana', 'Lucana', 'Licina', 'Leporina',  'Luculla', 'Longa', 'Laura', 'Lentula', 'Latro', 'Macer', 'Macrobia', 'Magnentia', 'Magna', 'Maior', 'Maia', 'Mamerca', 'Marsa', 'Martialis', 'Martiana', 'Maxima', 'Maura', 'Mela', 'Memor', 'Moma', 'Murena', 'Montana', 'Metella', 'Merenda', 'Merula', 'Messor', 'Naevola', 'Nasica', 'Natta', 'Nepos', 'Nennia', 'Nerva', 'Novella', 'Numma', 'Obsequens', 'Ocella', 'Opis', 'Oppiana', 'Pacata', 'Paenula', 'Papa', 'Pamphilia', 'Pastor', 'Patiens', 'Pelagia', 'Perpetua', 'Persica', 'Pertinax', 'Plauta', 'Petronia', 'Pictor', 'Picens', 'Pilata', 'Pola', 'Pollio', 'Porca', 'Prota', 'Prisciana', 'Potestas', 'Potita', 'Poplicola', 'Proca', 'Procula', 'Publicola', 'Pustula', 'Pupa', 'Pulcher', 'Proxima', 'Quadrata', 'Quarta', 'Quintiliana', 'Quinta', 'Quirinalis', 'Ravilla', 'Rebila', 'Regilla', 'Rogata', 'Regula', 'Ruso', 'Rutila', 'Sabina', 'Salinatrix', 'Salviana', 'Seneca', 'Severa', 'Sedata', 'Suria', 'Sura', 'Strabo', 'Stilo', 'Statia', 'Simplicia', 'Simplex', 'Silvia', 'Sisenna', 'Suburana', 'Tacita', 'Tarcisia', 'Tatiana', 'Taura', 'Tenax', 'Tertulla', 'Torquata', 'Trigemina', 'Tutor', 'Tubero', 'Tibulla', 'Traiana', 'Urbana', 'Ursula', 'Urbica', 'Valens', 'Velox', 'Viatrix', 'Vita', 'Victor', 'Virilis', 'Varro', 'Venusta', 'Verax', 'Verecunda', 'Vopisca', 'Major', 'Minor' ]
 
-greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eumedes', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philuppus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus' ]
+greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eumedes', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philippus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus', 'Nicanor', 'Dionysius', 'Basilides', 'Pollux' ]
 
-greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Tryphaena', 'Thabis', 'Arsinoe', 'Nais', 'Thais', 'Athenais' ]
+greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Thabis', 'Arsinoe', 'Nais', 'Thais', 'Athenais', 'Leuconoe', 'Philippa', 'Olympias', 'Xantippe', 'Eutyche' ]
 
 praenomina = {
  'female' : {
@@ -1450,20 +1456,20 @@ cognomina = {
    'akkadic' : [ 'Onnes', 'Ninus', 'Seleucus', 'Antiochus', 'Belus', 'Odaenathus', 'Orodes', 'Orontes', 'Monobazus', 'Bazeus', 'Izates', 'Abgar', 'Dasanes', 'Berosus' ],
    'egyptian' : [ 'Psenptais', 'Petobastidis', 'Soris', 'Ptolemaeus', 'Eulaeus', 'Lenaeus', 'Serapion', 'Zopyrus', 'Manetho', 'Apion', 'Teucer' ],
    'aramaic' : [ 'Zabinaeus', 'Zabinas', 'Giora', 'Simon', 'Ioannes', 'Aphraates', 'Josephus', 'Zenobius', 'Hyrcanus', 'Simonides', 'Justus', 'Jannaeus', 'Matthias', 'Ephlias', 'Ananus', 'Apphus', 'Obodas', 'Aretas', 'Malichus', 'Odaenathus', 'Vaballathus', 'Herodianus', 'Maeonius', 'Zabdas', 'Elias' ],
-   'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal' ],
+   'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal', 'Capussa', 'Mazaetullus', 'Narbal', 'Mathos', 'Gisco', 'Hanno', 'Bomilcar', 'Nabdalsa' ],
    'thracian' : [ 'Teres', 'Sparatocos', 'Sitalces', 'Sadocos', 'Seuthes', 'Amatokos', 'Amadocus', 'Maisades', 'Hebryzelmis', 'Cotys', 'Cersobleptes', 'Berisades', 'Cetriporis', 'Roigos', 'Adaeus', 'Odoroes', 'Scostodos', 'Orsoaltios', 'Kersivaulos', 'Rheuscuporis', 'Pleuratus', 'Ciroadas', 'Byses', 'Rhoemetalces', 'Sadalas' ],
  },
  'female' : {
    'latin' : latin_cognomina_female,
    'greek' : greek_cognomina_female,
-   'germanic' : [ 'Alpsuinda', 'Ermelinda', 'Galla', 'Ingunde', 'Ravigunda', 'Teodolinda', 'Romilda', 'Deoteria', 'Audefleda' ],
+   'germanic' : [ 'Alpsuinda', 'Ermelinda', 'Galla', 'Ingunde', 'Ravigunda', 'Teodolinda', 'Romilda', 'Deoteria', 'Audefleda', 'Ermengarda' ],
    'celtic' : [ 'Bassina', 'Blandula', 'Primitiva', 'Primula', 'Pollina' ],
    'brithonic' : [ 'Blodeuwedd', 'Aranrot', 'Enid', 'Essylt', 'Kymidei', 'Goleuddydd', 'Lunet', 'Ymywl', 'Olwen', 'Rianon', 'Goewin', 'Creiddylat', 'Armagin'],
    'armenian' : [ 'Erato', 'Aryazate', 'Iotapa', 'Olympias', 'Ashkhen', 'Aka', 'Isias', 'Antiochis' ],
    'akkadic' : ['Semiramis', 'Zenobia'],
    'egyptian' : ['Cleopatra', 'Berenice', 'Arsinoe', 'Nitocris' ],
    'aramaic' : ['Zenobia', 'Salomè', 'Herodias', 'Mavia' ],
-   'african' : ['Dido'],
+   'african' : ['Dido', 'Sophonisba'],
    'thracian' : [ 'Pythodoris', 'Tryphaena', 'Gepaepyris', 'Meda', 'Doricha' ],
  },
 }
@@ -1550,13 +1556,13 @@ locative = {
   'Achaia' : [ 'Atticus', 'Achaeus', 'Boeoticus', 'Graecus', 'Epirota' ],
   'Gallia' : [ 'Gallicus', 'Gallus', 'Massiliota' ],
   'Iberia' : [ 'Ibericus', 'Lusitanus', 'Vasco', 'Baeticus', 'Arsa', 'Hispanus', 'Hispallus' ],
-  'Britannia' : [ 'Britannus', 'Britannicus' ],
+  'Britannia' : [ 'Britannus', 'Britannicus', 'Dumnonis', 'Silurus' ],
   'Germania' : [ 'Germanicus', 'Belga', 'Barbarus', 'Cheruscus', 'Marcomannus', 'Saxo' ],
   'Raetia' : [ 'Raeticus', 'Vindelicus' ],
-  'Thracia' : [ 'Thrax', 'Moesianus', 'Geta' ],
+  'Thracia' : [ 'Thrax', 'Moesianus', 'Geta', 'Odrysa' ],
   'Asia' : [ 'Asianus', 'Cilicius', 'Bythinicus', 'Ponticus', 'Pamphilicus', 'Asiagenus' ],
   'Dacia' : [ 'Dacus', 'Moesianus', 'Dacicus' ],
-  'Armenia' : [ 'Armenianus', 'Atropatenicus' ],
+  'Armenia' : [ 'Armenianus', 'Atropatenicus', 'Armenus', 'Atropatenus' ],
   'Mesopotamia' : [ 'Mesopotamicus', 'Assyricus', 'Chaldaeus' ],
   'Aegyptus' : [ 'Aegyptiacus', 'Creticus' ],
   'Syria' : [ 'Syrus', 'Syriacus', 'Chaldaeus', 'Surus' ],
@@ -1573,13 +1579,13 @@ locative = {
   'Achaia' : [ 'Attica', 'Achaea', 'Boeotica', 'Graeca', 'Epirota' ],
   'Gallia' : [ 'Gallica', 'Galla', 'Massiliota' ],
   'Iberia' : [ 'Iberica', 'Lusitana', 'Vasco', 'Baetica', 'Arsa', 'Hispana', 'Hispalla' ],
-  'Britannia' : [ 'Britanna', 'Britannica' ],
+  'Britannia' : [ 'Britanna', 'Britannica', 'Silura', 'Dumnona' ],
   'Germania' : [ 'Germanica', 'Belgica', 'Cherusca', 'Marcomanna', 'Saxo' ],
   'Raetia' : [ 'Raetica', 'Vindelica' ],
-  'Thracia' : [ 'Thrax', 'Moesiana', 'Geta' ],
-  'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica', 'Asiagena' ],
+  'Thracia' : [ 'Thrax', 'Moesiana', 'Geta', 'Odrysa' ],
+  'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica', 'Asiagena', 'Lydia', 'Lycia' ],
   'Dacia' : [ 'Daca', 'Moesiana', 'Dacica' ],
-  'Armenia' : [ 'Armeniana', 'Atropatenica' ],
+  'Armenia' : [ 'Armeniana', 'Atropatenica', 'Armena', 'Atropatena' ],
   'Mesopotamia' : [ 'Mesopotamica', 'Assyrica', 'Chaldaea' ],
   'Aegyptus' : [ 'Aegyptica', 'Cretica' ],
   'Syria' : [ 'Syra', 'Syriaca', 'Chaldaea', 'Sura' ],
@@ -1722,6 +1728,139 @@ famiglia= {
 'Posto isolato' : [ 'Comunità chiusa', 'Esule', 'Sacerdote', 'Funzionario', 'Medico', 'Magistrato' ],
 'Limes'   : [ 'Legionario', 'Pastore', 'Profugo', 'Mercante', 'Sacerdote', 'Tribuno militare' ],
 }
+
+bio = {
+'Civitas' : {
+ 'Liberto' : """Hai vissuto la tua infanzia tra gli emarginati e i miserabili della città, che passavano le giornate alla ricerca del sostentamento quotidiano.
+La tua casa, se ne avevi una, era poco più di una topaia e i membri della tua famiglia (schiavi fuggiti o liberti) non si sono occupati molto di te e della tua educazione, troppo impegnati a elemosinare oppure dediti alle loro attività di giocolieri e indovini, a prostituirsi nei lupanari o in un incessante girovagare nei polverosi dintorni del Foro a truffare qualche sprovveduto arrivato dalla campagna. 
+Le cose ti potrebbero essere andate anche peggio se i tuoi parenti fossero stati veri e propri latrones (malviventi, briganti) dediti al furto, al rapimento o all’omicidio, che hanno concluso i loro giorni nel buio di una cella o inchiodati a una croce.""",
+ 'Clientes' : """Nelle città romane non c’è sempre una rigida delimitazione tra i quartieri eleganti e quelli delle baracche, tra le ville dei patrizi e gli altissimi palazzi dove trovano alloggio anche gli immigrati, i
+liberti, i sacerdoti di qualche strano culto e i piccoli fuorilegge cacciati dai paesi vicini. 
+La tua famiglia si è però sempre considerata fortunata a essere in affitto in un alloggio all’interno di una di queste enormi insulae, costruita come le altre in economia, coi muri sottili, pronta a crollare alla prima
+grande tempesta o per la scossa di un terremoto. 
+La vicinanza ai quartieri patrizi ha aiutato tuo padre a diventare uno dei clientes di un patron aristocratico, che pagava l’affitto, garantiva il cibo (la sportula) e una decorosa qualità di vita.
+In cambio, tuo padre lo doveva accompagnare ovunque, anche fuori città, dargli il voto suo e della sua famiglia nelle assemblee pubbliche, appoggiarlo in caso di intimidazioni e tafferugli contro le fazioni politiche avversarie.""",
+ 'Artigiano' : """La dimora della tua famiglia era un insieme di poche stanze in un quartiere sovrappopolato, in cui coabitavano lenones (tenutari di bordelli), gladiatori, prostitute e postulanti. 
+Per fortuna, i tuoi non avevano molto in comune con quella gente. 
+Durante il giorno, ogni stanza e ogni membro della famiglia era impegnato a portare avanti l’attività di tuo padre, un artigiano o un commerciante che produceva e conservava i suoi articoli in una stanza che fungeva da officina, macelleria o deposito.
+Le merci venivano poi vendute nella stanza più grande, affacciata su una stretta viuzza fiancheggiata da vicoli ciechi e passaggi in salita o in discesa. 
+Nei momenti peggiori, eravate obbligati a cercare voi i clienti e a esporre la mercanzia (che si trattasse di ciabatte, tessuti, vasi, monili, mobili, parrucche, pane, dolci, pesci e carne) su banchetti improvvisati nella zona del Foro.""",
+ 'Funzionario' : """Tuo padre era un funzionario municipale minore, pagato poco e sempre al lavoro.
+Fungeva da segretario di qualche funzionario più importante o da semplice scrivano, oppure veniva inviato in giro per la città a completare incarichi di scarsa soddisfazione. 
+A volte, doveva accompagnare tutta la notte uno dei Tresviri Nocturni nel pattugliamento delle strade e subire gli insulti dei giovani nobili ubriachi di ritorno da qualche bordello.
+Ha spesso dovuto arrangiarsi con altri lavori per far mantenere alla famiglia una parvenza di decoro e dignità; lavori faticosi, come quello di insegnare nelle malfrequentate scuole pubbliche, o pericolosi, come l’accettare soldi in cambio di favori e aiutare nella riscossione di denaro prestato a usura.
+""",
+ 'Magistrato' : """Avere un importante funzionario imperiale o un magistrato in famiglia ha caratterizzato la tua infanzia. 
+Che si trattasse del collaboratore di un Pretore (per cause civili o penali), o dell’assistente di uno dei Comites (alti gradi dell’esercito o dell’amministrazione), o di uno degli Ediles (che si occupavano della distribuzione del cibo e della crescita della città), o di un Questore, poco importava: la tua qualità di vita ed educazione è stata molto superiore alla media. 
+Hai potuto frequentare delle ottime scuole private e non era inconsueto che, passeggiando in città, i tuoi genitori venissero salutati da esponenti delle istituzioni municipali e da membri della curia cittadina, che vi invitavano a grandi feste in splendidi palazzi fuori città.
+""",
+ 'Ricco patrizio' : """La villa della tua nobile famiglia non sfigurava rispetto alle altre: ugualmente grande e sfarzosa, con dozzine di schiavi che si occupavano dei lavori necessari per l’alimentazione, il vestiario e il
+mantenimento della casa. 
+La tua famiglia viveva in una specie di economia chiusa, senza alcun bisogno di rivolgersi a lavoratori liberi come artigiani e piccoli commercianti: per ogni necessità bastavano gli schiavi. 
+Per tutta la tua infanzia sei stato seguito da un precettore, che si occupava della tua istruzione, indirizzandoti verso il tuo futuro cursus honorum e all’auspicabile professione di avvocato o politico, in modo da poter accedere poi alle più importanti magistrature cittadine o al governatorato di una provincia. 
+Come ha fatto tuo padre, e suo padre prima di lui.
+""" 
+ },
+'Colonia' : {
+ 'Liberto' : """Tuo padre era un liberto, uno schiavo liberato, ma a differenza dei padri dei tuoi amici, ogni mattina usciva di casa orgoglioso del suo lavoro. 
+E usciva armato. Era uno dei vigiles della città, incaricato di spegnere gli incendi, assicurare un servizio di polizia nelle strade e tra i primi a intervenire nel caso di sommosse.
+Siamo troppo pochi; glielo sentivi ripetere in continuazione e, quando iniziava a parlare della sua giornata, raramente si trattava di racconti allegri: poveracci malmenati da altri poveracci, prostitute e danzatrici massacrate di botte da nobili intoccabili, gente sequestrata o assassinata per un pugno di sesterzi, orribili incendi che distruggevano in poche ore fatiscenti insulae o i santuari in legno di qualche strana religione. 
+Ma almeno lui ci provava a cambiare le cose e anche tu vorresti fare lo stesso.
+""",
+ 'Manovale' : """Gran lavoratori: questa è la prima cosa che ricordi dei tuoi genitori. 
+Tua madre si occupava da sola della tua educazione e di quella dei tuoi fratelli e sorelle, preparando allo stesso tempo piccoli monili o ricamava stoffe da vendere, riparava ciabatte e ricuciva mantelli. 
+Tuo padre e altri membri della famiglia erano invece impegnati gran parte della giornata ad andare per mare, o lavorare al mercato, o nei cantieri, o nella costruzione di edifici come operai. 
+Il cibo non mancava mai, anche questo te lo ricordi, e non mancava l’affetto dei parenti e l’amicizia dei vicini, sempre pronti a dare una mano quando le cose non si mettevano bene.
+""",
+ 'Lenone/Lanista' : """Finché eri piccolo, non ti sei reso conto che la professione della tua famiglia non era tra le più rispettabili. 
+Aggirarsi fra le strade del centro alla ricerca di giovani e giovinette appena arrivati dalla campagna e convincerli a ottenere del denaro facile se si accompagnavano a clienti facoltosi, non era certo una cosa di cui andare fieri. 
+La tua famiglia era detestata da tutti e anche tu venivi trattato dai tuoi coetanei peggio dei figli di ladri, assassini e sedicenti sacerdoti di perversi culti orientali. 
+E non era cosa rara che gruppi di giovinastri, compresi quelli che volentieri usufruivano dei servizi offerti dall’attività della tua famiglia, arrivassero ubriachi in piena notte a lanciare sassi contro la tua casa al grido di “dagli al lenone!”.
+""",
+ 'Sacerdote' : """“Gli dèi si sono rammolliti!” Era questa la frase preferita di tuo padre, un sacerdote di Giove Restitutor. 
+Aveva l’incarico di officiare le celebrazioni e compiere i sacrifici in un tempio di antica costruzione, che fungeva da punto di riferimento per la comunità. 
+Tutto procedeva al meglio, fino al giorno in cui era iniziata la costruzione di un santuario di Iside e Serapide, enorme, splendido, che in breve tempo aveva attirato folle enormi da tutta la regione, compresi coloro che fino a poco prima si recavano a pregare nel tempio di Giove. 
+Da allora tuo padre si arrabbiava più facilmente e rimpiangeva i secoli passati, quando gli dèi non permettevano che culti stranieri, barbarici e volgari, mettessero radici all’interno dell’Impero. 
+E se solo ci provavano, non passava molto tempo prima che le loro statue fossero gettate nel fiume, i loro sedicenti sacerdoti dati in pasto ai leoni e i loro fanatici seguaci costretti a vivere come topi nelle catacombe.
+""",
+ 'Patrizio' : """La tua famiglia era aristocratica, come molte altre in città, ma si distingueva perché non tutti i suoi interessi erano indirizzati verso la politica o la magistratura. 
+Nel grande palazzo patrizio dei tuoi genitori erano spesso invitati filosofi, studiosi di scienze naturali, retori e grandi medici, provenienti anche da luoghi molto distanti. 
+In queste occasioni la vostra casa diventava un polo d’attrazione per l’élite intellettuale dell’intera provincia, trasformandosi in un cenacolo di studiosi e letterati: si leggevano ad alta voce passi dei grandi autori d’un tempo e venivano declamate poesie e orazioni. 
+Sei vissuto in una specie di mondo separato dalla realtà, proiettato in un passato mitico popolato di dèi, santi e grandi filosofi, ma non era affatto una cosa spiacevole. 
+Sei stato istruito al pari dei figli dei più nobili Senatori della stessa Roma!
+""",
+ 'Ricco patrizio' : """La tua nobile famiglia si fregiava di essere imparentata con alcune delle famiglie aristocratiche più antiche, compresa quella del governatore. 
+Non che si sia mai fatto vedere a casa vostra, a quanto ricordi. 
+In ogni caso, come da tradizione, molti membri della tua famiglia avevano continuato il loro cursus honorum nel capoluogo della provincia e fatto carriera all’interno della magistratura, ricevendo importanti incarichi politici o militari. 
+Poi, uno di loro è stato accusato di corruzione e malversazione ed è stato sottoposto a processo. 
+Nonostante i migliori avvocati, gli sono stati sequestrati i beni ed è stato mandato in esilio, in una località fin troppo vicina a quei popoli barbari che odiavano Roma. 
+Inviava molte lettere affinché la sua pena fosse sospesa il prima possibile, ma i tuoi genitori gli rispondevano di stare tranquillo, di aspettare che passasse un po’ di tempo. 
+E in futuro, di stare solo un po’ più attento.
+"""
+ },
+'Vicus'   : {
+ 'Fuggitivo' : """Molti villaggi sono lontani dai centri del potere della provincia e questo dove sei nato è uno dei più lontani. 
+Non è stato scelto a caso da tuo padre, che per ragioni che non ti ha mai voluto spiegare è fuggito dalla sua terra ed è arrivato fin qui. 
+Era uno schiavo fuggito dal padrone? Un patrizio che è dovuto sparire a causa di uno scandalo? Un grande poeta che coi suoi versi ha offeso l’Imperatore? Poi, ha sposato tua madre, una ragazza del posto, che l’ha aiutato a inserirsi nella comunità, a dargli una nuova patria e una nuova vita. Ci sono voluti molti anni però prima che smettesse di frequentare brutta gente, di fare orribili incubi o di guardarsi costantemente intorno quando camminava per le vie dell’abitato.
+""",
+ 'Artigiano' : """I prodotti di artigianato di questa regione erano molto richiesti nelle città e i membri della tua famiglia erano tra i più abili a realizzarli. 
+In fin dei conti è sempre la stessa occupazione nella quale erano maestri i tuoi nonni, e i nonni dei loro nonni. E, più gli anni passavano, maggiore era il numero di mercanti e curiosi che arrivavano al villaggio a comprare e barattare. A volte si portavano dietro familiari, servitori e guardie armate, riempiendo le spartane locande che si affacciavano sulla strada.
+""",
+ 'Musicista' : """Tuo padre sapeva suonare decentemente svariati strumenti, ma erano tua madre e le sue sorelle che ballavano con la grazia delle dee ed erano molto richieste anche dai villaggi vicini per celebrazioni speciali e feste. Il lavoro non è mai mancato, anche se la tua famiglia ha dovuto imparare quali incarichi evitare, dato che in alcune occasioni la situazione si era fatta molto pesante.
+Le chiamavano feste “alla greca” e si svolgevano nelle grandi case o palazzi di funzionari e coloni arricchiti: più che feste, erano sfilate di danzatrici e prostitute che si spogliavano a richiesta davanti a giovani e vecchi che mangiavano e bevevano fino a perdere i sensi o diventare molesti e violenti.
+""",
+ 'Agricoltore' : """La tua famiglia, come molte altre nel villaggio, partecipava regolarmente alle celebrazioni del Culto Ufficiale, sacrificava agli dèi romani e accendeva una fiamma davanti alle statuette del Lari ogni
+volta che qualcuno di caro si sposava o partiva per un lungo viaggio per mare. Ma nella tua famiglia, come in molte altre in paese, non erano le imprese di Ercole o Giove a essere raccontate ai bambini. Gli eroi e gli spiriti che hanno popolato i tuoi sogni durante l’infanzia erano diversi, più vicini... Potevi percepirne la presenza quando soffiava il vento e li vedevi correre in forma di animale appena fuori dal villaggio; erano loro a far alzare la marea o spingere le dense nubi giù lungo le valli. Ma queste cose era più saggio sussurrarle che parlarne ad alta voce, perché il confine tra i culti tollerati e quelli proibiti è sempre stato molto, molto labile.
+""",
+ 'Nobile' : """Capitava spesso che, durante una celebrazione, la maggiore autorità tribale della regione avesse bevuto un po’ troppo e parlasse di quando, in un lontano passato, il suo villaggio era il più importante della zona. A quei tempi si offrivano sacrifici agli antichi dèi davanti a migliaia di fedeli e veri eserciti uscivano a dare battaglia. Non erano solo farneticazioni; i racconti tramandati nella tua famiglia trovavano una deprimente conferma se ci si aggirava in quella parte dell’abitato che si trovava dalla parte opposta rispetto alla strada di accesso al villaggio. Si poteva camminare sui ruderi di quello che un tempo era un villaggio molto più grande e popolato, di cui rimanevano solo rovine semisepolte che si estendevano per decine, forse centinaia di metri, fino a diventare quasi indistinguibili nel panorama. Il mondo era cambiato e gli antichi dèi non si facevano più vedere...
+""",
+ 'Latifondista' : """Tuo padre era un conferenziere molto apprezzato. Passava gran parte dell’anno a girare per le maggiori città dell’Impero, invitato a tenere lezioni pubbliche alle quali partecipava una gran folla.
+Quando era stanco, tornava qui, nella sua ricca tenuta di famiglia, a riposarsi e a scrivere nella sua stanza preferita. 
+Nelle sue orazioni parlava di Platone e di Aristotele, ma anche del Pitagorismo e dell’Orfismo e di come classificare gli spiriti che stanno tra gli uomini e gli dèi. Veniva spesso accusato di essere un mago, un teurgo in grado di praticare la telestiké per imprigionare le essenze divine e comandarle. 
+Ricordi molto bene la sua veemenza nel ribattere a quelle accuse infamanti e nello specificare che lui era soltanto un philosophus platonicus. Ma ricordi anche molto bene quelle stanze nella tenuta che rimanevano sempre chiuse e nelle quali nessuno aveva il permesso di entrare.
+"""
+ },
+'Posto isolato' : {
+ 'Comunità chiusa' : """Sei nato in una comunità che fa parte di una minoranza etnica, linguistica o religiosa. La tua gente non era mai stata molto gradita nelle regione e si era dovuta spostare in località sempre più
+remote, distanti dall’ostilità dei villaggi e dall’indifferenza delle autorità imperiali. Gli ultimi anni non erano stati molto buoni: le morti avevano superato le nascite e molti giovani se n’erano andati, stanchi di sopportare l’isolamento e le arcaiche tradizioni che proibivano determinati cibi, occupazioni e i matrimoni misti. Erano pochi i bambini coi quali giocare e l’atmosfera generale era quella di un popolo destinato a sparire. I ricordi più belli della tua infanzia sono collegati alle grandi celebrazioni, durante le quali tutta la comunità si riuniva; si mangiava tutti insieme, si rideva e, consapevolmente, non si parlava del domani.
+""",
+ 'Esule' : """Prima di trasferirsi qui, in mezzo a una natura splendida e selvaggia, i tuoi genitori abitavano in una grande città. Non riuscivano ad avere figli e officiavano agli dèi con passione e umiltà. Col passare degli anni, non riuscivano più a vedere nelle folle che pregavano gli dèi dell’Impero una vera pietas, soprattutto durante le feste ufficiali, che sembravano una scusa per la prostituzione sacra e la raccolta di denaro. La vera devozione, purtroppo, si trovava solo nelle preghiere e nei riti dei seguaci di falsi dèi: le lamentazioni delle donne che veneravano Iside, le commoventi storie sulla morte del Cristo, le mutilazioni rituali dei fedeli di Cibele. Un giorno, i tuoi genitori hanno lasciato tutto alle spalle e se ne sono andati. 
+In luoghi solitari e privi di tentazioni hanno ritrovato la fede in Marte, Giove, Giunone e gli altri dèi che hanno reso grande Roma. Ed è bastato un sacrificio a Venere Genetrix per farti nascere...
+""",
+ 'Sacerdote' : """Col passare degli anni, tuo padre era diventato sempre più asociale e taciturno. L’unica persona che vedeva volentieri era una specie di sacerdote-filosofo, che aveva deciso di trascorrere la vecchiaia il più lontano possibile dalle ‘orribili tentazioni del sordido sacco di fango’ che era il suo corpo fisico. Si diceva che fosse uno gnostico e che invece degli dèi adorasse quelli che chiamava i quattro grandi profeti: Orfeo, Abramo, Gesù e Apollonio di Tiana. Una mattina, tuo padre è uscito di casa e non è mai tornato. Ti hanno raccontato che aveva camminato per giorni fino a delle antiche rovine, era salito su un’alta colonna e non era più sceso. Ogni giorno, un numero crescente di proseliti andava da lui e gli portava da mangiare e da bere e restava per ore a venerarlo e a pregare. Anni dopo, sei andato a vedere coi tuoi occhi: tuo padre era magrissimo e sembrava avere cent’anni. Ti piace pensare che ti abbia riconosciuto e che quella smorfia sul suo viso fosse rimpianto.
+""",
+ 'Funzionario' : """Gli abitanti del tuo piccolo villaggio erano dediti alla stessa occupazione. Che si trattasse di segare giganteschi alberi e condurli poi a valle con l’aiuto della corrente di un fiume, scavare in una cava a cielo aperto oppure dentro i cunicoli di una miniera di sale, era in ogni caso un lavoro massacrante, adatto più a uno schiavo che a un uomo libero. Tuo padre era uno dei pochi che invece passava le giornate seduto a un tavolo, perché sapeva scrivere e far di conto. Il suo compito era quello di registrare tutto e compilare i rapporti settimanali, come la quantità di materiale prodotto, le paghe distribuite, gli attrezzi da sostituire e il numero di coloro che morivano a causa del lavoro. Questi ultimi non erano pochi e mai e poi mai avrebbe permesso che i suoi figli finissero a fare un lavoro simile.
+""",
+ 'Medico' : """Se nel tempo questo territorio s’era spopolato, il motivo era perché, indipendentemente dall’età, la gente moriva. Forse a causa di una febbre maligna originata nelle paludi, che spariva per qualche
+anno e tornava poi più virulenta che mai, oppure di una contagiosa epidemia portata dagli schiavi, che deturpava terribilmente i corpi prima di ucciderli, o ancora di tisi e consunzione, che passavano dagli animali agli uomini, facendoli prima impazzire e poi morire nel dolore. Molti villaggi erano stati abbandonati e per le strade giravano solo topi e branchi di cani randagi. Ma la tua famiglia era rimasta, perché tuo padre era medico e sacerdote di Asclepio e tua madre lo aiutava. Di giorno o di notte curavano i malati e assistevano i morenti, cercando di lenire la sofferenza, senza una vera speranza di poter salvar loro la vita. Quando anche loro si sono ammalati, ti hanno mandato via, da lontani parenti. Non ne hai saputo più nulla.
+""",
+ 'Magistrato' : """Sei l’unico figlio di uno dei funzionari di più alto livello presenti in questo sperduto insediamento. Non che significasse molto... anzi, probabilmente tuo padre aveva pestato i piedi a qualcuno di
+più importante di lui se era stato mandato qui e non in una vera città. A complicare le cose, tua madre, assieme a molte altre donne della zona, si era convertita al culto del Cristo e ti portava con sé a pregare e ad assistere i derelitti. Tuo padre l’accusava di buttare via tempo e soldi e di rinnegare gli dèi dell’Impero. Dopo qualche tempo, l’ha ripudiata e cacciata dal paese. Lei se n’è andata via con la vera fede nel cuore, si-
+cura in una ricompensa nell’aldilà. Da quel che hai saputo, ha passato gli anni successivi in una comunità cristiana che viveva isolata, in pace con la natura, gli uomini e il padre nel cielo che aveva creato ogni essere vivente.
+"""
+ },
+'Limes'   : {
+ 'Legionario' : """Tuo padre era un ex legionario ed era abituato a comandare. Come ringraziamento per i decenni di leale servizio, l’Impero gli aveva concesso un piccolo, arido appezzamento di terra ai confini del
+mondo. Non ci è voluto molto prima che altri scontenti si mettessero ai suoi ordini, a formare una banda che inizialmente rubava animali, ma che poi era passata a sequestrare, assassinare, liberare gli schiavi. Il vostro rifugio si trovava al di là del limes, dove vivevate con le famiglie degli altri latrones. Tutto è cambiato quando il Governatore della provincia ha dato incarico a un Prefetto di risolvere il problema.
+Braccato dai legionari, un giorno tuo padre ha mandato via tutte le mogli, le concubine e i bambini, te compreso. Poi, i banditi hanno affrontato la loro ultima battaglia a testa alta. I loro corpi sono stati esposti lungo le strade per settimane, come monito per la popolazione.
+""",
+ 'Pastore' : """Da piccolo ti raccontavano di confini attraversati da carovane che trasportavano merci preziose e oggetti mai visti, o da esotici emissari latori di messaggi di pace e di guerra, o da colonne di legionari
+che andavano a esportare la Pax Romana. Il tuo confine era molto diverso... Le terre che si estendevano al di là del muro o del grande fiume o di una linea invisibile che si perdeva tra le sabbie, le montagne o il mare, sembravano prive di ogni traccia di essere umano. La natura lì dominava incontrastata, con le sue brughiere o i deserti o le impenetrabili foreste. Da piccolo, hai passato ore sperando di scorgere un esercito invasore che giungesse a minacciare l’esistenza dell’Impero e che scintillanti legioni romane l’affrontassero in una battaglia degna di Omero o Virgilio. Tuo padre, un pastore e i tuoi fratelli più grandi a volte aspettavano con te,
+raccontandoti incredibili storie su dèi ed eroi.
+""",
+ 'Profugo' : """Quelli che sarebbero diventati i tuoi nuovi genitori si occupavano dell’addestramento e della salute dei cavalli dei vicini castra. Ti hanno trovato in fin di vita nel mezzo di una zona desolata, dove
+portavano i cavalli a correre e pascolare, unico sopravvissuto di un piccolo gruppo di stranieri morti di stenti, freddo, malattia o sbranati da animali selvatici. Ti hanno tenuto con loro e cresciuto come un figlio. Non è stato difficile immaginare cos’era successo: alcune famiglie delle genti al di là del limes erano dovute scappare, a causa di una guerra interna, una carestia o un disastro naturale, abbandonando tutto quello che possedevano. Avevano oltrepassato il confine del glorioso e tollerante Impero romano di nascosto, pieni di speranza. Ma le autorità e gli abitanti dei villaggi li avevano cacciati, insultati e negato loro ogni aiuto. La morte è stata probabilmente una liberazione.
+""",
+ 'Mercante' : """Per te è stato entusiasmante abitare nei pressi di un importante e frequentato accesso del limes. Le genti che popolavano i territori che si trovavano al di là erano in pace con Roma da secoli, parlavano correntemente la lingua dell’Impero, avevano adottato molti dei suoi costumi e adoravano dèi simili. Il confine non rappresentava affatto un ostacolo ai commerci, le visite reciproche, i matrimoni misti. Anche i tuoi genitori, dei mercanti molto conosciuti, si recavano spesso in quelle terre straniere e, a partire da una certa età, ti portavano sempre con loro. A volte vi spingevate molto lontano, un po’ per lavoro, un po’ per desiderio di conoscenza e ammiravate le grandiose creazioni dell’uomo e della natura. Tua madre amava ripetere che, in fin dei conti, il confine era solo una questione mentale.
+""",
+ 'Sacerdote' : """La tua famiglia gestiva una grande mansio (locanda) con taverna annessa. Legionari, ufficiali e gente di malaffare proveniente dai quattro angoli dell’Impero chiacchieravano volentieri con tuo padre e gli parlavano delle terre dove sorge il sole, di un dio antichissimo ma eternamente giovane, di anima immortale e di espiazione delle colpe. Ti ricordi come fosse ieri quando tuo padre ti ha portato per la prima volta con sé in una buia stanza rettangolare nei sotterranei di una grande casa e di come ti ha iniziato ai segreti del dio Mitra di fronte alla statua di un ragazzo che uccideva un gigantesco toro. Nella semioscurità, riconoscevi i volti di soldati, ufficiali e funzionari, ma se li incontravi per strada, di giorno, non ti salutavano neppure. In seguito ti hanno spiegato che si trattava di un culto misterico orientale, riconosciuto e tollerato dall’Impero, diffuso dai valli della Britannia ai grandi fiumi della Mesopotamia, ma che esigeva segretezza e discrezione.
+""",
+ 'Tribuno militare' : """Chi arrivava senza essere preparato, rimaneva impressionato e incredulo di fronte alle possenti e grandiose fortificazioni che correvano per decine di miglia in questa zona del limes: fossati, torri di avvistamento, terrapieni, alti muri in pietra. Le opere difensive sembravano non bastare mai di fronte alla pressione dei crudeli popoli che cercavano ciclicamente di passare. Era sufficiente un inverno più rigido del solito, un’estate senza piogge o una morìa di bestiame ed ecco, centinaia di barbari armati e disperati si scagliavano con violenza contro tutto ciò che rappresentava Roma. Tuo padre dirigeva le operazioni militari dagli immensi castra. Non si faceva spaventare facilmente, né abbindolare dai discorsi di sedicenti saggi o dai pianti delle donne. Se Roma era ancora in piedi, era anche merito suo.
+"""
+ },
+}
+
+
 specializzazioni = {
 'DeBello' : [ 'Archi', 'Asce e Mazze', 'Castra', 'Dardi', 'Lance', 'Minacciare', 'Pugnali', 'Spade', 'Tattica' ],
 'DeCorpore' : [ 'Banchettare', 'Borseggiare', 'Correre', 'Furtività', 'Lotta', 'Marciare', 'Nuotare', 'Saltare', 'Arrampicarsi' ],
@@ -1988,6 +2127,7 @@ class Custos(object):
     if self.qualifica == 'Augure' : self.equip+=['speculum', 'lituus']
     elif self.qualifica == 'Sapiente' : self.equip+=['dolabra', 'abacus']
     else :  self.equip.append(choice(['erba achillea', 'corda', 'catena', 'sega']))
+    self.bio = bio[self.origine][self.famiglia]
 
   def json(self):
     import json
