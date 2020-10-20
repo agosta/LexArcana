@@ -6,11 +6,29 @@ body {
  font-family: "Marcellus SC";
 }
 
+a {
+ font-family: "Marcellus SC";
+ color: black;
+ text-decoration: none;
+}
+
 input {
  border: none;
  background-color: transparent;
  text-align: center;
  font-family: "Marcellus SC";
+}
+
+.input_label {
+ border: none;
+ background-color: transparent;
+ text-align: center;
+ font-family: "Marcellus SC";
+ cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 select {

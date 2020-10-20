@@ -605,7 +605,7 @@
    <input id="specDeSocietate6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:1037px; width:30px; text-align:center"></input>
 
     <p style="position:absolute; top:70px; left:1350px; width:165px; font-size:110%; text-align:center; color:#694d1e">Equipaggiamento</p> 
-    <select id="armatura" style="position:absolute; top:117px; left:1250px; width:150px">
+    <select id="armatura" style="position:absolute; top:117px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna Armatura (0)</option>
       <option value="Corium Lorica">Corium Lorica (3)</option>
       <option value="Lorica Squamata">Lorica Squamata (4)</option>
@@ -614,13 +614,13 @@
       <option value="Lorica Segmentata">Lorica Segmentata (8)</option>
       <option value="Lorica Musculata">Lorica Musculata (10)</option>
     </select> 
-    <select id="scudo" style="position:absolute; top:137px; left:1250px; width:150px">
+    <select id="scudo" style="position:absolute; top:137px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuno Scudo (0)</option>
       <option value="Parma">Parma (2)</option>
       <option value="Clipeus">Clipeus (4)</option>
       <option value="Scutum">Scutum (6)</option>
     </select> 
-    <select id="arma_distanza" style="position:absolute; top:157px; left:1250px; width:150px">
+    <select id="arma_distanza" style="position:absolute; top:157px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna arma a distanza</option>
       <option value="Fionda">Fionda</option>
       <option value="Plumbata">Plumbata</option>
@@ -630,7 +630,7 @@
       <option value="Pilum">Pilum</option>
       <option value="Manubalista">Manubalista</option>
     </select> 
-    <select id="arma_ravvicinata" style="position:absolute; top:177px; left:1250px; width:150px">
+    <select id="arma_ravvicinata" style="position:absolute; top:177px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna arma ravvicinata</option>
       <option value="Pugio">Pugio (3)</option>
       <option value="Sica">Sica (4)</option>
@@ -647,7 +647,7 @@
       <option value="Falx">Falx (12)</option>
       <option value="Bipennis">Bipennis (13)</option>
     </select>
-     <select id="arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1250px; width:150px">
+     <select id="arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1250px; width:150px" onchange="update_enc()">
       <option value="empty">Nessuna arma ravvicinata</option>
       <option value="Pugio">Pugio (3)</option>
       <option value="Sica">Sica (4)</option>
@@ -675,6 +675,8 @@
       <p style="cursor:pointer; display:inline; text-align:center" onClick=generateCustos()>New</p>
       <p style="cursor:pointer; display:inline; text-align:center" onClick=storeCustos()>Store</p>
       <p style="cursor:pointer; display:inline; text-align:center" onClick=loadCustos('/stored')>Load</p>
+      <p style="cursor:pointer; display:inline; text-align:center"><a id="download" href="data:application/octet-stream;charset=utf-8;base64," download>Download</a></p>
+      <p style="cursor:pointer; display:inline; text-align:center"><label class="input_label" for="upload"><input type="file" id="upload" />Upload</label></p>
     </div>
    </div>
    <div id="pvbox">
@@ -871,6 +873,14 @@ function cycle_pv(id) {
   else if (v == ' ') x.innerHTML='X';
 }
 
+function set_pv_to(num,c,notif) {
+  id='pv'+num.toString();
+  const x=document.getElementById(id);
+  const v=x.innerHTML;
+  if (v!=notif)
+    x.innerHTML=c;
+}
+
 function from_form(){
   var the_custos={}
   var data1=document.forms["charsheet"].getElementsByTagName("input");
@@ -1006,6 +1016,77 @@ function test() {
   console.log(formData);
 }
 
+
+const armi_ravvicinate = {
+  'Pugio'     : { 'Danno' : 3, 'ingombro' : 0, 'Caratteristiche' : [], 'Difficoltà' : 3 },
+  'Sica'      : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Difficoltà' : 4 },
+  'Randello'  : { 'Danno' : 4, 'ingombro' : 2, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 4 },
+  'Scramasax' : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 5 },
+  'Gladius'   : { 'Danno' : 6, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 6 },
+  'Lancia'    : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio', 'Versatile' ], 'Difficoltà' : 6 },
+  'Securicula': { 'Danno' : 7, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio'], 'Difficoltà' : 7 },
+  'Ensis'     : { 'Danno' : 8, 'ingombro' : 3, 'Caratteristiche' : [], 'Difficoltà' : 8 },
+  'Malleus'   : { 'Danno' : 9, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 9 },
+  'Spatha'    : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 10 },
+  'Securis'   : { 'Danno' :11, 'ingombro' : 5, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 11 },
+  'Hasta'     : { 'Danno' :12, 'ingombro' : 7, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 12 },
+  'Falx'      : { 'Danno' :12, 'ingombro' : 5, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 12 },
+  'Bipennis'  : { 'Danno' :13, 'ingombro' : 6, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 13 },
+}
+
+const armi_distanza = {
+  'Fionda'    : { 'Danno' : 3, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 3 },
+  'Plumbata'  : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 4 },
+  'Angon'     : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 5 },
+  'Arcus'     : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
+  'Toxon'     : { 'Danno' : 8, 'ingombro' : 4, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 8 },
+  'Pilum'     : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : [], 'Gittata' : 'Corta', 'Difficoltà' : 10 },
+  'Manubalista':{ 'Danno' :12, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
+}
+
+const armature = {
+  'Corium Lorica'     : { 'Protezione' : 3, 'ingombro' : 3 },
+  'Lorica Squamata'   : { 'Protezione' : 4, 'ingombro' : 4 },
+  'Lorica Hamata'     : { 'Protezione' : 5, 'ingombro' : 5 },
+  'Lorica Plumata'    : { 'Protezione' : 6, 'ingombro' : 6 },
+  'Lorica Segmentata' : { 'Protezione' : 8, 'ingombro' : 8 },
+  'Lorica Musculata' :  { 'Protezione' : 10, 'ingombro' : 10 },
+}
+
+const scudi = {
+  'Parma'   : { 'Parata' : 1, 'ingombro' : 2 },
+  'Clipeus' : { 'Parata' : 2, 'ingombro' : 4 },
+  'Scutum'  : { 'Parata' : 3, 'ingombro' : 6 },
+}
+
+function get_option_selected(id) {
+  console.log(id);
+  const e = document.getElementById(id);
+  const x = e.value;
+  console.log(x)
+  return x;
+}
+
+function update_enc() {
+  const ing = document.getElementById("ingombro");
+  const arma1 = armi_ravvicinate[get_option_selected("arma_ravvicinata")];
+  const arma2 = armi_ravvicinate[get_option_selected("arma_ravvicinata_secondaria")];
+  const armad = armi_distanza[get_option_selected("arma_distanza")];
+  const armatura = armature[get_option_selected("armatura")];
+  const scudo = scudi[get_option_selected("scudo")];
+  const a = [ arma1, arma2, armad, armatura, scudo ];
+  var res = 0;
+  for (var i = 0; i<a.length; i++) {
+    console.log(a[i]);
+    if (a[i] && a[i].hasOwnProperty('ingombro') && !isNaN(a[i]['ingombro']))
+      res+=a[i]['ingombro'];
+  }
+  console.log(res);
+  ing.value=res;
+  for (var i = 1; i<=res; i++) set_pv_to(i,'/','X');
+  for (var i = res+1; i<=40; i++) set_pv_to(i,' ','X');
+}
+
 // Get the modal
 var modal = document.getElementById("modalMenu");
 
@@ -1037,8 +1118,12 @@ if('serviceWorker' in navigator) {
 
 function storeCustos() {
   /* id = Date.now(); */
-  id='/stored'
   const the_custos = JSON.stringify(from_form());
+  const href=document.getElementById("download");
+  href.href="data:text/json;charset=utf-8;,"+the_custos;
+  href.download=custos['nome'].replace(/ /g, '+')+'.json'
+
+  id='/stored'
   console.log(the_custos);
   caches.open('storage').then(function(cache) {
     cache.put('/current',new Response(the_custos));
@@ -1055,7 +1140,32 @@ function loadCustos(key) {
            to_form(res);
          });
     });
+  const the_custos = JSON.stringify(from_form());
+  const href=document.getElementById("download");
+  href.href="data:text/json;charset=utf-8;,"+the_custos;
+  href.download=custos['nome'].replace(/ /g, '+')+'.json'
 };
+
+function uploadCustos() {
+    var files = this.files;
+    console.log(files);
+    if (files.length === 0) {
+        console.log('No file is selected');
+        return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      console.log('File content:', event.target.result);
+      var the_custos = JSON.parse(event.target.result);
+      to_form(the_custos);
+      const href=document.getElementById("download");
+      href.href="data:text/json;charset=utf-8;,"+reader.result;
+      href.download=custos['nome'].replace(/ /g, '+')+'.json'
+    };
+    reader.readAsText(files[0]);
+}
+
+document.getElementById('upload').addEventListener('change', uploadCustos);
 
 function generateCustos() {
   languagePluginLoader.then(function () {
@@ -1108,19 +1218,52 @@ data = {
  'Ratae'    : { 'genere' : 'f', 'numero' : 's' }, 
  'Noviomagus':{ 'genere' : 'm', 'numero' : 's' }, 
  'Mediolanum':{ 'genere' : 'n', 'numero' : 's' }, 
+ }, 
+'Greek' : {
+ 'Antiochia' : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Alexandria': { 'genere' : 'f', 'numero' : 's' }, 
+ 'Magnesia'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Megara'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Seleucia'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Ptolemais' : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Elaea'     : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Berenice'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Arsinoe'   : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Apollonia' : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Heraclea'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Laodicea'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Teichos'   : { 'genere' : 'm', 'numero' : 's' }, 
+ 'Kome'      : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Thebes'    : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Nymphaeum' : { 'genere' : 'n', 'numero' : 's' }, 
+ 'Panormus'  : { 'genere' : 'm', 'numero' : 's' },
+ 'Chrysaoris': { 'genere' : 'f', 'numero' : 's' }, 
+ 'Neapolis'  : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Philadelphia' : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Phoenix'   : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Larissa'   : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Zephyrium' : { 'genere' : 'n', 'numero' : 's' }, 
+ 'Malus'     : { 'genere' : 'm', 'numero' : 's' }, 
+ 'Eudocia'   : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Achilleion': { 'genere' : 'n', 'numero' : 's' }, 
+ 'Dekaton'   : { 'genere' : 'n', 'numero' : 's' }, 
  }
 },
 'modificatori' : {
 'immutabili'   : [ 'Livii', 'Iulii', 'Lepidi', 'Fulvii', 'Valerii', 'Tullii', 'Septimii', 'Hadriani', 'Aelii', 'Aemilii', 'Diocletiani', 'Iunii', 'Claudii', 'Aurelii', 'Veteranorum', 'ad Pontem', 'ad Turres', 'ad Pontes', 'ad Ansam' ],
-'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid' ],
+'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid', 'Appi', 'Aemili', 'Cassi' ],
 'regionali_immutabili' : {
  'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum' ],
  'Illyricum' : [ 'Dalmaticorum', 'Eraviscorum', 'Dardanorum' ],
  'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum' ], 
- 'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonus', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
+ 'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonum', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
  'Gallia'    : [ 'Parisiorum', 'Viromanduorum', 'Suessiorum', 'Allobrogum', 'Santonum', 'Mediomatricorum', 'Convenarum', 'Aulerconum' ],
  'Germania'  : [ 'Treverorum', 'Mediomatricorum', 'Taunensium', 'Belgarum', 'Tungrorum' ],
  'Raetia'    : [ 'Vindelicorum', 'Rauracorum', 'Helvetiorum' ],
+ 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum' ],
+ 'Asia'      : [ 'ad Meandrum', 'in Commagene', 'in Pamphylia', 'in Lycia', 'ad Sipylum', 'in Cilicia', 'ad Cragum', 'ad Pyramum', 'Paraliou', 'in Phrygia', 'ad Zeugmatos', 'ad Calycadnum', 'in Caria', 'Pontica', 'in Lydia', 'ad Lycum', 'in Isauria', 'in Pontus', 'ad Bosphorum' ],
+ 'Thracia' :  [ 'in Thracia', 'in Cheirsoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
+ 'Mesopotamia' : [ 'in Osrhoene', 'in Mesopotamia', ],
  }
 },
 'declinazione' : {
@@ -1133,7 +1276,9 @@ data = {
 def gen_vicus(provincia):
   regione = None
   if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
-  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
+  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = choice(['Celtic','Celtic','Latin'])
+  elif provincia in [ 'Macedonia', 'Thracia', 'Achaia', 'Asia', 'Aegyptus' ] : regione = 'Greek' 
+  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia' ] : regione = choice(['Greek', 'Latin'])
   else : regione = 'Latin'
   base = choice(list(data['nomi'][regione].keys()))
   genere = data['nomi'][regione][base]['genere']
@@ -1225,9 +1370,9 @@ latin_cognomina_male = [ 'Agricola', 'Africanus', 'Aemilianus', 'Ambustus', 'Ant
 
 latin_cognomina_female = [ 'Agricola', 'Africana', 'Aemiliana', 'Ambusta', 'Antonina', 'Ambrosia', 'Ausonia', 'Augur', 'Aureliana', 'Attica', 'Avita', 'Andronica', 'Albana', 'Ampliata', 'Audacta', 'Balbina', 'Balba', 'Barba', 'Barbata', 'Bassiana', 'Bestia', 'Bibula', 'Blaesa', 'Boetia', 'Bruta', 'Bubo', 'Bubulca', 'Buccio', 'Bulba', 'Burra', 'Caeciliana', 'Caelimontana', 'Caelestia', 'Calama', 'Calda', 'Cara', 'Cassiana', 'Catilina', 'Catulla', 'Caudex', 'Celer', 'Castina', 'Castoria', 'Celsa', 'Claudiana', 'Cinna', 'Corbulo', 'Cumana', 'Crescentia', 'Columella', 'Colona', 'Cocles', 'Commoda', 'Comes', 'Constans', ' Cerialis', 'Decima', 'Deciana', 'Drusa', 'Dextra', 'Densa', 'Dives', 'Draco', 'Ecdicia', 'Ennodia', 'Eugenia', 'Emerita', 'Etrusca', 'Eclecta', 'Fabiana', 'Fabulla', 'Facunda', 'Gabina', 'Gala', 'Galba', 'Galera', 'Gallica', 'Garrula', 'Gaudentia', 'Genialis', 'Gratiana', 'Gemina', 'Gregoria', 'Hemina', 'Herennia', 'Honorata',  'Hostiliana', 'Labiena', 'Laeliana', 'Lucana', 'Licina', 'Leporina',  'Luculla', 'Longa', 'Laura', 'Lentula', 'Latro', 'Macer', 'Macrobia', 'Magnentia', 'Magna', 'Maior', 'Maia', 'Mamerca', 'Marsa', 'Martialis', 'Martiana', 'Maxima', 'Maura', 'Mela', 'Memor', 'Moma', 'Murena', 'Montana', 'Metella', 'Merenda', 'Merula', 'Messor', 'Naevola', 'Nasica', 'Natta', 'Nepos', 'Nennia', 'Nerva', 'Novella', 'Numma', 'Obsequens', 'Ocella', 'Opis', 'Oppiana', 'Pacata', 'Paenula', 'Papa', 'Pamphilia', 'Pastor', 'Patiens', 'Pelagia', 'Perpetua', 'Persica', 'Pertinax', 'Plauta', 'Petronia', 'Pictor', 'Picens', 'Pilata', 'Pola', 'Pollio', 'Porca', 'Prota', 'Prisciana', 'Potestas', 'Potita', 'Poplicola', 'Proca', 'Procula', 'Publicola', 'Pustula', 'Pupa', 'Pulcher', 'Proxima', 'Quadrata', 'Quarta', 'Quintiliana', 'Quinta', 'Quirinalis', 'Ravilla', 'Rebila', 'Regilla', 'Rogata', 'Regula', 'Ruso', 'Rutila', 'Sabina', 'Salinatrix', 'Salviana', 'Seneca', 'Severa', 'Sedata', 'Suria', 'Sura', 'Strabo', 'Stilo', 'Statia', 'Simplicia', 'Simplex', 'Silvia', 'Sisenna', 'Suburana', 'Tacita', 'Tarcisia', 'Tatiana', 'Taura', 'Tenax', 'Tertulla', 'Torquata', 'Trigemina', 'Tutor', 'Tubero', 'Tibulla', 'Traiana', 'Urbana', 'Ursula', 'Urbica', 'Valens', 'Velox', 'Viatrix', 'Vita', 'Victor', 'Virilis', 'Varro', 'Venusta', 'Verax', 'Verecunda', 'Vopisca', 'Major', 'Minor' ]
 
-greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philuppus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus' ]
+greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eumedes', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philuppus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus' ]
 
-greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Tryphaena', 'Thabis', 'Stratonice', 'Nais', 'Thais', 'Athenais' ]
+greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Tryphaena', 'Thabis', 'Arsinoe', 'Nais', 'Thais', 'Athenais' ]
 
 praenomina = {
  'female' : {
@@ -1259,6 +1404,7 @@ cognomina = {
    'egyptian' : [ 'Psenptais', 'Petobastidis', 'Soris', 'Ptolemaeus', 'Eulaeus', 'Lenaeus', 'Serapion', 'Zopyrus', 'Manetho', 'Apion', 'Teucer' ],
    'aramaic' : [ 'Zabinaeus', 'Zabinas', 'Giora', 'Simon', 'Ioannes', 'Aphraates', 'Josephus', 'Zenobius', 'Hyrcanus', 'Simonides', 'Justus', 'Jannaeus', 'Matthias', 'Ephlias', 'Ananus', 'Apphus', 'Obodas', 'Aretas', 'Malichus', 'Odaenathus', 'Vaballathus', 'Herodianus', 'Maeonius', 'Zabdas', 'Elias' ],
    'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal' ],
+   'thracian' : [ 'Teres', 'Sparatocos', 'Sitalces', 'Sadocos', 'Seuthes', 'Amatokos', 'Amadocus', 'Maisades', 'Hebryzelmis', 'Cotys', 'Cersobleptes', 'Berisades', 'Cetriporis', 'Roigos', 'Adaeus', 'Odoroes', 'Scostodos', 'Orsoaltios', 'Kersivaulos', 'Rheuscuporis', 'Pleuratus', 'Ciroadas', 'Byses', 'Rhoemetalces', 'Sadalas' ],
  },
  'female' : {
    'latin' : latin_cognomina_female,
@@ -1271,6 +1417,7 @@ cognomina = {
    'egyptian' : ['Cleopatra', 'Berenice', 'Arsinoe', 'Nitocris' ],
    'aramaic' : ['Zenobia', 'Salomè', 'Herodias', 'Mavia' ],
    'african' : ['Dido'],
+   'thracian' : [ 'Pythodoris', 'Tryphaena', 'Gepaepyris', 'Meda', 'Doricha' ],
  },
 }
 
@@ -1285,7 +1432,7 @@ province_to_language = {
 'Britannia' : 'brithonic',
 'Germania' : 'germanic',
 'Raetia' : 'germanic',
-'Thracia' : 'greek',
+'Thracia' : 'thracian',
 'Dacia' : 'greek',
 'Asia' : 'greek',
 'Armenia' : 'armenian',
@@ -1811,6 +1958,9 @@ custos=make_char()
     cache.put('/current', new Response(pyodide.globals.custos));
   });
  });
+ const href=document.getElementById("download");
+ href.href="data:text/json;charset=utf-8;,"+pyodide.globals.custos;
+ href.download=custos['nome'].replace(/ /g, '+')+'.json'
 }
 
 generateCustos();
