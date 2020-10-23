@@ -1,5 +1,5 @@
 body {
- background-image: url("scheda.svg");
+ background-image: url("scheda.svg")  !important;
  background-color: #cccccc;
  width: 1625px;
  height: 1056px;
@@ -94,4 +94,11 @@ select {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media print {
+* {
+    -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
+    color-adjust: exact !important;  /*Firefox*/
+  }
 }
