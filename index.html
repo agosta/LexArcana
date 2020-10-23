@@ -1234,9 +1234,17 @@ data = {
   'Castrum'    : { 'genere' : 'n', 'numero' : 's' }, 
   'Castra'     : { 'genere' : 'n', 'numero' : 'p' }, 
  },
+ 'Celtic' : {
+  'Castrum'    : { 'genere' : 'n', 'numero' : 's' }, 
+  'Castra'     : { 'genere' : 'n', 'numero' : 'p' }, 
+  'Ratae'      : { 'genere' : 'f', 'numero' : 's' }, 
+ },
  'Greek' : {
   'Phrourion'  : { 'genere' : 'n', 'numero' : 's' }, 
   'Stratopedon': { 'genere' : 'n', 'numero' : 's' },   
+  'Pyrgos'     : { 'genere' : 'm', 'numero' : 's' }, 
+  'Teichos'    : { 'genere' : 'm', 'numero' : 's' }, 
+  'Teichisma'  : { 'genere' : 'n', 'numero' : 's' }, 
  }
 },
 'nomi' : {
@@ -1258,6 +1266,8 @@ data = {
  'Fossa'    : { 'genere' : 'f', 'numero' : 's' }, 
  'Taberna'  : { 'genere' : 'f', 'numero' : 's' }, 
  'Tabernae' : { 'genere' : 'f', 'numero' : 'p' }, 
+ 'Sena'     : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Curia'    : { 'genere' : 'f', 'numero' : 's' }, 
  },
 'Celtic' : {
  'Venta'    : { 'genere' : 'f', 'numero' : 's' }, 
@@ -1265,6 +1275,9 @@ data = {
  'Ratae'    : { 'genere' : 'f', 'numero' : 's' }, 
  'Noviomagus':{ 'genere' : 'm', 'numero' : 's' }, 
  'Mediolanum':{ 'genere' : 'n', 'numero' : 's' }, 
+ 'Lindum'   : { 'genere' : 'n', 'numero' : 's' }, 
+ 'Sena'     : { 'genere' : 'f', 'numero' : 's' }, 
+ 'Curia'    : { 'genere' : 'f', 'numero' : 's' }, 
  }, 
 'Greek' : {
  'Antiochia' : { 'genere' : 'f', 'numero' : 's' }, 
@@ -1294,26 +1307,29 @@ data = {
  'Eudocia'   : { 'genere' : 'f', 'numero' : 's' }, 
  'Achilleion': { 'genere' : 'n', 'numero' : 's' }, 
  'Dekaton'   : { 'genere' : 'n', 'numero' : 's' }, 
+ 'Emporion'  : { 'genere' : 'n', 'numero' : 's' }, 
  }
 },
 'modificatori' : {
 'immutabili'   : [ 'Livii', 'Iulii', 'Lepidi', 'Fulvii', 'Valerii', 'Tullii', 'Septimii', 'Hadriani', 'Aelii', 'Aemilii', 'Diocletiani', 'Iunii', 'Claudii', 'Aurelii', 'Veteranorum', 'ad Pontem', 'ad Turres', 'ad Pontes', 'ad Ansam' ],
 'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid', 'Appi', 'Aemili', 'Cassi', 'Praetori' ],
+'immutabili_greci' : [ 'epi Chalcedona', 'Paralios', 'ad Antiochiam', 'apud Alexandriam', 'apud Eudociam', 'apud Berenicem', 'apud Laodiceam', 'apud Heracleam' ],
 'regionali_immutabili' : {
- 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum', 'Ingaunorum' ],
+ 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum', 'Ingaunorum', 'Sardorum', 'Peucetiorum', 'Messapiorum', 'Iapygium', 'Vestinorum', 'Lepontiorum', 'Ligurum', 'Insubrum' ],
  'Illyricum' : [ 'Dalmaticorum', 'Eraviscorum', 'Dardanorum' ],
- 'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum' ], 
+ 'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum', 'Coritanorum' ], 
  'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonum', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
  'Gallia'    : [ 'Parisiorum', 'Viromanduorum', 'Suessiorum', 'Allobrogum', 'Santonum', 'Mediomatricorum', 'Convenarum', 'Aulerconum' ],
  'Germania'  : [ 'Treverorum', 'Mediomatricorum', 'Taunensium', 'Belgarum', 'Tungrorum' ],
  'Raetia'    : [ 'Vindelicorum', 'Rauracorum', 'Helvetiorum' ],
- 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum', 'ad Iordanum', 'in Nabataea', 'in Iudaea' ],
+ 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum', 'ad Iordanum', 'in Nabataea', 'in Iudaea', 'Palestinae', 'in Samaria' ],
  'Asia'      : [ 'ad Meandrum', 'in Commagene', 'in Pamphylia', 'in Lycia', 'ad Sipylum', 'in Cilicia', 'ad Cragum', 'ad Pyramum', 'Paraliou', 'in Phrygia', 'ad Zeugmatos', 'ad Calycadnum', 'in Caria', 'in Lydia', 'ad Lycum', 'in Isauria', 'in Pontus', 'ad Bosphorum' ],
- 'Thracia' :  [ 'in Thracia', 'in Chersoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
- 'Mesopotamia' : [ 'in Osrhoene', 'in Mesopotamia', 'Assyriorum' ],
+ 'Thracia'   : [ 'in Thracia', 'in Chersoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
+ 'Mesopotamia':[ 'in Osrhoene', 'in Mesopotamia', 'Assyriorum' ],
+ 'Achaia'    : [ 'in Achaia', 'in Euboea', 'in Peloponneso', 'in Tessalia', 'in Korinthia', 'in Elide' ],
  },
 'regionali_mutabili' : {
- 'Italia'    : [ 'Apul', 'Lucan', 'Marsic', 'Venetic' ],
+ 'Italia'    : [ 'Apul', 'Lucan', 'Marsic', 'Venetic', 'Sicul', 'Hyblae', 'Irpin' ],
  'Asia'      : [ 'Pontic', 'Ne' ],
  'Thracia'   : [ 'Pontic', 'Dentheletic' ],
  'Dacia'     : [ 'Pontic' ],
@@ -1328,10 +1344,10 @@ data = {
 
 def gen_vicus(provincia):
   regione = None
-  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia', 'Mauretania' ] : regione = 'Latin'
   elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = choice(['Celtic','Celtic','Latin'])
   elif provincia in [ 'Macedonia', 'Thracia', 'Achaia', 'Asia', 'Aegyptus' ] : regione = 'Greek' 
-  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia' ] : regione = choice(['Greek', 'Latin'])
+  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia', 'Arabia' ] : regione = choice(['Greek', 'Latin'])
   else : regione = 'Latin'
   base = choice(list(data['nomi'][regione].keys()))
   genere = data['nomi'][regione][base]['genere']
@@ -1341,25 +1357,31 @@ def gen_vicus(provincia):
   else :
     tipo_mod = choice(['immutabili','aggettivi'])
   mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
+  if regione == 'Greek' and tipo_mod not in [ 'regionali_mutabili', 'regionali_immutabili' ] :
+    tipo_mod = 'immutabili_greci'
+    mod = choice(data['modificatori'][tipo_mod])
   if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
   return base+' '+mod
 
 
 def gen_castrum(provincia):
   regione = None
-  nome = 'Latin'
-  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
-  if provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia', 'Mauretania' ] : regione = 'Latin'
+  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = choice(['Celtic','Celtic','Latin'])
+  elif provincia in [ 'Macedonia', 'Thracia', 'Achaia', 'Asia', 'Aegyptus' ] : regione = 'Greek' 
+  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia', 'Arabia' ] : regione = choice(['Greek', 'Latin'])
   else : regione = 'Latin'
-  if provincia in [ 'Asia', 'Achaia', 'Armenia' ] : nome = 'Greek'
-  base = choice(list(data['castra'][nome].keys()))
-  genere = data['castra'][nome][base]['genere']
-  numero = data['castra'][nome][base]['numero']
+  base = choice(list(data['castra'][regione].keys()))
+  genere = data['castra'][regione][base]['genere']
+  numero = data['castra'][regione][base]['numero']
   if provincia in data['modificatori']['regionali_immutabili'] :
     tipo_mod = choice(['immutabili','regionali_immutabili','aggettivi'])
   else :
     tipo_mod = choice(['immutabili','aggettivi'])
   mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
+  if regione == 'Greek' and tipo_mod not in [ 'regionali_mutabili', 'regionali_immutabili' ] :
+    tipo_mod = 'immutabili_greci'
+    mod = choice(data['modificatori'][tipo_mod])
   if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
   return base+' '+mod
 
