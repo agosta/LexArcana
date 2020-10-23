@@ -1,9 +1,15 @@
 body {
- background-image: url("scheda.svg")  !important;
+ background-image: url("scheda.svg") !important;
  background-color: #cccccc;
- width: 1625px;
- height: 1056px;
+ background-repeat: no-repeat;
+ background-position: left top;
+ width: 1620px;
+ height: 1045px;
  font-family: "Marcellus SC";
+}
+
+.bgimg img{ 
+  display: none;
 }
 
 a {
@@ -101,4 +107,12 @@ select {
     -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
     color-adjust: exact !important;  /*Firefox*/
   }
+.bgimg img{ 
+  display: inline;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 1625px;
+  height: 1056px;
+ }
 }
