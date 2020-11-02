@@ -962,7 +962,7 @@ function to_form(the_custos){
         data1[i].value=l.slice(l.length/2, l.length)
       }
     }
-    if ("spec" == data1[i].id.substring(0,4)) { // spec value
+    if ("spec" == data1[i].id.substring(0,4) && !custos.hasOwnProperty(data1[i].id)) { // spec value
          data1[i].value=0;
     }
   }  
@@ -972,7 +972,7 @@ function to_form(the_custos){
       console.log("found", data2[i].id);
       data2[i].value=custos[data2[i].id]
     }
-    if ("spec" == data2[i].id.substring(0,4)) { // spec id
+    if ("spec" == data2[i].id.substring(0,4) && !custos.hasOwnProperty(data2[i].id)) { // spec id
          data2[i].value="empty";
     }
   }
