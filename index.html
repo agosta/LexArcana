@@ -1222,8 +1222,15 @@ function uploadCustos() {
 document.getElementById('upload').addEventListener('change', uploadCustos);
 
 function generateCustos() {
-  languagePluginLoader.then(function () {
-  var x = pyodide.runPython(`
+//  languagePluginLoader.then(function () {
+//  var x = pyodide.runPython(`
+const PYODIDE_BASE_URL = "https://cdn.jsdelivr.net/pyodide/v0.18.0/full"
+
+loadPyodide({ indexURL: PYODIDE_BASE_URL }).then((pyodide) => {
+  globalThis.pyodide = pyodide      // you might also want to store pyodide globally so 
+                                    // so you can access anywhere in the scope
+  pyodide.loadPackage(['numpy']).then(() => {
+    pyodide.runPython(`   
 from random import choice, randint
 def dX(f):
   def dice(n=1):
