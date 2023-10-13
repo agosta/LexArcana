@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
-      <meta name="viewport" content="width=1620, height=1045, shrink-to-fit=yes">
+      <meta name="viewport" content="width=device-width, initial-scale=0.86, shrink-to-fit=yes">
       <meta charset="utf-8">
       <meta name="theme-color" content="#F5DEF1">
       <title>Legis Arcanae Personae Folium</title>
       <link rel="manifest" href="./manifest.json"/>
-      <script type="text/javascript">
-          // set the pyodide files URL (packages.json, pyodide.asm.data etc)
-          window.languagePluginUrl = 'https://pyodide-cdn2.iodide.io/v0.15.0/full/';
-      </script>
-      <script src="./pyodide.js"></script>
+      <script src='https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js'></script>
       <script src="./handlebars.js"></script>
       <link rel="shortcut icon" href="./favicon.ico" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marcellus+SC|Material+Icons" />
       <link rel="stylesheet" href="./style.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" /> 
   </head>
   <body class="body">
-   <div class="bgimg">
-    <img src="scheda.svg" alt="bg image" />
-   </div> 
    <form id="charsheet">
     <span class="input" id="nome1" style="position:absolute; top:60px; left:40px; width:315px; font-size:115%; color:#694d1e; text-align:center"></span>
-    <select id="origine" style="position:absolute; top:100px; left:40px; width:115px; text-align:justify">
+    <select id="origine" style="position:absolute; top:180px; left:40px; width:115px; text-align:justify">
       <option value="Civitas">Civitas</option>
       <option value="Colonia">Colonia</option>
       <option value="Vicus">Vicus</option>
       <option value="Posto isolato">Posto isolato</option>
       <option value="Limes">Limes</option>
     </select>
-    <input type="text" id="citta" style="position:absolute; top:100px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
-    <span class="input" style="position:absolute; top:120px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
-    <input type="text" id="famiglia" style="position:absolute; top:120px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
-    <textarea id="bio" cols="50" rows="15" wrap="soft" style="position:absolute; top:180px; left:40px; width:315px; height:200" value="Inserire la biografia del personaggio"></textarea>
+    <input type="text" id="citta" style="position:absolute; top:180px; left:166px; width:200px; text-align:left" value="bla bla bla"></input>
+    <span class="input" style="position:absolute; top:200px; left:40px; width:115px; text-align:left; font-size:90%">Famiglia:</span>
+    <input type="text" id="famiglia" style="position:absolute; top:200px; left:166px; width:200px; text-align:justify" value="bla bla bla"></input>
+    <input type="textarea" id="bio" style="position:absolute; top:220px; left:40px; width:315px; text-align:justify" value="bla bla bla"></input>
     <span class="input" id="combatAbName" style="position:absolute; top:530px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
     <p  class="input" id="combatAbBody" style="position:absolute; top:540px; left:40px; width:315px; text-align:justify"></p>
     <span class="input" id="invocazioneName" style="position:absolute; top:800px; left:40px; width:315px; font-size:110%; color:#694d1e; text-align:center"></span>
@@ -106,26 +100,15 @@
     <input id="pietas" min="6" max="40" type="number" style="position:absolute; top:978px; left:538px; width:35px; font-size:110%; text-align:center" value="8"></input>
     <input id="vita" type="number" min="1" max="40" style="position:absolute; top:668px; left:680px; width:35px; font-size:110%; text-align:center" value="8"></input>
 
-    <p style="position:absolute; top:678px; left:800px; width:165px; font-size:110%; text-align:center; color:#694d1e">Moltiplicatori</p> 
-    <p style="position:absolute; top:698px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeBello" name="multDeBello" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeBello" style="width:100px">de bello</label></p>
-    <p style="position:absolute; top:718px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeCorpore" name="multDeCorpore" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeCorpore" style="width:100px">de corpore</label></p>
-    <p style="position:absolute; top:738px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeMagia" name="multDeMagia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeMagia" style="width:100px">de magia</label></p>
-    <p style="position:absolute; top:758px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeNatura" name="multDeNatura" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeNatura" style="width:100px">de natura</label></p>
-    <p style="position:absolute; top:778px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeScientia" name="multDeScientia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeScientia" style="width:100px">de scientia</label></p>
-    <p style="position:absolute; top:798px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeSocietate" name="multDeSocietate" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeSocietate" style="width:100px">de societate</label></p>
-    <p style="position:absolute; top:818px; left:800px; width:185px; font-size:110%; text-align:left">&times;<input id="multMosArcanorum" name="multMosArcanorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multMosArcanorum" style="width:120px">mos arcanorum</label></p>
-    <p style="position:absolute; top:838px; left:800px; width:165px; font-size:110%; text-align:left">&times;<input id="multPaxDeorum" name="multPaxDeorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multPaxDeorum" style="width:100px">pax deorum</label></p>
-
-    <p style="position:absolute; top:678px; left:1000px; width:135px; font-size:110%; text-align:center; color:#694d1e">Esperienza</p> 
-    <p style="position:absolute; top:698px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeBello" name="xpDeBello" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:718px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeCorpore" name="xpDeCorpore" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:738px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeMagia" name="xpDeMagia" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:758px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeNatura" name="xpDeNatura" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:778px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeScientia" name="xpDeScientia" type="number"style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:798px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpDeSocietate" name="xpDeSocietate" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:818px; left:1000px; width:185px; font-size:110%; text-align:left"><input id="xpMosArcanorum" name="xpMosArcanorum" type="number" style="width:135px;" value="0"></input></p>
-    <p style="position:absolute; top:838px; left:1000px; width:165px; font-size:110%; text-align:left"><input id="xpPaxDeorum" name="xpPaxDeorum" type="number" style="width:135px;" value="0"></input></p>
-
+    <p style="position:absolute; top:678px; left:880px; width:165px; font-size:110%; text-align:center; color:#694d1e">Moltiplicatori</p> 
+    <p style="position:absolute; top:698px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeBello" name="multDeBello" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeBello" style="width:100px">de bello</label></p>
+    <p style="position:absolute; top:718px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeCorpore" name="multDeCorpore" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeCorpore" style="width:100px">de corpore</label></p>
+    <p style="position:absolute; top:738px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeMagia" name="multDeMagia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeMagia" style="width:100px">de magia</label></p>
+    <p style="position:absolute; top:758px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeNatura" name="multDeNatura" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeNatura" style="width:100px">de natura</label></p>
+    <p style="position:absolute; top:778px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeScientia" name="multDeScientia" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeScientia" style="width:100px">de scientia</label></p>
+    <p style="position:absolute; top:798px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multDeSocietate" name="multDeSocietate" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multDeSocietate" style="width:100px">de societate</label></p>
+    <p style="position:absolute; top:818px; left:880px; width:185px; font-size:110%; text-align:left">&times;<input id="multMosArcanorum" name="multMosArcanorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multMosArcanorum" style="width:120px">mos arcanorum</label></p>
+    <p style="position:absolute; top:838px; left:880px; width:165px; font-size:110%; text-align:left">&times;<input id="multPaxDeorum" name="multPaxDeorum" type="number" min="1" max="10" style="width:35px;" value="2"></input><label name="multPaxDeorum" style="width:100px">pax deorum</label></p>
     
     <select id="specDeBello1" style="position:absolute; top:400px; left:513px; width:100px">
       <option value="empty"></option>
@@ -348,15 +331,15 @@
 
     <select id="specDeNatura1" style="position:absolute; top:540px; left:513px; width:100px">
       <option value="empty"></option>
-      <option value="Cacciare">Cacciare</option>
-      <option value="Cavalcare">Cavalcare</option>
-      <option value="Erboristeria">Erboristeria</option>
-      <option value="Esplorazione">Esplorazione</option>
-      <option value="Navigare">Navigare</option>
-      <option value="Orientamento">Orientamento</option>
-      <option value="Recuperare Cibo">Recuperare Cibo</option>
-      <option value="Sapienza Animale">Sapienza Animale</option>
-      <option value="Tempo Atmosferico">Tempo Atmosferico</option>
+      <option value="Castra">Cacciare</option>
+      <option value="Minacciare">Cavalcare</option>
+      <option value="Tattica">Erboristeria</option>
+      <option value="Archi">Esplorazione</option>
+      <option value="Asce e Mazze">Navigare</option>
+      <option value="Dardi">Orientamento</option>
+      <option value="Lance">Recuperare Cibo</option>
+      <option value="Pugnali">Sapienza Animale</option>
+      <option value="Spade">Tempo Atmosferico</option>
     </select>   
     <select id="specDeNatura2" style="position:absolute; top:556px; left:513px; width:100px">
       <option value="empty"></option>
@@ -607,82 +590,6 @@
    <input id="specDeSocietate5value" type="number" min="0" max="9" value="0" style="position:absolute; top:602px; left:1037px; width:30px; text-align:center"></input>
    <input id="specDeSocietate6value" type="number" min="0" max="9" value="0" style="position:absolute; top:617px; left:1037px; width:30px; text-align:center"></input>
 
-    <p style="position:absolute; top:70px; left:1350px; width:165px; font-size:110%; text-align:center; color:#694d1e">Armi & Armature</p> 
-    <select id="armatura" style="position:absolute; top:117px; left:1250px; width:150px" onchange="update_enc()">
-      <option value="empty">Nessuna Armatura (0)</option>
-      <option value="Corium Lorica">Corium Lorica (3)</option>
-      <option value="Lorica Squamata">Lorica Squamata (4)</option>
-      <option value="Lorica Hamata">Lorica Hamata (5)</option>
-      <option value="Lorica Plumata">Lorica Plumata (6)</option>
-      <option value="Lorica Segmentata">Lorica Segmentata (8)</option>
-      <option value="Lorica Musculata">Lorica Musculata (10)</option>
-    </select> 
-    <select id="scudo" style="position:absolute; top:137px; left:1250px; width:150px" onchange="update_enc()">
-      <option value="empty">Nessuno Scudo (0)</option>
-      <option value="Parma">Parma (2)</option>
-      <option value="Clipeus">Clipeus (4)</option>
-      <option value="Scutum">Scutum (6)</option>
-    </select> 
-    <select id="arma_distanza" style="position:absolute; top:157px; left:1250px; width:150px" onchange="update_enc()">
-      <option value="empty">Nessuna arma a distanza</option>
-      <option value="Fionda">Fionda</option>
-      <option value="Plumbata">Plumbata</option>
-      <option value="Angon">Angon</option>
-      <option value="Arcus">Arcus</option>
-      <option value="Toxon">Toxon</option>
-      <option value="Pilum">Pilum</option>
-      <option value="Manubalista">Manubalista</option>
-    </select> 
-    <select id="arma_ravvicinata" style="position:absolute; top:177px; left:1250px; width:150px" onchange="update_enc()">
-      <option value="empty">Nessuna arma ravvicinata</option>
-      <option value="Pugio">Pugio (3)</option>
-      <option value="Sica">Sica (4)</option>
-      <option value="Randello">Randello (4)</option>
-      <option value="Scramasax">Scramasax (5)</option>
-      <option value="Gladius">Gladius (6)</option>
-      <option value="Lancia">Lancia (6)</option>
-      <option value="Securicula">Securicula (7)</option>
-      <option value="Ensis">Ensis (8)</option>
-      <option value="Malleus">Malleus (9)</option>
-      <option value="Spatha">Spatha (10)</option>
-      <option value="Securis">Securis (11)</option>
-      <option value="Hasta">Hasta (12)</option>
-      <option value="Falx">Falx (12)</option>
-      <option value="Bipennis">Bipennis (13)</option>
-    </select>
-    <select id="arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1250px; width:150px" onchange="update_enc()">
-      <option value="empty">Nessuna arma ravvicinata</option>
-      <option value="Pugio">Pugio (3)</option>
-      <option value="Sica">Sica (4)</option>
-      <option value="Randello">Randello (4)</option>
-      <option value="Scramasax">Scramasax (5)</option>
-      <option value="Gladius">Gladius (6)</option>
-      <option value="Lancia">Lancia (6)</option>
-      <option value="Securicula">Securicula (7)</option>
-      <option value="Ensis">Ensis (8)</option>
-      <option value="Malleus">Malleus (9)</option>
-      <option value="Spatha">Spatha (10)</option>
-      <option value="Securis">Securis (11)</option>
-      <option value="Hasta">Hasta (12)</option>
-      <option value="Falx">Falx (12)</option>
-      <option value="Bipennis">Bipennis (13)</option>
-    </select> 
-
-    <span id="desc_armatura" style="position:absolute; top:117px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
-    <span id="desc_scudo" style="position:absolute; top:137px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
-    <span id="desc_arma_distanza" style="position:absolute; top:157px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
-    <span id="desc_arma_ravvicinata" style="position:absolute; top:177px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
-    <span id="desc_arma_ravvicinata_secondaria" style="position:absolute; top:197px; left:1405px; width:200px; font-size:70%">dati combattimento</span>
-
-
-    <p style="position:absolute; top:250px; left:1330px; width:205px; font-size:110%; text-align:center; color:#694d1e">Altro Equipaggiamento</p> 
-    <textarea id="equip" cols="50" rows="15" wrap="soft" style="position:absolute; top:300px; left:1260px; width:315px; height:250" value="Altri oggetti"></textarea>
-
-    <p style="position:absolute; top:620px; left:1330px; width:205px; font-size:110%; text-align:center; color:#694d1e">Benifici & Indigitamenta</p> 
-    <textarea id="benefici" cols="50" rows="15" wrap="soft" style="position:absolute; top:670px; left:1260px; width:315px; height:250" value="Altri benefici e indigitamenta"></textarea>
-
-    <input id="ingombro" type="number" min="0" max="40" value="0" style="position:absolute; top:982px; left:1460px; width:30px;font-size:110%; text-align:center"></input>
-
    </form>
    <button id="menuButton" type="button" class="invisibleButton"></button>
    <div id="modalMenu" class="modal">
@@ -691,55 +598,21 @@
       <p style="cursor:pointer; display:inline; text-align:center" onClick=generateCustos()>New</p>
       <p style="cursor:pointer; display:inline; text-align:center" onClick=storeCustos()>Store</p>
       <p style="cursor:pointer; display:inline; text-align:center" onClick=loadCustos('/stored')>Load</p>
-      <p style="cursor:pointer; display:inline; text-align:center"><a id="download" href="data:application/octet-stream;charset=utf-8;base64," download>Download</a></p>
-      <p style="cursor:pointer; display:inline; text-align:center"><label class="input_label" for="upload"><input type="file" id="upload" />Upload</label></p>
     </div>
-   </div>
-   <div id="pvbox">
-    <span id="pv1" style="position:absolute; top:775px; left:751px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv2" style="position:absolute; top:775px; left:722px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv3" style="position:absolute; top:775px; left:693px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv4" style="position:absolute; top:775px; left:665px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv5" style="position:absolute; top:775px; left:636px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv6" style="position:absolute; top:775px; left:609px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv7" style="position:absolute; top:775px; left:580px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv8" style="position:absolute; top:775px; left:551px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv9" style="position:absolute; top:775px; left:522px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv10" style="position:absolute; top:775px; left:495px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv11" style="position:absolute; top:751px; left:751px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv12" style="position:absolute; top:751px; left:722px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv13" style="position:absolute; top:751px; left:693px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv14" style="position:absolute; top:751px; left:665px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv15" style="position:absolute; top:751px; left:636px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv16" style="position:absolute; top:751px; left:609px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv17" style="position:absolute; top:751px; left:580px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv18" style="position:absolute; top:751px; left:551px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv19" style="position:absolute; top:751px; left:522px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv20" style="position:absolute; top:751px; left:495px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv21" style="position:absolute; top:726px; left:751px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv22" style="position:absolute; top:726px; left:722px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv23" style="position:absolute; top:726px; left:693px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv24" style="position:absolute; top:726px; left:665px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv25" style="position:absolute; top:726px; left:636px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv26" style="position:absolute; top:726px; left:609px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv27" style="position:absolute; top:726px; left:580px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv28" style="position:absolute; top:726px; left:551px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv29" style="position:absolute; top:726px; left:522px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv30" style="position:absolute; top:726px; left:495px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv31" style="position:absolute; top:701px; left:751px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv32" style="position:absolute; top:701px; left:722px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv33" style="position:absolute; top:701px; left:693px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv34" style="position:absolute; top:701px; left:665px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv35" style="position:absolute; top:701px; left:636px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv36" style="position:absolute; top:701px; left:609px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv37" style="position:absolute; top:701px; left:580px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv38" style="position:absolute; top:701px; left:551px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv39" style="position:absolute; top:701px; left:522px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
-    <span id="pv40" style="position:absolute; top:701px; left:495px; width:15px; height:15px; font-weight:bold; cursor:pointer" onclick="cycle_pv(this.id)">X</span>
    </div>
   </body>
 <script type="text/javascript">
-var custos = null;
+async function loader() {
+  let pyodide = await loadPyodide();
+  console.log(pyodide.runPython(`
+    import sys
+    sys.version
+  `));
+  globalThis.pyodide = pyodide;
+  return pyodide;
+}
+
+
 var slider = document.getElementById("aetas");
 var output = document.getElementById("eta_out");
 output.innerHTML = slider.value;
@@ -836,12 +709,11 @@ combinazione di dadi, e sommare il risultato al precedente.`;
 Bello può usare questa invocazione per tirare di nuovo la stessa
 combinazione di dadi e sommare il risultato al precedente.`;
     break;
-    case "Sapiente" : n = `Spendendo 6 Pietas, un Sapiente che ha effettuato un tiro di De
-Scientia può usare questa invocazione per tirare di nuovo la stessa
-combinazione di dadi e sommare il risultato al precedente.`;
+    case "Sapiente" : n = `Una volta per tempus, il Sapiente può ripetere un qualsiasi tiro che ha appena effettuato per i danni (che infligge) o di protezione (per evitare di subirne). Il Sapiente deve
+utilizzare il secondo risultato, anche se inferiore al primo.`;
     break;
-    case "Assassino" : n = `Spendendo 6 Pietas, un Assassino che ha effettuato un tiro di De
-Corpore può usare questa invocazione per tirare di nuovo la stessa
+    case "Assassino" : n = `Spendendo 6 Pietas, un Sapiente che ha effettuato un tiro di De
+Scientia può usare questa invocazione per tirare di nuovo la stessa
 combinazione di dadi e sommare il risultato al precedente.`;
     break;
     default : console.log(this.value);
@@ -873,96 +745,40 @@ function get_options(field){
   return r
 }
 
-
-function cycle_pv(id) {
-  const x=document.getElementById(id);
-  const v=x.innerHTML;
-  const pvmax=custos.vita;
-  const ing=custos.ingombro;
-  const clicked = parseInt(id.slice(2));
-  if (clicked<=ing) {
-   if (v == 'X' ) x.innerHTML='/';
-   else  x.innerHTML='X';
-  }
-  else if (clicked>pvmax) x.innerHTML=' ';
-  else if (v == 'X') x.innerHTML=' ';
-  else if (v == ' ') x.innerHTML='X';
-}
-
-function set_pv_to(num,c,notif) {
-  id='pv'+num.toString();
-  const x=document.getElementById(id);
-  const v=x.innerHTML;
-  if (v!=notif)
-    x.innerHTML=c;
-}
-
-function from_form(){
-  var the_custos={}
+function to_form(custos){
   var data1=document.forms["charsheet"].getElementsByTagName("input");
   var data2=document.forms["charsheet"].getElementsByTagName("select");
-  var data3=document.forms["charsheet"].getElementsByTagName("textarea");
-  for (var i=0; i<data1.length; i++){
-      the_custos[data1[i].id]=data1[i].value
-  }
-  for (var i=0; i<data2.length; i++){
-      the_custos[data2[i].id]=data2[i].value
-  }
-  for (var i=0; i<data3.length; i++){
-      the_custos[data3[i].id]=data3[i].value
-  }
-  custos=the_custos;
-  return the_custos;
-}
-
-function to_form(the_custos){
-  custos=the_custos;
-  var data1=document.forms["charsheet"].getElementsByTagName("input");
-  var data2=document.forms["charsheet"].getElementsByTagName("select");
-  var data3=document.forms["charsheet"].getElementsByTagName("textarea");
   console.log(custos['nome'])
-  for (var i=0; i<data3.length; i++){
-    console.log("checking", data3[i].id);
-    if (custos.hasOwnProperty(data3[i].id)) {
-      console.log("found", data3[i].id);
-      data3[i].value=custos[data3[i].id]
-    }
-  }
   for (var i=0; i<data1.length; i++){
     console.log("checking", data1[i].id);
     if (custos.hasOwnProperty(data1[i].id)) {
       console.log("found", data1[i].id);
       data1[i].value=custos[data1[i].id]
     }
-    if (custos.hasOwnProperty('peritiae'))
     if (custos['peritiae'].hasOwnProperty(data1[i].id)) {
       console.log("found", data1[i].id);
       data1[i].value=custos['peritiae'][data1[i].id]
     }
-    if (custos.hasOwnProperty('virtutes'))
     if (custos['virtutes'].hasOwnProperty(data1[i].id)) {
       console.log("found", data1[i].id);
       data1[i].value=custos['virtutes'][data1[i].id]
     }
     if ("mult" == data1[i].id.substring(0,4)) {
       console.log("mult", data1[i].id.substring(4,data1[i].id.length));
-      if (custos.hasOwnProperty('moltiplicatori'))
       if (custos['moltiplicatori'].hasOwnProperty(data1[i].id.substring(4,data1[i].id.length))) {
         console.log("found", data1[i].id);
         data1[i].value=custos['moltiplicatori'][data1[i].id.substring(4,data1[i].id.length)]
       }
     }
-    if (custos.hasOwnProperty('languages')) {
-      if ("lingue1" == data1[i].id) {
-        var l = custos['languages'];
-        data1[i].value=l.slice(0, l.length/2)
-      }
-      if ("lingue2" == data1[i].id) {
-        var l = custos['languages'];
-        data1[i].value=l.slice(l.length/2, l.length)
-      }
+    if ("lingue1" == data1[i].id) {
+      var l = custos['languages'];
+      data1[i].value=l.slice(0, l.length/2)
     }
-    if ("spec" == data1[i].id.substring(0,4) && !custos.hasOwnProperty(data1[i].id)) { // spec value
+    if ("lingue2" == data1[i].id) {
+      var l = custos['languages'];
+      data1[i].value=l.slice(l.length/2, l.length)
+    }
+    if ("spec" == data1[i].id.substring(0,4)) { // spec value
          data1[i].value=0;
     }
   }  
@@ -972,173 +788,56 @@ function to_form(the_custos){
       console.log("found", data2[i].id);
       data2[i].value=custos[data2[i].id]
     }
-    if ("spec" == data2[i].id.substring(0,4) && !custos.hasOwnProperty(data2[i].id)) { // spec id
+    if ("spec" == data2[i].id.substring(0,4)) { // spec id
          data2[i].value="empty";
     }
   }
-  for (var i = 1; i<=40; i++) {
-    const id="pv"+i.toString();
-    document.getElementById(id).innerHTML='X';
-    cycle_pv(id);
-  }
-  // Fix equipment
-  if (custos.hasOwnProperty('equipaggiamento')) { 
-    armatura = custos['equipaggiamento']['armatura'];
-    scudo = custos['equipaggiamento']['scudo'];
-    arma_ravvicinata = custos['equipaggiamento']['armi_ravvicinate'][0];
-    arma_ravvicinata_secondaria = custos['equipaggiamento']['armi_ravvicinate'][1];
-    arma_distanza = custos['equipaggiamento']['armi_distanza'][0];
-    document.getElementById('armatura').value=armatura;
-    document.getElementById('scudo').value=scudo;
-    document.getElementById('arma_ravvicinata').value=arma_ravvicinata;
-    document.getElementById('arma_ravvicinata_secondaria').value=arma_ravvicinata_secondaria;
-    document.getElementById('arma_distanza').value=arma_distanza;
-  }
   // Fix Specializations
-  if (custos.hasOwnProperty('specializzazioni')) { 
-    specs = custos['specializzazioni'];
-    console.log(specs);
-    var options = { 
-      "DeBello" : get_options("specDeBello1"),
-      "DeCorpore" :   get_options("specDeCorpore1"),
-      "DeMagia" :   get_options("specDeMagia1"),
-      "DeNatura" :   get_options("specDeNatura1"),
-      "DeScientia" :   get_options("specDeScientia1"),
-      "DeSocietate" :   get_options("specDeSocietate1")
-    }
-    var next_slot = {
-      "DeBello" : 1,
-      "DeCorpore" :   1,
-      "DeMagia" :   1,
-      "DeNatura" :   1,
-      "DeScientia" :   1,
-      "DeSocietate" :  1 
-    }
-    for (var i = 0; i < specs.length; i++) {
-      for (var p in options) {
-        if (options[p].includes(specs[i].id)) {
-          document.getElementById("spec"+p+next_slot[p].toString()).value=specs[i].id;
-          document.getElementById("spec"+p+next_slot[p].toString()+"value").value=specs[i].val;
-          next_slot[p]=next_slot[p]+1
-        }
+  specs = custos['specializzazioni'];
+  console.log(specs);
+  var options = { 
+    "DeBello" : get_options("specDeBello1"),
+    "DeCorpore" :   get_options("specDeCorpore1"),
+    "DeMagia" :   get_options("specDeMagia1"),
+    "DeNatura" :   get_options("specDeNatura1"),
+    "DeScientia" :   get_options("specDeScientia1"),
+    "DeSocietate" :   get_options("specDeSocietate1")
+  }
+  var next_slot = {
+    "DeBello" : 1,
+    "DeCorpore" :   1,
+    "DeMagia" :   1,
+    "DeNatura" :   1,
+    "DeScientia" :   1,
+    "DeSocietate" :  1 
+  }
+  for (var i = 0; i < specs.length; i++) {
+    for (var p in options) {
+      if (options[p].includes(specs[i].id)) {
+        document.getElementById("spec"+p+next_slot[p].toString()).value=specs[i].id;
+        document.getElementById("spec"+p+next_slot[p].toString()+"value").value=specs[i].val;
+        next_slot[p]=next_slot[p]+1
       }
     }
   }
-  document.getElementById("pietas_current").value=document.getElementById("pietas").value
+
 
   qualifica.onchange()
   nome.onchange()
   slider.oninput()
-  update_enc()
 }
 
-
-const armi_ravvicinate = {
-  'Pugio'     : { 'Danno' : 3, 'ingombro' : 0, 'Caratteristiche' : [], 'Difficoltà' : 3 },
-  'Sica'      : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Difficoltà' : 4 },
-  'Randello'  : { 'Danno' : 4, 'ingombro' : 2, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 4 },
-  'Bastone da lancio'  : { 'Danno' : 4, 'ingombro' : 2, 'Caratteristiche' : ['Da lancio'], 'Difficoltà' : 4 },
-  'Scramasax' : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 5 },
-  'Machaira'  : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 5 },
-  'Gladius'   : { 'Danno' : 6, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 6 },
-  'Lancia'    : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio', 'Versatile' ], 'Difficoltà' : 6 },
-  'Securicula': { 'Danno' : 7, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio'], 'Difficoltà' : 7 },
-  'Kopesh'    : { 'Danno' : 7, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio'], 'Difficoltà' : 7 },
-  'Ensis'     : { 'Danno' : 8, 'ingombro' : 3, 'Caratteristiche' : [], 'Difficoltà' : 8 },
-  'Malleus'   : { 'Danno' : 9, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 9 },
-  'Spatha'    : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 10 },
-  'Securis'   : { 'Danno' :11, 'ingombro' : 5, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 11 },
-  'Hasta'     : { 'Danno' :12, 'ingombro' : 7, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 12 },
-  'Falx'      : { 'Danno' :12, 'ingombro' : 5, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 12 },
-  'Bipennis'  : { 'Danno' :13, 'ingombro' : 6, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 13 },
-}
-
-const armi_distanza = {
-  'Fionda'    : { 'Danno' : 3, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 3 },
-  'Plumbata'  : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 4 },
-  'Angon'     : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 5 },
-  'Arcus'     : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
-  'Toxon'     : { 'Danno' : 8, 'ingombro' : 4, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 8 },
-  'Pilum'     : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : [], 'Gittata' : 'Corta', 'Difficoltà' : 10 },
-  'Manubalista':{ 'Danno' :12, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
-  'Gastraphetes':{ 'Danno' :14, 'ingombro' : 1, 'Caratteristiche' : ['A due mani', 'Lenta'], 'Gittata' : 'Lunga', 'Difficoltà' : 7 },
-}
-
-const armature = {
-  'Corium Lorica'     : { 'Protezione' : 3, 'ingombro' : 3 },
-  'Lorica Squamata'   : { 'Protezione' : 4, 'ingombro' : 4 },
-  'Lorica Hamata'     : { 'Protezione' : 5, 'ingombro' : 5 },
-  'Lorica Plumata'    : { 'Protezione' : 6, 'ingombro' : 6 },
-  'Lorica Segmentata' : { 'Protezione' : 8, 'ingombro' : 8 },
-  'Lorica Musculata' :  { 'Protezione' : 10, 'ingombro' : 10 },
-}
-
-const scudi = {
-  'Parma'   : { 'Parata' : 1, 'ingombro' : 2 },
-  'Clipeus' : { 'Parata' : 2, 'ingombro' : 4 },
-  'Scutum'  : { 'Parata' : 3, 'ingombro' : 6 },
-}
-
-function get_option_selected(id) {
-  console.log(id);
-  const e = document.getElementById(id);
-  const x = e.value;
-  console.log(x)
-  return x;
-}
-
-function set_combat_data(id) {
-  const oggetto = get_option_selected(id);
-  const desc = document.getElementById("desc_"+id);
-  if (!oggetto || oggetto=="empty") desc.innerHTML=" ";
-  else {
-    var text = ''
-    if (id == 'arma_ravvicinata' || id == 'arma_ravvicinata_secondaria') {
-      text += 'Dan. '+armi_ravvicinate[oggetto]['Danno'];
-      for (var i=0; i<armi_ravvicinate[oggetto]['Caratteristiche'].length; i++) 
-        text+=' '+armi_ravvicinate[oggetto]['Caratteristiche'][i];
-      v=custos['peritiae']['DeBello'];
-      if (custos['qualifica']=='Esploratore' && armi_ravvicinate[oggetto]['Difficoltà']<=6 ) v=custos['peritiae']['DeNatura'];
-      if (custos['qualifica']=='Assassino' && armi_ravvicinate[oggetto]['Difficoltà']<=4) v=custos['peritiae']['DeCorpore'];
-      if (v>=armi_ravvicinate[oggetto]['Difficoltà']*2) text+=' [Exp]'
-    } else if (id == 'arma_distanza') {
-      text += 'Dan. '+armi_distanza[oggetto]['Danno'];
-      text += ' Git. '+armi_distanza[oggetto]['Gittata'];
-      for (var i=0; i<armi_distanza[oggetto]['Caratteristiche'].length; i++) 
-        text+=' '+armi_distanza[oggetto]['Caratteristiche'][i];
-      v=custos['peritiae']['DeBello'];
-      if (custos['qualifica']=='Esploratore' && armi_distanza[oggetto]['Difficoltà']<=6 ) v=custos['peritiae']['DeNatura'];
-      if (v>=armi_distanza[oggetto]['Difficoltà']*2) text+=' [Exp]'
-    } else if (id == 'armatura') {
-      text += 'Prot. '+armature[oggetto]['Protezione'];
-    } else if (id == 'scudo') {
-      text += 'Parata '+scudi[oggetto]['Parata'];
-    }
-    desc.innerHTML=text;
-  }
-}
-
-function update_enc() {
-  const ing = document.getElementById("ingombro");
-  const all = [ 'arma_ravvicinata', "arma_ravvicinata_secondaria", "arma_distanza", "armatura", "scudo" ]
-  const arma1 = armi_ravvicinate[get_option_selected("arma_ravvicinata")];
-  const arma2 = armi_ravvicinate[get_option_selected("arma_ravvicinata_secondaria")];
-  const armad = armi_distanza[get_option_selected("arma_distanza")];
-  const armatura = armature[get_option_selected("armatura")];
-  const scudo = scudi[get_option_selected("scudo")];
-  const a = [ arma1, arma2, armad, armatura, scudo ];
-  var res = 0;
-  for (var i = 0; i<a.length; i++) {
-    console.log(a[i]);
-    if (a[i] && a[i].hasOwnProperty('ingombro') && !isNaN(a[i]['ingombro']))
-      res+=a[i]['ingombro'];
-  }
-  console.log(res);
-  ing.value=res;
-  for (var i = 1; i<=res; i++) set_pv_to(i,'/','X');
-  for (var i = res+1; i<=40; i++) set_pv_to(i,' ','X');
-  for (var i=0; i<all.length; i++)
-    set_combat_data(all[i]);
+function test() {
+  var data1=document.forms["charsheet"].getElementsByTagName("input");
+  var data2=document.forms["charsheet"].getElementsByTagName("select");
+  var formData = {}
+  for (var i=0; i<data1.length; i++){
+    formData[data1[i].id]=data1[i].value
+  }  
+  for (var i=0; i<data2.length; i++){
+    formData[data2[i].id]=data2[i].value
+  }  
+  console.log(formData);
 }
 
 // Get the modal
@@ -1172,16 +871,11 @@ if('serviceWorker' in navigator) {
 
 function storeCustos() {
   /* id = Date.now(); */
-  const the_custos = JSON.stringify(from_form());
-  const href=document.getElementById("download");
-  href.href="data:text/json;charset=utf-8;,"+the_custos;
-  href.download=custos['nome'].replace(/ /g, '+')+'.json'
-
   id='/stored'
-  console.log(the_custos);
   caches.open('storage').then(function(cache) {
-    cache.put('/current',new Response(the_custos));
-    cache.put(id,new Response(the_custos));
+    cache.match('/current').then(function(res) {
+      cache.put(id, res);
+    });
   });           
 };
 
@@ -1194,43 +888,13 @@ function loadCustos(key) {
            to_form(res);
          });
     });
-  const the_custos = JSON.stringify(from_form());
-  const href=document.getElementById("download");
-  href.href="data:text/json;charset=utf-8;,"+the_custos;
-  href.download=custos['nome'].replace(/ /g, '+')+'.json'
 };
 
-function uploadCustos() {
-    var files = this.files;
-    console.log(files);
-    if (files.length === 0) {
-        console.log('No file is selected');
-        return;
-    }
-    var reader = new FileReader();
-    reader.onload = function(event) {
-      console.log('File content:', event.target.result);
-      var the_custos = JSON.parse(event.target.result);
-      to_form(the_custos);
-      const href=document.getElementById("download");
-      href.href="data:text/json;charset=utf-8;,"+reader.result;
-      href.download=custos['nome'].replace(/ /g, '+')+'.json'
-    };
-    reader.readAsText(files[0]);
-}
 
-document.getElementById('upload').addEventListener('change', uploadCustos);
 
 function generateCustos() {
-//  languagePluginLoader.then(function () {
-//  var x = pyodide.runPython(`
-const PYODIDE_BASE_URL = "https://cdn.jsdelivr.net/pyodide/v0.18.0/full"
-
-loadPyodide({ indexURL: PYODIDE_BASE_URL }).then((pyodide) => {
-  globalThis.pyodide = pyodide      // you might also want to store pyodide globally so 
-                                    // so you can access anywhere in the scope
-  pyodide.loadPackage(['numpy']).then(() => {
-    pyodide.runPython(`   
+ loader().then((pyodide) => {
+  var x = globalThis.pyodide.runPython(`
 from random import choice, randint
 def dX(f):
   def dice(n=1):
@@ -1248,17 +912,9 @@ data = {
   'Castrum'    : { 'genere' : 'n', 'numero' : 's' }, 
   'Castra'     : { 'genere' : 'n', 'numero' : 'p' }, 
  },
- 'Celtic' : {
-  'Castrum'    : { 'genere' : 'n', 'numero' : 's' }, 
-  'Castra'     : { 'genere' : 'n', 'numero' : 'p' }, 
-  'Ratae'      : { 'genere' : 'f', 'numero' : 's' }, 
- },
  'Greek' : {
   'Phrourion'  : { 'genere' : 'n', 'numero' : 's' }, 
   'Stratopedon': { 'genere' : 'n', 'numero' : 's' },   
-  'Pyrgos'     : { 'genere' : 'm', 'numero' : 's' }, 
-  'Teichos'    : { 'genere' : 'm', 'numero' : 's' }, 
-  'Teichisma'  : { 'genere' : 'n', 'numero' : 's' }, 
  }
 },
 'nomi' : {
@@ -1280,8 +936,6 @@ data = {
  'Fossa'    : { 'genere' : 'f', 'numero' : 's' }, 
  'Taberna'  : { 'genere' : 'f', 'numero' : 's' }, 
  'Tabernae' : { 'genere' : 'f', 'numero' : 'p' }, 
- 'Sena'     : { 'genere' : 'f', 'numero' : 's' }, 
- 'Curia'    : { 'genere' : 'f', 'numero' : 's' }, 
  },
 'Celtic' : {
  'Venta'    : { 'genere' : 'f', 'numero' : 's' }, 
@@ -1289,64 +943,19 @@ data = {
  'Ratae'    : { 'genere' : 'f', 'numero' : 's' }, 
  'Noviomagus':{ 'genere' : 'm', 'numero' : 's' }, 
  'Mediolanum':{ 'genere' : 'n', 'numero' : 's' }, 
- 'Lindum'   : { 'genere' : 'n', 'numero' : 's' }, 
- 'Sena'     : { 'genere' : 'f', 'numero' : 's' }, 
- 'Curia'    : { 'genere' : 'f', 'numero' : 's' }, 
- }, 
-'Greek' : {
- 'Antiochia' : { 'genere' : 'f', 'numero' : 's' }, 
- 'Alexandria': { 'genere' : 'f', 'numero' : 's' }, 
- 'Magnesia'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Megara'    : { 'genere' : 'f', 'numero' : 's' }, 
- 'Seleucia'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Ptolemais' : { 'genere' : 'f', 'numero' : 's' }, 
- 'Elaea'     : { 'genere' : 'f', 'numero' : 's' }, 
- 'Berenice'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Arsinoe'   : { 'genere' : 'f', 'numero' : 's' }, 
- 'Apollonia' : { 'genere' : 'f', 'numero' : 's' }, 
- 'Heraclea'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Laodicea'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Teichos'   : { 'genere' : 'm', 'numero' : 's' }, 
- 'Kome'      : { 'genere' : 'f', 'numero' : 's' }, 
- 'Thebes'    : { 'genere' : 'f', 'numero' : 's' }, 
- 'Nymphaeum' : { 'genere' : 'n', 'numero' : 's' }, 
- 'Panormus'  : { 'genere' : 'm', 'numero' : 's' },
- 'Chrysaoris': { 'genere' : 'f', 'numero' : 's' }, 
- 'Neapolis'  : { 'genere' : 'f', 'numero' : 's' }, 
- 'Philadelphia' : { 'genere' : 'f', 'numero' : 's' }, 
- 'Phoenix'   : { 'genere' : 'f', 'numero' : 's' }, 
- 'Larissa'   : { 'genere' : 'f', 'numero' : 's' }, 
- 'Zephyrium' : { 'genere' : 'n', 'numero' : 's' }, 
- 'Malus'     : { 'genere' : 'm', 'numero' : 's' }, 
- 'Eudocia'   : { 'genere' : 'f', 'numero' : 's' }, 
- 'Achilleion': { 'genere' : 'n', 'numero' : 's' }, 
- 'Dekaton'   : { 'genere' : 'n', 'numero' : 's' }, 
- 'Emporion'  : { 'genere' : 'n', 'numero' : 's' }, 
  }
 },
 'modificatori' : {
 'immutabili'   : [ 'Livii', 'Iulii', 'Lepidi', 'Fulvii', 'Valerii', 'Tullii', 'Septimii', 'Hadriani', 'Aelii', 'Aemilii', 'Diocletiani', 'Iunii', 'Claudii', 'Aurelii', 'Veteranorum', 'ad Pontem', 'ad Turres', 'ad Pontes', 'ad Ansam' ],
-'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid', 'Appi', 'Aemili', 'Cassi', 'Praetori' ],
-'immutabili_greci' : [ 'epi Chalcedona', 'Paralios', 'ad Antiochiam', 'apud Alexandriam', 'apud Eudociam', 'apud Berenicem', 'apud Laodiceam', 'apud Heracleam' ],
+'aggettivi' : [ 'Nov', 'Magn', 'Long', 'Claudian', 'Iulian', 'Hadrian', 'Aemilian', 'Aurelian', 'Sexti', 'Rustic', 'Calid' ],
 'regionali_immutabili' : {
- 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum', 'Ingaunorum', 'Sardorum', 'Peucetiorum', 'Messapiorum', 'Iapygium', 'Vestinorum', 'Lepontiorum', 'Ligurum', 'Insubrum' ],
+ 'Italia'    : [ 'Taurinorum', 'Salassorum', 'Pelignorum', 'Marsorum', 'Bruttiorum', 'Bagiennorum' ],
  'Illyricum' : [ 'Dalmaticorum', 'Eraviscorum', 'Dardanorum' ],
- 'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum', 'Coritanorum' ], 
- 'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonum', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
+ 'Britannia' : [ 'Silurum', 'Dumnoniorum', 'Cornoviorum', 'Brigantium', 'Setantiorum', 'Lopocarum',  'Cantiacorum' ], 
+ 'Iberia'    : [ 'Edetanorum', 'Brigantium', 'Contestanorum', 'Ilecarvonus', 'Carpetanorum', 'Turdulorum', 'Autrigonum' ],
  'Gallia'    : [ 'Parisiorum', 'Viromanduorum', 'Suessiorum', 'Allobrogum', 'Santonum', 'Mediomatricorum', 'Convenarum', 'Aulerconum' ],
  'Germania'  : [ 'Treverorum', 'Mediomatricorum', 'Taunensium', 'Belgarum', 'Tungrorum' ],
  'Raetia'    : [ 'Vindelicorum', 'Rauracorum', 'Helvetiorum' ],
- 'Arabia'    : [ 'Iudaeorum', 'Idumaeorum', 'Nabataeorum', 'ad Iordanum', 'in Nabataea', 'in Iudaea', 'Palestinae', 'in Samaria' ],
- 'Asia'      : [ 'ad Meandrum', 'in Commagene', 'in Pamphylia', 'in Lycia', 'ad Sipylum', 'in Cilicia', 'ad Cragum', 'ad Pyramum', 'Paraliou', 'in Phrygia', 'ad Zeugmatos', 'ad Calycadnum', 'in Caria', 'in Lydia', 'ad Lycum', 'in Isauria', 'in Pontus', 'ad Bosphorum' ],
- 'Thracia'   : [ 'in Thracia', 'in Chersoneso', 'in Dardania', 'in Paeonia', 'Maediorum', 'Dentheletarum', 'Bistonum', 'in Pontus', 'in Odrysia', 'Odrysium' ],
- 'Mesopotamia':[ 'in Osrhoene', 'in Mesopotamia', 'Assyriorum' ],
- 'Achaia'    : [ 'in Achaia', 'in Euboea', 'in Peloponneso', 'in Tessalia', 'in Korinthia', 'in Elide' ],
- },
-'regionali_mutabili' : {
- 'Italia'    : [ 'Apul', 'Lucan', 'Marsic', 'Venetic', 'Sicul', 'Hyblae', 'Irpin' ],
- 'Asia'      : [ 'Pontic', 'Ne' ],
- 'Thracia'   : [ 'Pontic', 'Dentheletic' ],
- 'Dacia'     : [ 'Pontic' ],
  }
 },
 'declinazione' : {
@@ -1358,10 +967,8 @@ data = {
 
 def gen_vicus(provincia):
   regione = None
-  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia', 'Mauretania' ] : regione = 'Latin'
-  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = choice(['Celtic','Celtic','Latin'])
-  elif provincia in [ 'Macedonia', 'Thracia', 'Achaia', 'Asia', 'Aegyptus' ] : regione = 'Greek' 
-  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia', 'Arabia' ] : regione = choice(['Greek', 'Latin'])
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
+  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
   else : regione = 'Latin'
   base = choice(list(data['nomi'][regione].keys()))
   genere = data['nomi'][regione][base]['genere']
@@ -1371,31 +978,25 @@ def gen_vicus(provincia):
   else :
     tipo_mod = choice(['immutabili','aggettivi'])
   mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
-  if regione == 'Greek' and tipo_mod not in [ 'regionali_mutabili', 'regionali_immutabili' ] :
-    tipo_mod = 'immutabili_greci'
-    mod = choice(data['modificatori'][tipo_mod])
   if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
   return base+' '+mod
 
 
 def gen_castrum(provincia):
   regione = None
-  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia', 'Mauretania' ] : regione = 'Latin'
-  elif provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = choice(['Celtic','Celtic','Latin'])
-  elif provincia in [ 'Macedonia', 'Thracia', 'Achaia', 'Asia', 'Aegyptus' ] : regione = 'Greek' 
-  elif provincia in [ 'Dacia', 'Syria', 'Armenia', 'Mesopotamia', 'Arabia' ] : regione = choice(['Greek', 'Latin'])
+  nome = 'Latin'
+  if provincia in [ 'Italia', 'Illyricum', 'Iberia', 'Numidia', 'Raetia' ] : regione = 'Latin'
+  if provincia in [ 'Gallia', 'Germania', 'Britannia' ] : regione = 'Celtic'
   else : regione = 'Latin'
-  base = choice(list(data['castra'][regione].keys()))
-  genere = data['castra'][regione][base]['genere']
-  numero = data['castra'][regione][base]['numero']
+  if provincia in [ 'Asia', 'Achaia', 'Armenia' ] : nome = 'Greek'
+  base = choice(list(data['castra'][nome].keys()))
+  genere = data['castra'][nome][base]['genere']
+  numero = data['castra'][nome][base]['numero']
   if provincia in data['modificatori']['regionali_immutabili'] :
     tipo_mod = choice(['immutabili','regionali_immutabili','aggettivi'])
   else :
     tipo_mod = choice(['immutabili','aggettivi'])
   mod = choice(data['modificatori'][tipo_mod]) if tipo_mod != 'regionali_immutabili' else choice(data['modificatori'][tipo_mod][provincia]) 
-  if regione == 'Greek' and tipo_mod not in [ 'regionali_mutabili', 'regionali_immutabili' ] :
-    tipo_mod = 'immutabili_greci'
-    mod = choice(data['modificatori'][tipo_mod])
   if tipo_mod == 'aggettivi' : mod+=data['declinazione'][genere][numero]
   return base+' '+mod
 
@@ -1459,9 +1060,9 @@ latin_cognomina_male = [ 'Agricola', 'Africanus', 'Aemilianus', 'Ambustus', 'Ant
 
 latin_cognomina_female = [ 'Agricola', 'Africana', 'Aemiliana', 'Ambusta', 'Antonina', 'Ambrosia', 'Ausonia', 'Augur', 'Aureliana', 'Attica', 'Avita', 'Andronica', 'Albana', 'Ampliata', 'Audacta', 'Balbina', 'Balba', 'Barba', 'Barbata', 'Bassiana', 'Bestia', 'Bibula', 'Blaesa', 'Boetia', 'Bruta', 'Bubo', 'Bubulca', 'Buccio', 'Bulba', 'Burra', 'Caeciliana', 'Caelimontana', 'Caelestia', 'Calama', 'Calda', 'Cara', 'Cassiana', 'Catilina', 'Catulla', 'Caudex', 'Celer', 'Castina', 'Castoria', 'Celsa', 'Claudiana', 'Cinna', 'Corbulo', 'Cumana', 'Crescentia', 'Columella', 'Colona', 'Cocles', 'Commoda', 'Comes', 'Constans', ' Cerialis', 'Decima', 'Deciana', 'Drusa', 'Dextra', 'Densa', 'Dives', 'Draco', 'Ecdicia', 'Ennodia', 'Eugenia', 'Emerita', 'Etrusca', 'Eclecta', 'Fabiana', 'Fabulla', 'Facunda', 'Gabina', 'Gala', 'Galba', 'Galera', 'Gallica', 'Garrula', 'Gaudentia', 'Genialis', 'Gratiana', 'Gemina', 'Gregoria', 'Hemina', 'Herennia', 'Honorata',  'Hostiliana', 'Labiena', 'Laeliana', 'Lucana', 'Licina', 'Leporina',  'Luculla', 'Longa', 'Laura', 'Lentula', 'Latro', 'Macer', 'Macrobia', 'Magnentia', 'Magna', 'Maior', 'Maia', 'Mamerca', 'Marsa', 'Martialis', 'Martiana', 'Maxima', 'Maura', 'Mela', 'Memor', 'Moma', 'Murena', 'Montana', 'Metella', 'Merenda', 'Merula', 'Messor', 'Naevola', 'Nasica', 'Natta', 'Nepos', 'Nennia', 'Nerva', 'Novella', 'Numma', 'Obsequens', 'Ocella', 'Opis', 'Oppiana', 'Pacata', 'Paenula', 'Papa', 'Pamphilia', 'Pastor', 'Patiens', 'Pelagia', 'Perpetua', 'Persica', 'Pertinax', 'Plauta', 'Petronia', 'Pictor', 'Picens', 'Pilata', 'Pola', 'Pollio', 'Porca', 'Prota', 'Prisciana', 'Potestas', 'Potita', 'Poplicola', 'Proca', 'Procula', 'Publicola', 'Pustula', 'Pupa', 'Pulcher', 'Proxima', 'Quadrata', 'Quarta', 'Quintiliana', 'Quinta', 'Quirinalis', 'Ravilla', 'Rebila', 'Regilla', 'Rogata', 'Regula', 'Ruso', 'Rutila', 'Sabina', 'Salinatrix', 'Salviana', 'Seneca', 'Severa', 'Sedata', 'Suria', 'Sura', 'Strabo', 'Stilo', 'Statia', 'Simplicia', 'Simplex', 'Silvia', 'Sisenna', 'Suburana', 'Tacita', 'Tarcisia', 'Tatiana', 'Taura', 'Tenax', 'Tertulla', 'Torquata', 'Trigemina', 'Tutor', 'Tubero', 'Tibulla', 'Traiana', 'Urbana', 'Ursula', 'Urbica', 'Valens', 'Velox', 'Viatrix', 'Vita', 'Victor', 'Virilis', 'Varro', 'Venusta', 'Verax', 'Verecunda', 'Vopisca', 'Major', 'Minor' ]
 
-greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eumedes', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philippus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus', 'Nicanor', 'Dionysius', 'Basilides', 'Pollux' ]
+greek_cognomina_male = [ 'Amphion', 'Apollinaris', 'Agelastus', 'Alexander', 'Apelles', 'Calogerus', 'Cyprianus', 'Chlorus', 'Dexippus', 'Dexion', 'Didymus', 'Dio', 'Dioscourides', 'Elpidius', 'Eudoxius', 'Eurysaces', 'Exuperius', 'Eustathius', 'Eucherius', 'Eudomius', 'Epiphanius', 'Epimachus', 'Eparchius', 'Galenus', 'Hesychius', 'Hipparchus', 'Hermias', 'Irenaeus', 'Leontius', 'Leo', 'Lycaeus', 'Marsyas', 'Milonius', 'Molo', 'Narcissus', 'Olympicus', 'Orestes', 'Pachomus', 'Panaetius', 'Polybius', 'Philuppus', 'Philo', 'Philus', 'Porphyrius', 'Segestes', 'Symmachus', 'Symphorianus', 'Trypho', 'Zeno', 'Zenodotus', 'Zethos', 'Archelaus', 'Antipas', 'Aristobulus', 'Polemon', 'Demetrius', 'Seleucus', 'Antigonus', 'Diodorus', 'Strabo', 'Eunapius', 'Antipater', 'Antiochus', 'Evergetes', 'Stratonicus', 'Andromachus', 'Attalus', 'Achaeus', 'Ptolomeus', 'Diodotus', 'Posidonius', 'Menophilus', 'Creon', 'Philotimus', 'Eucarpus', 'Menander', 'Zosimus', 'Callistratus', 'Diadumenus', 'Evaristus', 'Mystes', 'Eutychus', 'Arrianus', 'Philostratus', 'Hypatius', 'Eusebius', 'Heraclius', 'Phocas', 'Eugenius', 'Thrasyllus', 'Archelaus', 'Dydimus', 'Iolaus', 'Bion', 'Tiro', 'Philonicus', 'Iamblichus', 'Heliodorus', 'Theon', 'Nicephoros', 'Sthenelus' ]
 
-greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Thabis', 'Arsinoe', 'Nais', 'Thais', 'Athenais', 'Leuconoe', 'Philippa', 'Olympias', 'Xantippe', 'Eutyche' ]
+greek_cognomina_female = [ 'Stratonice', 'Laodice', 'Andromaca', 'Antiochis', 'Phila', 'Berenice', 'Cleopatra', 'Nyssa', 'Tryphaena', 'Euboea', 'Cassandra', 'Alcmena', 'Antiope', 'Ippodamia', 'Ifimedia', 'Selene', 'Daphne', 'Eidoteia', 'Helena', 'Amarantis', 'Trophime', 'Psyche', 'Lyde', 'Nike', 'Andracis', 'Stadio', 'Eucarpea', 'Aphrodite', 'Parthenope', 'Philomena', 'Zosime', 'Callistrate', 'Lais', 'Gnome', 'Hypatia', 'Eusebia', 'Theodora', 'Eutropia', 'Tryphaena', 'Thabis', 'Stratonice', 'Nais', 'Thais', 'Athenais' ]
 
 praenomina = {
  'female' : {
@@ -1492,21 +1093,19 @@ cognomina = {
    'akkadic' : [ 'Onnes', 'Ninus', 'Seleucus', 'Antiochus', 'Belus', 'Odaenathus', 'Orodes', 'Orontes', 'Monobazus', 'Bazeus', 'Izates', 'Abgar', 'Dasanes', 'Berosus' ],
    'egyptian' : [ 'Psenptais', 'Petobastidis', 'Soris', 'Ptolemaeus', 'Eulaeus', 'Lenaeus', 'Serapion', 'Zopyrus', 'Manetho', 'Apion', 'Teucer' ],
    'aramaic' : [ 'Zabinaeus', 'Zabinas', 'Giora', 'Simon', 'Ioannes', 'Aphraates', 'Josephus', 'Zenobius', 'Hyrcanus', 'Simonides', 'Justus', 'Jannaeus', 'Matthias', 'Ephlias', 'Ananus', 'Apphus', 'Obodas', 'Aretas', 'Malichus', 'Odaenathus', 'Vaballathus', 'Herodianus', 'Maeonius', 'Zabdas', 'Elias' ],
-   'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal', 'Capussa', 'Mazaetullus', 'Narbal', 'Mathos', 'Gisco', 'Hanno', 'Bomilcar', 'Nabdalsa' ],
-   'thracian' : [ 'Teres', 'Sparatocos', 'Sitalces', 'Sadocos', 'Seuthes', 'Amatokos', 'Amadocus', 'Maisades', 'Hebryzelmis', 'Cotys', 'Cersobleptes', 'Berisades', 'Cetriporis', 'Roigos', 'Adaeus', 'Odoroes', 'Scostodos', 'Orsoaltios', 'Kersivaulos', 'Rheuscuporis', 'Pleuratus', 'Ciroadas', 'Byses', 'Rhoemetalces', 'Sadalas' ],
+   'african' : [ 'Hannibal', 'Hasdrubal', 'Hamilcar', 'Mago', 'Adherbal', 'Hiempsal', 'Iugurtha', 'Masinissa', 'Micipsa', 'Syphax', 'Bocchus', 'Gauda', 'Iuba', 'Vermina', 'Lacumazes', 'Ozalces', 'Gala', 'Gulussa', 'Hiarbas', 'Mastanabal' ],
  },
  'female' : {
    'latin' : latin_cognomina_female,
    'greek' : greek_cognomina_female,
-   'germanic' : [ 'Alpsuinda', 'Ermelinda', 'Galla', 'Ingunde', 'Ravigunda', 'Teodolinda', 'Romilda', 'Deoteria', 'Audefleda', 'Ermengarda' ],
+   'germanic' : [ 'Alpsuinda', 'Ermelinda', 'Galla', 'Ingunde', 'Ravigunda', 'Teodolinda', 'Romilda', 'Deoteria', 'Audefleda' ],
    'celtic' : [ 'Bassina', 'Blandula', 'Primitiva', 'Primula', 'Pollina' ],
    'brithonic' : [ 'Blodeuwedd', 'Aranrot', 'Enid', 'Essylt', 'Kymidei', 'Goleuddydd', 'Lunet', 'Ymywl', 'Olwen', 'Rianon', 'Goewin', 'Creiddylat', 'Armagin'],
    'armenian' : [ 'Erato', 'Aryazate', 'Iotapa', 'Olympias', 'Ashkhen', 'Aka', 'Isias', 'Antiochis' ],
    'akkadic' : ['Semiramis', 'Zenobia'],
    'egyptian' : ['Cleopatra', 'Berenice', 'Arsinoe', 'Nitocris' ],
    'aramaic' : ['Zenobia', 'Salomè', 'Herodias', 'Mavia' ],
-   'african' : ['Dido', 'Sophonisba'],
-   'thracian' : [ 'Pythodoris', 'Tryphaena', 'Gepaepyris', 'Meda', 'Doricha' ],
+   'african' : ['Dido'],
  },
 }
 
@@ -1521,7 +1120,7 @@ province_to_language = {
 'Britannia' : 'brithonic',
 'Germania' : 'germanic',
 'Raetia' : 'germanic',
-'Thracia' : 'thracian',
+'Thracia' : 'greek',
 'Dacia' : 'greek',
 'Asia' : 'greek',
 'Armenia' : 'armenian',
@@ -1592,13 +1191,13 @@ locative = {
   'Achaia' : [ 'Atticus', 'Achaeus', 'Boeoticus', 'Graecus', 'Epirota' ],
   'Gallia' : [ 'Gallicus', 'Gallus', 'Massiliota' ],
   'Iberia' : [ 'Ibericus', 'Lusitanus', 'Vasco', 'Baeticus', 'Arsa', 'Hispanus', 'Hispallus' ],
-  'Britannia' : [ 'Britannus', 'Britannicus', 'Dumnonis', 'Silurus' ],
+  'Britannia' : [ 'Britannus', 'Britannicus' ],
   'Germania' : [ 'Germanicus', 'Belga', 'Barbarus', 'Cheruscus', 'Marcomannus', 'Saxo' ],
   'Raetia' : [ 'Raeticus', 'Vindelicus' ],
-  'Thracia' : [ 'Thrax', 'Moesianus', 'Geta', 'Odrysa' ],
+  'Thracia' : [ 'Thrax', 'Moesianus', 'Geta' ],
   'Asia' : [ 'Asianus', 'Cilicius', 'Bythinicus', 'Ponticus', 'Pamphilicus', 'Asiagenus' ],
   'Dacia' : [ 'Dacus', 'Moesianus', 'Dacicus' ],
-  'Armenia' : [ 'Armenianus', 'Atropatenicus', 'Armenus', 'Atropatenus' ],
+  'Armenia' : [ 'Armenianus', 'Atropatenicus' ],
   'Mesopotamia' : [ 'Mesopotamicus', 'Assyricus', 'Chaldaeus' ],
   'Aegyptus' : [ 'Aegyptiacus', 'Creticus' ],
   'Syria' : [ 'Syrus', 'Syriacus', 'Chaldaeus', 'Surus' ],
@@ -1615,13 +1214,13 @@ locative = {
   'Achaia' : [ 'Attica', 'Achaea', 'Boeotica', 'Graeca', 'Epirota' ],
   'Gallia' : [ 'Gallica', 'Galla', 'Massiliota' ],
   'Iberia' : [ 'Iberica', 'Lusitana', 'Vasco', 'Baetica', 'Arsa', 'Hispana', 'Hispalla' ],
-  'Britannia' : [ 'Britanna', 'Britannica', 'Silura', 'Dumnona' ],
+  'Britannia' : [ 'Britanna', 'Britannica' ],
   'Germania' : [ 'Germanica', 'Belgica', 'Cherusca', 'Marcomanna', 'Saxo' ],
   'Raetia' : [ 'Raetica', 'Vindelica' ],
-  'Thracia' : [ 'Thrax', 'Moesiana', 'Geta', 'Odrysa' ],
-  'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica', 'Asiagena', 'Lydia', 'Lycia' ],
+  'Thracia' : [ 'Thrax', 'Moesiana', 'Geta' ],
+  'Asia' : [ 'Asiana', 'Cilicia', 'Bythinica', 'Pontica', 'Pamphilica', 'Asiagena' ],
   'Dacia' : [ 'Daca', 'Moesiana', 'Dacica' ],
-  'Armenia' : [ 'Armeniana', 'Atropatenica', 'Armena', 'Atropatena' ],
+  'Armenia' : [ 'Armeniana', 'Atropatenica' ],
   'Mesopotamia' : [ 'Mesopotamica', 'Assyrica', 'Chaldaea' ],
   'Aegyptus' : [ 'Aegyptica', 'Cretica' ],
   'Syria' : [ 'Syra', 'Syriaca', 'Chaldaea', 'Sura' ],
@@ -1743,8 +1342,8 @@ origini = {
 'Gallia'    : [ 'Civitas' ]*2 + ['Colonia']*3 + ['Vicus']*4 + [ 'Posto isolato' ],
 'Iberia'    : [ 'Civitas' ]*2 + ['Colonia']*4 + ['Vicus']*3 + [ 'Posto isolato' ],
 'Britannia' : [ 'Civitas' ]   + ['Colonia']*2 + ['Vicus']*4 + [ 'Posto isolato' ]*2 + ['Limes'],
-'Germania'  : [ 'Colonia' ]*1 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*4,
-'Raetia'    : [ 'Colonia' ]*2 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*3,
+'Germania'  : ['Colonia']*1 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*4,
+'Raetia'    : ['Colonia']*2 + ['Vicus']*2 + [ 'Posto isolato' ]*3 + ['Limes']*3,
 'Thracia'   : [ 'Civitas' ]*2 + ['Colonia']   + ['Vicus']*3 + [ 'Posto isolato' ] + ['Limes']*3,
 'Dacia'     : [ 'Civitas' ]   + ['Colonia']   + ['Vicus']*3 + [ 'Posto isolato' ]*2 + ['Limes']*3,
 'Asia'      : [ 'Civitas' ]*3 + ['Colonia']*2 + ['Vicus']*3 + [ 'Posto isolato' ]*2,
@@ -1764,139 +1363,6 @@ famiglia= {
 'Posto isolato' : [ 'Comunità chiusa', 'Esule', 'Sacerdote', 'Funzionario', 'Medico', 'Magistrato' ],
 'Limes'   : [ 'Legionario', 'Pastore', 'Profugo', 'Mercante', 'Sacerdote', 'Tribuno militare' ],
 }
-
-bio = {
-'Civitas' : {
- 'Liberto' : """Hai vissuto la tua infanzia tra gli emarginati e i miserabili della città, che passavano le giornate alla ricerca del sostentamento quotidiano.
-La tua casa, se ne avevi una, era poco più di una topaia e i membri della tua famiglia (schiavi fuggiti o liberti) non si sono occupati molto di te e della tua educazione, troppo impegnati a elemosinare oppure dediti alle loro attività di giocolieri e indovini, a prostituirsi nei lupanari o in un incessante girovagare nei polverosi dintorni del Foro a truffare qualche sprovveduto arrivato dalla campagna. 
-Le cose ti potrebbero essere andate anche peggio se i tuoi parenti fossero stati veri e propri latrones (malviventi, briganti) dediti al furto, al rapimento o all’omicidio, che hanno concluso i loro giorni nel buio di una cella o inchiodati a una croce.""",
- 'Clientes' : """Nelle città romane non c’è sempre una rigida delimitazione tra i quartieri eleganti e quelli delle baracche, tra le ville dei patrizi e gli altissimi palazzi dove trovano alloggio anche gli immigrati, i
-liberti, i sacerdoti di qualche strano culto e i piccoli fuorilegge cacciati dai paesi vicini. 
-La tua famiglia si è però sempre considerata fortunata a essere in affitto in un alloggio all’interno di una di queste enormi insulae, costruita come le altre in economia, coi muri sottili, pronta a crollare alla prima
-grande tempesta o per la scossa di un terremoto. 
-La vicinanza ai quartieri patrizi ha aiutato tuo padre a diventare uno dei clientes di un patron aristocratico, che pagava l’affitto, garantiva il cibo (la sportula) e una decorosa qualità di vita.
-In cambio, tuo padre lo doveva accompagnare ovunque, anche fuori città, dargli il voto suo e della sua famiglia nelle assemblee pubbliche, appoggiarlo in caso di intimidazioni e tafferugli contro le fazioni politiche avversarie.""",
- 'Artigiano' : """La dimora della tua famiglia era un insieme di poche stanze in un quartiere sovrappopolato, in cui coabitavano lenones (tenutari di bordelli), gladiatori, prostitute e postulanti. 
-Per fortuna, i tuoi non avevano molto in comune con quella gente. 
-Durante il giorno, ogni stanza e ogni membro della famiglia era impegnato a portare avanti l’attività di tuo padre, un artigiano o un commerciante che produceva e conservava i suoi articoli in una stanza che fungeva da officina, macelleria o deposito.
-Le merci venivano poi vendute nella stanza più grande, affacciata su una stretta viuzza fiancheggiata da vicoli ciechi e passaggi in salita o in discesa. 
-Nei momenti peggiori, eravate obbligati a cercare voi i clienti e a esporre la mercanzia (che si trattasse di ciabatte, tessuti, vasi, monili, mobili, parrucche, pane, dolci, pesci e carne) su banchetti improvvisati nella zona del Foro.""",
- 'Funzionario' : """Tuo padre era un funzionario municipale minore, pagato poco e sempre al lavoro.
-Fungeva da segretario di qualche funzionario più importante o da semplice scrivano, oppure veniva inviato in giro per la città a completare incarichi di scarsa soddisfazione. 
-A volte, doveva accompagnare tutta la notte uno dei Tresviri Nocturni nel pattugliamento delle strade e subire gli insulti dei giovani nobili ubriachi di ritorno da qualche bordello.
-Ha spesso dovuto arrangiarsi con altri lavori per far mantenere alla famiglia una parvenza di decoro e dignità; lavori faticosi, come quello di insegnare nelle malfrequentate scuole pubbliche, o pericolosi, come l’accettare soldi in cambio di favori e aiutare nella riscossione di denaro prestato a usura.
-""",
- 'Magistrato' : """Avere un importante funzionario imperiale o un magistrato in famiglia ha caratterizzato la tua infanzia. 
-Che si trattasse del collaboratore di un Pretore (per cause civili o penali), o dell’assistente di uno dei Comites (alti gradi dell’esercito o dell’amministrazione), o di uno degli Ediles (che si occupavano della distribuzione del cibo e della crescita della città), o di un Questore, poco importava: la tua qualità di vita ed educazione è stata molto superiore alla media. 
-Hai potuto frequentare delle ottime scuole private e non era inconsueto che, passeggiando in città, i tuoi genitori venissero salutati da esponenti delle istituzioni municipali e da membri della curia cittadina, che vi invitavano a grandi feste in splendidi palazzi fuori città.
-""",
- 'Ricco patrizio' : """La villa della tua nobile famiglia non sfigurava rispetto alle altre: ugualmente grande e sfarzosa, con dozzine di schiavi che si occupavano dei lavori necessari per l’alimentazione, il vestiario e il
-mantenimento della casa. 
-La tua famiglia viveva in una specie di economia chiusa, senza alcun bisogno di rivolgersi a lavoratori liberi come artigiani e piccoli commercianti: per ogni necessità bastavano gli schiavi. 
-Per tutta la tua infanzia sei stato seguito da un precettore, che si occupava della tua istruzione, indirizzandoti verso il tuo futuro cursus honorum e all’auspicabile professione di avvocato o politico, in modo da poter accedere poi alle più importanti magistrature cittadine o al governatorato di una provincia. 
-Come ha fatto tuo padre, e suo padre prima di lui.
-""" 
- },
-'Colonia' : {
- 'Liberto' : """Tuo padre era un liberto, uno schiavo liberato, ma a differenza dei padri dei tuoi amici, ogni mattina usciva di casa orgoglioso del suo lavoro. 
-E usciva armato. Era uno dei vigiles della città, incaricato di spegnere gli incendi, assicurare un servizio di polizia nelle strade e tra i primi a intervenire nel caso di sommosse.
-Siamo troppo pochi; glielo sentivi ripetere in continuazione e, quando iniziava a parlare della sua giornata, raramente si trattava di racconti allegri: poveracci malmenati da altri poveracci, prostitute e danzatrici massacrate di botte da nobili intoccabili, gente sequestrata o assassinata per un pugno di sesterzi, orribili incendi che distruggevano in poche ore fatiscenti insulae o i santuari in legno di qualche strana religione. 
-Ma almeno lui ci provava a cambiare le cose e anche tu vorresti fare lo stesso.
-""",
- 'Manovale' : """Gran lavoratori: questa è la prima cosa che ricordi dei tuoi genitori. 
-Tua madre si occupava da sola della tua educazione e di quella dei tuoi fratelli e sorelle, preparando allo stesso tempo piccoli monili o ricamava stoffe da vendere, riparava ciabatte e ricuciva mantelli. 
-Tuo padre e altri membri della famiglia erano invece impegnati gran parte della giornata ad andare per mare, o lavorare al mercato, o nei cantieri, o nella costruzione di edifici come operai. 
-Il cibo non mancava mai, anche questo te lo ricordi, e non mancava l’affetto dei parenti e l’amicizia dei vicini, sempre pronti a dare una mano quando le cose non si mettevano bene.
-""",
- 'Lenone/Lanista' : """Finché eri piccolo, non ti sei reso conto che la professione della tua famiglia non era tra le più rispettabili. 
-Aggirarsi fra le strade del centro alla ricerca di giovani e giovinette appena arrivati dalla campagna e convincerli a ottenere del denaro facile se si accompagnavano a clienti facoltosi, non era certo una cosa di cui andare fieri. 
-La tua famiglia era detestata da tutti e anche tu venivi trattato dai tuoi coetanei peggio dei figli di ladri, assassini e sedicenti sacerdoti di perversi culti orientali. 
-E non era cosa rara che gruppi di giovinastri, compresi quelli che volentieri usufruivano dei servizi offerti dall’attività della tua famiglia, arrivassero ubriachi in piena notte a lanciare sassi contro la tua casa al grido di “dagli al lenone!”.
-""",
- 'Sacerdote' : """“Gli dèi si sono rammolliti!” Era questa la frase preferita di tuo padre, un sacerdote di Giove Restitutor. 
-Aveva l’incarico di officiare le celebrazioni e compiere i sacrifici in un tempio di antica costruzione, che fungeva da punto di riferimento per la comunità. 
-Tutto procedeva al meglio, fino al giorno in cui era iniziata la costruzione di un santuario di Iside e Serapide, enorme, splendido, che in breve tempo aveva attirato folle enormi da tutta la regione, compresi coloro che fino a poco prima si recavano a pregare nel tempio di Giove. 
-Da allora tuo padre si arrabbiava più facilmente e rimpiangeva i secoli passati, quando gli dèi non permettevano che culti stranieri, barbarici e volgari, mettessero radici all’interno dell’Impero. 
-E se solo ci provavano, non passava molto tempo prima che le loro statue fossero gettate nel fiume, i loro sedicenti sacerdoti dati in pasto ai leoni e i loro fanatici seguaci costretti a vivere come topi nelle catacombe.
-""",
- 'Patrizio' : """La tua famiglia era aristocratica, come molte altre in città, ma si distingueva perché non tutti i suoi interessi erano indirizzati verso la politica o la magistratura. 
-Nel grande palazzo patrizio dei tuoi genitori erano spesso invitati filosofi, studiosi di scienze naturali, retori e grandi medici, provenienti anche da luoghi molto distanti. 
-In queste occasioni la vostra casa diventava un polo d’attrazione per l’élite intellettuale dell’intera provincia, trasformandosi in un cenacolo di studiosi e letterati: si leggevano ad alta voce passi dei grandi autori d’un tempo e venivano declamate poesie e orazioni. 
-Sei vissuto in una specie di mondo separato dalla realtà, proiettato in un passato mitico popolato di dèi, santi e grandi filosofi, ma non era affatto una cosa spiacevole. 
-Sei stato istruito al pari dei figli dei più nobili Senatori della stessa Roma!
-""",
- 'Ricco patrizio' : """La tua nobile famiglia si fregiava di essere imparentata con alcune delle famiglie aristocratiche più antiche, compresa quella del governatore. 
-Non che si sia mai fatto vedere a casa vostra, a quanto ricordi. 
-In ogni caso, come da tradizione, molti membri della tua famiglia avevano continuato il loro cursus honorum nel capoluogo della provincia e fatto carriera all’interno della magistratura, ricevendo importanti incarichi politici o militari. 
-Poi, uno di loro è stato accusato di corruzione e malversazione ed è stato sottoposto a processo. 
-Nonostante i migliori avvocati, gli sono stati sequestrati i beni ed è stato mandato in esilio, in una località fin troppo vicina a quei popoli barbari che odiavano Roma. 
-Inviava molte lettere affinché la sua pena fosse sospesa il prima possibile, ma i tuoi genitori gli rispondevano di stare tranquillo, di aspettare che passasse un po’ di tempo. 
-E in futuro, di stare solo un po’ più attento.
-"""
- },
-'Vicus'   : {
- 'Fuggitivo' : """Molti villaggi sono lontani dai centri del potere della provincia e questo dove sei nato è uno dei più lontani. 
-Non è stato scelto a caso da tuo padre, che per ragioni che non ti ha mai voluto spiegare è fuggito dalla sua terra ed è arrivato fin qui. 
-Era uno schiavo fuggito dal padrone? Un patrizio che è dovuto sparire a causa di uno scandalo? Un grande poeta che coi suoi versi ha offeso l’Imperatore? Poi, ha sposato tua madre, una ragazza del posto, che l’ha aiutato a inserirsi nella comunità, a dargli una nuova patria e una nuova vita. Ci sono voluti molti anni però prima che smettesse di frequentare brutta gente, di fare orribili incubi o di guardarsi costantemente intorno quando camminava per le vie dell’abitato.
-""",
- 'Artigiano' : """I prodotti di artigianato di questa regione erano molto richiesti nelle città e i membri della tua famiglia erano tra i più abili a realizzarli. 
-In fin dei conti è sempre la stessa occupazione nella quale erano maestri i tuoi nonni, e i nonni dei loro nonni. E, più gli anni passavano, maggiore era il numero di mercanti e curiosi che arrivavano al villaggio a comprare e barattare. A volte si portavano dietro familiari, servitori e guardie armate, riempiendo le spartane locande che si affacciavano sulla strada.
-""",
- 'Musicista' : """Tuo padre sapeva suonare decentemente svariati strumenti, ma erano tua madre e le sue sorelle che ballavano con la grazia delle dee ed erano molto richieste anche dai villaggi vicini per celebrazioni speciali e feste. Il lavoro non è mai mancato, anche se la tua famiglia ha dovuto imparare quali incarichi evitare, dato che in alcune occasioni la situazione si era fatta molto pesante.
-Le chiamavano feste “alla greca” e si svolgevano nelle grandi case o palazzi di funzionari e coloni arricchiti: più che feste, erano sfilate di danzatrici e prostitute che si spogliavano a richiesta davanti a giovani e vecchi che mangiavano e bevevano fino a perdere i sensi o diventare molesti e violenti.
-""",
- 'Agricoltore' : """La tua famiglia, come molte altre nel villaggio, partecipava regolarmente alle celebrazioni del Culto Ufficiale, sacrificava agli dèi romani e accendeva una fiamma davanti alle statuette del Lari ogni
-volta che qualcuno di caro si sposava o partiva per un lungo viaggio per mare. Ma nella tua famiglia, come in molte altre in paese, non erano le imprese di Ercole o Giove a essere raccontate ai bambini. Gli eroi e gli spiriti che hanno popolato i tuoi sogni durante l’infanzia erano diversi, più vicini... Potevi percepirne la presenza quando soffiava il vento e li vedevi correre in forma di animale appena fuori dal villaggio; erano loro a far alzare la marea o spingere le dense nubi giù lungo le valli. Ma queste cose era più saggio sussurrarle che parlarne ad alta voce, perché il confine tra i culti tollerati e quelli proibiti è sempre stato molto, molto labile.
-""",
- 'Nobile' : """Capitava spesso che, durante una celebrazione, la maggiore autorità tribale della regione avesse bevuto un po’ troppo e parlasse di quando, in un lontano passato, il suo villaggio era il più importante della zona. A quei tempi si offrivano sacrifici agli antichi dèi davanti a migliaia di fedeli e veri eserciti uscivano a dare battaglia. Non erano solo farneticazioni; i racconti tramandati nella tua famiglia trovavano una deprimente conferma se ci si aggirava in quella parte dell’abitato che si trovava dalla parte opposta rispetto alla strada di accesso al villaggio. Si poteva camminare sui ruderi di quello che un tempo era un villaggio molto più grande e popolato, di cui rimanevano solo rovine semisepolte che si estendevano per decine, forse centinaia di metri, fino a diventare quasi indistinguibili nel panorama. Il mondo era cambiato e gli antichi dèi non si facevano più vedere...
-""",
- 'Latifondista' : """Tuo padre era un conferenziere molto apprezzato. Passava gran parte dell’anno a girare per le maggiori città dell’Impero, invitato a tenere lezioni pubbliche alle quali partecipava una gran folla.
-Quando era stanco, tornava qui, nella sua ricca tenuta di famiglia, a riposarsi e a scrivere nella sua stanza preferita. 
-Nelle sue orazioni parlava di Platone e di Aristotele, ma anche del Pitagorismo e dell’Orfismo e di come classificare gli spiriti che stanno tra gli uomini e gli dèi. Veniva spesso accusato di essere un mago, un teurgo in grado di praticare la telestiké per imprigionare le essenze divine e comandarle. 
-Ricordi molto bene la sua veemenza nel ribattere a quelle accuse infamanti e nello specificare che lui era soltanto un philosophus platonicus. Ma ricordi anche molto bene quelle stanze nella tenuta che rimanevano sempre chiuse e nelle quali nessuno aveva il permesso di entrare.
-"""
- },
-'Posto isolato' : {
- 'Comunità chiusa' : """Sei nato in una comunità che fa parte di una minoranza etnica, linguistica o religiosa. La tua gente non era mai stata molto gradita nelle regione e si era dovuta spostare in località sempre più
-remote, distanti dall’ostilità dei villaggi e dall’indifferenza delle autorità imperiali. Gli ultimi anni non erano stati molto buoni: le morti avevano superato le nascite e molti giovani se n’erano andati, stanchi di sopportare l’isolamento e le arcaiche tradizioni che proibivano determinati cibi, occupazioni e i matrimoni misti. Erano pochi i bambini coi quali giocare e l’atmosfera generale era quella di un popolo destinato a sparire. I ricordi più belli della tua infanzia sono collegati alle grandi celebrazioni, durante le quali tutta la comunità si riuniva; si mangiava tutti insieme, si rideva e, consapevolmente, non si parlava del domani.
-""",
- 'Esule' : """Prima di trasferirsi qui, in mezzo a una natura splendida e selvaggia, i tuoi genitori abitavano in una grande città. Non riuscivano ad avere figli e officiavano agli dèi con passione e umiltà. Col passare degli anni, non riuscivano più a vedere nelle folle che pregavano gli dèi dell’Impero una vera pietas, soprattutto durante le feste ufficiali, che sembravano una scusa per la prostituzione sacra e la raccolta di denaro. La vera devozione, purtroppo, si trovava solo nelle preghiere e nei riti dei seguaci di falsi dèi: le lamentazioni delle donne che veneravano Iside, le commoventi storie sulla morte del Cristo, le mutilazioni rituali dei fedeli di Cibele. Un giorno, i tuoi genitori hanno lasciato tutto alle spalle e se ne sono andati. 
-In luoghi solitari e privi di tentazioni hanno ritrovato la fede in Marte, Giove, Giunone e gli altri dèi che hanno reso grande Roma. Ed è bastato un sacrificio a Venere Genetrix per farti nascere...
-""",
- 'Sacerdote' : """Col passare degli anni, tuo padre era diventato sempre più asociale e taciturno. L’unica persona che vedeva volentieri era una specie di sacerdote-filosofo, che aveva deciso di trascorrere la vecchiaia il più lontano possibile dalle ‘orribili tentazioni del sordido sacco di fango’ che era il suo corpo fisico. Si diceva che fosse uno gnostico e che invece degli dèi adorasse quelli che chiamava i quattro grandi profeti: Orfeo, Abramo, Gesù e Apollonio di Tiana. Una mattina, tuo padre è uscito di casa e non è mai tornato. Ti hanno raccontato che aveva camminato per giorni fino a delle antiche rovine, era salito su un’alta colonna e non era più sceso. Ogni giorno, un numero crescente di proseliti andava da lui e gli portava da mangiare e da bere e restava per ore a venerarlo e a pregare. Anni dopo, sei andato a vedere coi tuoi occhi: tuo padre era magrissimo e sembrava avere cent’anni. Ti piace pensare che ti abbia riconosciuto e che quella smorfia sul suo viso fosse rimpianto.
-""",
- 'Funzionario' : """Gli abitanti del tuo piccolo villaggio erano dediti alla stessa occupazione. Che si trattasse di segare giganteschi alberi e condurli poi a valle con l’aiuto della corrente di un fiume, scavare in una cava a cielo aperto oppure dentro i cunicoli di una miniera di sale, era in ogni caso un lavoro massacrante, adatto più a uno schiavo che a un uomo libero. Tuo padre era uno dei pochi che invece passava le giornate seduto a un tavolo, perché sapeva scrivere e far di conto. Il suo compito era quello di registrare tutto e compilare i rapporti settimanali, come la quantità di materiale prodotto, le paghe distribuite, gli attrezzi da sostituire e il numero di coloro che morivano a causa del lavoro. Questi ultimi non erano pochi e mai e poi mai avrebbe permesso che i suoi figli finissero a fare un lavoro simile.
-""",
- 'Medico' : """Se nel tempo questo territorio s’era spopolato, il motivo era perché, indipendentemente dall’età, la gente moriva. Forse a causa di una febbre maligna originata nelle paludi, che spariva per qualche
-anno e tornava poi più virulenta che mai, oppure di una contagiosa epidemia portata dagli schiavi, che deturpava terribilmente i corpi prima di ucciderli, o ancora di tisi e consunzione, che passavano dagli animali agli uomini, facendoli prima impazzire e poi morire nel dolore. Molti villaggi erano stati abbandonati e per le strade giravano solo topi e branchi di cani randagi. Ma la tua famiglia era rimasta, perché tuo padre era medico e sacerdote di Asclepio e tua madre lo aiutava. Di giorno o di notte curavano i malati e assistevano i morenti, cercando di lenire la sofferenza, senza una vera speranza di poter salvar loro la vita. Quando anche loro si sono ammalati, ti hanno mandato via, da lontani parenti. Non ne hai saputo più nulla.
-""",
- 'Magistrato' : """Sei l’unico figlio di uno dei funzionari di più alto livello presenti in questo sperduto insediamento. Non che significasse molto... anzi, probabilmente tuo padre aveva pestato i piedi a qualcuno di
-più importante di lui se era stato mandato qui e non in una vera città. A complicare le cose, tua madre, assieme a molte altre donne della zona, si era convertita al culto del Cristo e ti portava con sé a pregare e ad assistere i derelitti. Tuo padre l’accusava di buttare via tempo e soldi e di rinnegare gli dèi dell’Impero. Dopo qualche tempo, l’ha ripudiata e cacciata dal paese. Lei se n’è andata via con la vera fede nel cuore, si-
-cura in una ricompensa nell’aldilà. Da quel che hai saputo, ha passato gli anni successivi in una comunità cristiana che viveva isolata, in pace con la natura, gli uomini e il padre nel cielo che aveva creato ogni essere vivente.
-"""
- },
-'Limes'   : {
- 'Legionario' : """Tuo padre era un ex legionario ed era abituato a comandare. Come ringraziamento per i decenni di leale servizio, l’Impero gli aveva concesso un piccolo, arido appezzamento di terra ai confini del
-mondo. Non ci è voluto molto prima che altri scontenti si mettessero ai suoi ordini, a formare una banda che inizialmente rubava animali, ma che poi era passata a sequestrare, assassinare, liberare gli schiavi. Il vostro rifugio si trovava al di là del limes, dove vivevate con le famiglie degli altri latrones. Tutto è cambiato quando il Governatore della provincia ha dato incarico a un Prefetto di risolvere il problema.
-Braccato dai legionari, un giorno tuo padre ha mandato via tutte le mogli, le concubine e i bambini, te compreso. Poi, i banditi hanno affrontato la loro ultima battaglia a testa alta. I loro corpi sono stati esposti lungo le strade per settimane, come monito per la popolazione.
-""",
- 'Pastore' : """Da piccolo ti raccontavano di confini attraversati da carovane che trasportavano merci preziose e oggetti mai visti, o da esotici emissari latori di messaggi di pace e di guerra, o da colonne di legionari
-che andavano a esportare la Pax Romana. Il tuo confine era molto diverso... Le terre che si estendevano al di là del muro o del grande fiume o di una linea invisibile che si perdeva tra le sabbie, le montagne o il mare, sembravano prive di ogni traccia di essere umano. La natura lì dominava incontrastata, con le sue brughiere o i deserti o le impenetrabili foreste. Da piccolo, hai passato ore sperando di scorgere un esercito invasore che giungesse a minacciare l’esistenza dell’Impero e che scintillanti legioni romane l’affrontassero in una battaglia degna di Omero o Virgilio. Tuo padre, un pastore e i tuoi fratelli più grandi a volte aspettavano con te,
-raccontandoti incredibili storie su dèi ed eroi.
-""",
- 'Profugo' : """Quelli che sarebbero diventati i tuoi nuovi genitori si occupavano dell’addestramento e della salute dei cavalli dei vicini castra. Ti hanno trovato in fin di vita nel mezzo di una zona desolata, dove
-portavano i cavalli a correre e pascolare, unico sopravvissuto di un piccolo gruppo di stranieri morti di stenti, freddo, malattia o sbranati da animali selvatici. Ti hanno tenuto con loro e cresciuto come un figlio. Non è stato difficile immaginare cos’era successo: alcune famiglie delle genti al di là del limes erano dovute scappare, a causa di una guerra interna, una carestia o un disastro naturale, abbandonando tutto quello che possedevano. Avevano oltrepassato il confine del glorioso e tollerante Impero romano di nascosto, pieni di speranza. Ma le autorità e gli abitanti dei villaggi li avevano cacciati, insultati e negato loro ogni aiuto. La morte è stata probabilmente una liberazione.
-""",
- 'Mercante' : """Per te è stato entusiasmante abitare nei pressi di un importante e frequentato accesso del limes. Le genti che popolavano i territori che si trovavano al di là erano in pace con Roma da secoli, parlavano correntemente la lingua dell’Impero, avevano adottato molti dei suoi costumi e adoravano dèi simili. Il confine non rappresentava affatto un ostacolo ai commerci, le visite reciproche, i matrimoni misti. Anche i tuoi genitori, dei mercanti molto conosciuti, si recavano spesso in quelle terre straniere e, a partire da una certa età, ti portavano sempre con loro. A volte vi spingevate molto lontano, un po’ per lavoro, un po’ per desiderio di conoscenza e ammiravate le grandiose creazioni dell’uomo e della natura. Tua madre amava ripetere che, in fin dei conti, il confine era solo una questione mentale.
-""",
- 'Sacerdote' : """La tua famiglia gestiva una grande mansio (locanda) con taverna annessa. Legionari, ufficiali e gente di malaffare proveniente dai quattro angoli dell’Impero chiacchieravano volentieri con tuo padre e gli parlavano delle terre dove sorge il sole, di un dio antichissimo ma eternamente giovane, di anima immortale e di espiazione delle colpe. Ti ricordi come fosse ieri quando tuo padre ti ha portato per la prima volta con sé in una buia stanza rettangolare nei sotterranei di una grande casa e di come ti ha iniziato ai segreti del dio Mitra di fronte alla statua di un ragazzo che uccideva un gigantesco toro. Nella semioscurità, riconoscevi i volti di soldati, ufficiali e funzionari, ma se li incontravi per strada, di giorno, non ti salutavano neppure. In seguito ti hanno spiegato che si trattava di un culto misterico orientale, riconosciuto e tollerato dall’Impero, diffuso dai valli della Britannia ai grandi fiumi della Mesopotamia, ma che esigeva segretezza e discrezione.
-""",
- 'Tribuno militare' : """Chi arrivava senza essere preparato, rimaneva impressionato e incredulo di fronte alle possenti e grandiose fortificazioni che correvano per decine di miglia in questa zona del limes: fossati, torri di avvistamento, terrapieni, alti muri in pietra. Le opere difensive sembravano non bastare mai di fronte alla pressione dei crudeli popoli che cercavano ciclicamente di passare. Era sufficiente un inverno più rigido del solito, un’estate senza piogge o una morìa di bestiame ed ecco, centinaia di barbari armati e disperati si scagliavano con violenza contro tutto ciò che rappresentava Roma. Tuo padre dirigeva le operazioni militari dagli immensi castra. Non si faceva spaventare facilmente, né abbindolare dai discorsi di sedicenti saggi o dai pianti delle donne. Se Roma era ancora in piedi, era anche merito suo.
-"""
- },
-}
-
-
 specializzazioni = {
 'DeBello' : [ 'Archi', 'Asce e Mazze', 'Castra', 'Dardi', 'Lance', 'Minacciare', 'Pugnali', 'Spade', 'Tattica' ],
 'DeCorpore' : [ 'Banchettare', 'Borseggiare', 'Correre', 'Furtività', 'Lotta', 'Marciare', 'Nuotare', 'Saltare', 'Arrampicarsi' ],
@@ -2003,48 +1469,6 @@ lingue = {
 'Mauretania': { 'fixed' : [ 'Latino', 'Punico' ], 'choice' : [ 'Berbero', 'Iberico' ] },
 }
 
-armi_ravvicinate = {
-  'Pugio'     : { 'Danno' : 3, 'ingombro' : 0, 'Caratteristiche' : [], 'Difficoltà' : 3 },
-  'Sica'      : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Difficoltà' : 4 },
-  'Randello'  : { 'Danno' : 4, 'ingombro' : 2, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 4 },
-  'Scramasax' : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 5 },
-  'Gladius'   : { 'Danno' : 6, 'ingombro' : 2, 'Caratteristiche' : [], 'Difficoltà' : 6 },
-  'Lancia'    : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio', 'Versatile' ], 'Difficoltà' : 6 },
-  'Securicula': { 'Danno' : 7, 'ingombro' : 3, 'Caratteristiche' : ['Da lancio'], 'Difficoltà' : 7 },
-  'Ensis'     : { 'Danno' : 8, 'ingombro' : 3, 'Caratteristiche' : [], 'Difficoltà' : 8 },
-  'Malleus'   : { 'Danno' : 9, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 9 },
-  'Spatha'    : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 10 },
-  'Securis'   : { 'Danno' :11, 'ingombro' : 5, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 11 },
-  'Hasta'     : { 'Danno' :12, 'ingombro' : 7, 'Caratteristiche' : ['Versatile'], 'Difficoltà' : 12 },
-  'Falx'      : { 'Danno' :12, 'ingombro' : 5, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 12 },
-  'Bipennis'  : { 'Danno' :13, 'ingombro' : 6, 'Caratteristiche' : ['A due mani'], 'Difficoltà' : 13 },
-}
-
-armi_distanza = {
-  'Fionda'    : { 'Danno' : 3, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 3 },
-  'Plumbata'  : { 'Danno' : 4, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 4 },
-  'Angon'     : { 'Danno' : 5, 'ingombro' : 2, 'Caratteristiche' : [], 'Gittata' : 'Media', 'Difficoltà' : 5 },
-  'Arcus'     : { 'Danno' : 6, 'ingombro' : 3, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
-  'Toxon'     : { 'Danno' : 8, 'ingombro' : 4, 'Caratteristiche' : ['A due mani'], 'Gittata' : 'Lunga', 'Difficoltà' : 8 },
-  'Pilum'     : { 'Danno' :10, 'ingombro' : 4, 'Caratteristiche' : [], 'Gittata' : 'Corta', 'Difficoltà' : 10 },
-  'Manubalista':{ 'Danno' :12, 'ingombro' : 1, 'Caratteristiche' : [], 'Gittata' : 'Lunga', 'Difficoltà' : 6 },
-}
-
-armature = {
-  'Corium Lorica'     : { 'Protezione' : 3, 'ingombro' : 3 },
-  'Lorica Squamata'   : { 'Protezione' : 4, 'ingombro' : 4 },
-  'Lorica Hamata'     : { 'Protezione' : 5, 'ingombro' : 5 },
-  'Lorica Plumata'    : { 'Protezione' : 6, 'ingombro' : 6 },
-  'Lorica Segmentata' : { 'Protezione' : 8, 'ingombro' : 8 },
-  'Lorica Musculata' :  { 'Protezione' : 10, 'ingombro' : 10 },
-}
-
-scudi = {
-  'Parma'   : { 'Parata' : 1, 'ingombro' : 2 },
-  'Clipeus' : { 'Parata' : 2, 'ingombro' : 4 },
-  'Scutum'  : { 'Parata' : 3, 'ingombro' : 6 },
-}
-
 class Custos(object):
   def qualifica_ottima(self):
     q=sorted({ q1 : sum([ self.virtutes[i] for i in qualifica[q1] ]) for q1 in qualifica }.items(), key=lambda item: item[1], reverse=True)[0]
@@ -2120,50 +1544,6 @@ class Custos(object):
     self.languages=lingue[self.provincia]['fixed']
     self.languages.append(choice(lingue[self.provincia]['choice']))
     self.grado='I'
-    self.ingombro=0
-    ingombro_max=self.vita/2 #oltre si hanno penalità
-    # Armi: stare sotto 1/2 De Bello, Esploratore sotto 6 per usufruire di Cacciatore di Uomini, Assassino sotto 4 per colpo letale
-    danno_base = self.peritiae['DeBello']/2
-    if danno_base < 3 : danno_base = 3
-    if self.qualifica == 'Esploratore' : danno_base = 6
-    if self.qualifica == 'Assassino' : danno_base = 4
-    sel_armi_mischia = [ a for a in armi_ravvicinate if armi_ravvicinate[a]['Difficoltà']<=danno_base ]
-    arma_mischia_primaria = max(sel_armi_mischia, key= lambda x : armi_ravvicinate[x]['Difficoltà'])
-    self.ingombro += armi_ravvicinate[arma_mischia_primaria]['ingombro']
-    sel_armi_lancio = [ a for a in armi_distanza if armi_distanza[a]['Difficoltà']<=danno_base ]
-    arma_lancio =  max(sel_armi_lancio, key = lambda x : armi_distanza[x]['Difficoltà'])
-    self.ingombro += armi_distanza[arma_lancio]['ingombro']
-    ingombro_max-=self.ingombro
-    scudo = None
-    armatura = None
-    arma_mischia_secondaria = None
-    if 'A due mani' not in armi_ravvicinate[arma_mischia_primaria]['Caratteristiche'] :
-      if ingombro_max > 18 : scudo = 'Scutum' 
-      elif ingombro_max > 12 : scudo = 'Clipeus' 
-      elif ingombro_max >= 2 : scudo = 'Parma'
-    if scudo : 
-      self.ingombro += scudi[scudo]['ingombro']
-      ingombro_max -= scudi[scudo]['ingombro']
-    if ingombro_max >= 3 :
-      armatura = max([ a for a in armature if armature[a]['ingombro'] <= ingombro_max ], key=lambda x : armature[x]['Protezione'])
-    if armatura :  
-      self.ingombro +=armature[armatura]['ingombro']
-      ingombro_max -=armature[armatura]['ingombro']
-    if ingombro_max >= 3 :
-      sel_armi_mischia = [ a for a in armi_ravvicinate if armi_ravvicinate[a]['Difficoltà']<=min(danno_base,ingombro_max) ]
-      arma_mischia_secondaria = max(sel_armi_mischia, key=lambda x : armi_ravvicinate[x]['Difficoltà'])
-      self.ingombro += armi_ravvicinate[arma_mischia_secondaria]['ingombro']
-    self.equipaggiamento = {}
-    if scudo : self.equipaggiamento['scudo']=scudo
-    if armatura : self.equipaggiamento['armatura']=armatura
-    self.equipaggiamento['armi_ravvicinate']=[arma_mischia_primaria]
-    self.equipaggiamento['armi_distanza']=[arma_lancio]
-    if arma_mischia_secondaria : self.equipaggiamento['armi_ravvicinate'].append(arma_mischia_secondaria)
-    self.equip = [ 'sagum', 'caligae', 'abiti', 'gavetta', 'falcetto', 'rasoio', 'acciarino', 'pentola da campo', 'cote', 'stilus', 'razioni (7 giorni)', 'sacca', 'bastone' ]
-    if self.qualifica == 'Augure' : self.equip+=['speculum', 'lituus']
-    elif self.qualifica == 'Sapiente' : self.equip+=['dolabra', 'abacus']
-    else :  self.equip.append(choice(['erba achillea', 'corda', 'catena', 'sega']))
-    self.bio = bio[self.origine][self.famiglia]
 
   def json(self):
     import json
@@ -2174,10 +1554,11 @@ def make_char():
   return Custos().json()
 
 custos=make_char()
+custos
                   `);
-  });});
   //var template = Handlebars.compile(char_template);
-  var custos = JSON.parse(pyodide.globals.custos);
+  console.log(x);
+  var custos = JSON.parse(x);
   console.log(custos);
   //var instanced = template(custos);
   //document.getElementById("main").innerHTML = instanced;
@@ -2185,12 +1566,7 @@ custos=make_char()
   caches.open('storage').then(function(cache) {
     cache.put('/current', new Response(pyodide.globals.custos));
   });
- });
- const href=document.getElementById("download");
- href.href="data:text/json;charset=utf-8;,"+pyodide.globals.custos;
- href.download=custos['nome'].replace(/ /g, '+')+'.json'
+});
 }
-
-generateCustos();
 </script>
 </html>
